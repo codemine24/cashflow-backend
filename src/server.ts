@@ -11,11 +11,11 @@ const server = http.createServer(app);
 
 async function main() {
   try {
-    await seedSuperAdmin();
+    // await seedSuperAdmin();
 
     // start server
     server.listen(port, "0.0.0.0", () => {
-      console.log(`Techtong server is running on port ${port}`);
+      console.log(`${config.app_name} server is running on port ${port}`);
     });
 
     // cron schedule to clear OTP

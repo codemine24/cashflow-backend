@@ -9,7 +9,6 @@ import handlePrismaValidationError from "../error/handle-prisma-validation-error
 import { Prisma } from "../../generated/prisma/client";
 
 const globalErrorHandler: ErrorRequestHandler = (error, req, res, next) => {
-  console.log(error);
   let statusCode = error.statusCode || httpStatus.INTERNAL_SERVER_ERROR;
   let message = error.message || "Something went wrong!";
   let errorSources: TErrorSources[] = [

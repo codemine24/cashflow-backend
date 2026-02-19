@@ -4,7 +4,7 @@ import z from "zod";
 const register = z.object({
   body: z.object({
     name: z.string({ message: "Name is required" }),
-    email: z.email(),
+    email: z.email({ message: "Email is required" }),
     password: z
       .string({ message: "Password is required" })
       .min(6, "Password must be at least 6 characters long"),
