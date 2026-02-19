@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id                  String     @id @default(uuid())
+  name                String
+  email               String     @unique
+  password            String
+  contact_number      String?    @unique
+  avatar              String? 
+  status              UserStatus @default(ACTIVE)
+  role                UserRole   @default(USER)
+  is_deleted          Boolean    @default(false)
+  password_changed_at DateTime   @default(now())
+  created_at          DateTime   @default(now())
+  updated_at          DateTime   @updatedAt
+
+  @@map("users")
+}
+
+model OTP {
+  id             String   @id @default(uuid())
+  email          String
+  otp            Int      @unique
+  expires_at     String
+  created_at     DateTime @default(now())
+
+  @@map("otps")
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  BLOCKED
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  USER
+}
