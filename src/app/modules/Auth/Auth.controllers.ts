@@ -14,6 +14,21 @@ const register = catchAsync(async (req, res, next) => {
   });
 });
 
+// -------------------------------------- LOGIN ---------------------------------------------
+const login = catchAsync(async (req, res, next) => {
+  const { refreshToken, ...result } = await AuthServices.login(req.body);
+  const maxAge = 60 * 24 * 60 * 60 * 1000;
+  res.cookie("refresh_token", refreshToken, { maxAge, httpOnly: true });
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "User logged in successfully",
+    data: result,
+  });
+});
+
 export const AuthControllers = {
   register,
+  login,
 };

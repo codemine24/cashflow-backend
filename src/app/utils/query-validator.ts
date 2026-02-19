@@ -1,10 +1,10 @@
 import httpStatus from "http-status";
-import ApiError from "../error/api-error";
+import ApiError from "../error/customized-error";
 
 const queryValidator = (
   queryValidationConfig: Record<string, string[]>,
   key: string,
-  value: string
+  value: string,
 ) => {
   // Step 1: Get allowed values for the given key from config
   const allowedValues = queryValidationConfig[key];
@@ -23,7 +23,7 @@ const queryValidator = (
     throw new ApiError(
       httpStatus.BAD_REQUEST,
       `Invalid value(s) for '${key}': ${invalidValues.join(", ")}.
-       Valid values are: ${allowedValues.map((i) => `'${i}'`).join(", ")}`
+       Valid values are: ${allowedValues.map((i) => `'${i}'`).join(", ")}`,
     );
   }
 

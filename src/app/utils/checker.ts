@@ -1,12 +1,12 @@
 import httpStatus from "http-status";
-import ApiError from "../error/api-error";
+import ApiError from "../error/customized-error";
 
 export const validDateChecker = (date: string, key: string) => {
   const regex = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;
   if (!regex.test(date)) {
     throw new ApiError(
       httpStatus.BAD_REQUEST,
-      `${key} is not a valid date. Valid format is YYYY-MM-DD`
+      `${key} is not a valid date. Valid format is YYYY-MM-DD`,
     );
   }
   let valid_date = new Date(date);
