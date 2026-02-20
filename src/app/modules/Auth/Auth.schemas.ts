@@ -1,29 +1,27 @@
 import z from "zod";
 
-// -------------------------------------- REGISTER ------------------------------------------
+// -------------------------------------- GET OTP --------------------------------------------
 const register = z.object({
-  body: z.object({
-    name: z.string({ message: "Name is required" }),
-    email: z.email({ message: "Email is required" }),
-    password: z
-      .string({ message: "Password is required" })
-      .min(6, "Password must be at least 6 characters long"),
-    contact_number: z.string().optional(),
-    avatar: z.string().optional(),
-  }),
+  body: z
+    .object({
+      email: z.email({ message: "Email is required" }),
+    })
+    .strict(),
 });
 
-// -------------------------------------- LOGIN ---------------------------------------------
-const login = z.object({
-  body: z.object({
-    email: z.email({ error: "Email should be a valid email" }),
-    password: z
-      .string({ error: "Password should be a text" })
-      .min(1, "Password is required"),
-  }),
+// -------------------------------------- VALIDATE OTP ---------------------------------------
+const validateOTP = z.object({
+  body: z
+    .object({
+      otp: z
+        .number({ message: "OTP should be a number" })
+        .min(1, "OTP is required"),
+      email: z.email({ message: "Email is required" }),
+    })
+    .strict(),
 });
 
 export const AuthSchemas = {
   register,
-  login,
+  validateOTP,
 };

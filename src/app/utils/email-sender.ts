@@ -4,7 +4,7 @@ import config from "../../config";
 const emailSender = async (
   receiverEmail: string,
   html: string,
-  subject: string
+  subject: string,
 ) => {
   const transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -17,7 +17,7 @@ const emailSender = async (
   });
 
   const info = await transporter.sendMail({
-    from: `"Techtong" <${config.app_email_address}>`,
+    from: `"Cashflow" <${config.app_email_address}>`,
     to: receiverEmail,
     subject: subject,
     html,

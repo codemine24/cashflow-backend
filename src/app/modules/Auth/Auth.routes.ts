@@ -6,15 +6,15 @@ import { AuthControllers } from "./Auth.controllers";
 const router = Router();
 
 router.post(
-  "/register",
+  "/get-otp",
   payloadValidator(AuthSchemas.register),
-  AuthControllers.register,
+  AuthControllers.getOTP,
 );
 
 router.post(
-  "/login",
-  payloadValidator(AuthSchemas.login),
-  AuthControllers.login,
+  "/validate-otp",
+  payloadValidator(AuthSchemas.validateOTP),
+  AuthControllers.validateOTP,
 );
 
 export const AuthRoutes = router;

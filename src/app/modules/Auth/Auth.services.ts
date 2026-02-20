@@ -1,42 +1,89 @@
-import bcrypt from "bcrypt";
 import config from "../../../config";
 import { prisma } from "../../shared/prisma";
-import { LoginPayload, RegisterPayload } from "./Auth.interfaces";
+import { RegisterPayload, ValidateOTPPayload } from "./Auth.interfaces";
 import { UserStatus } from "../../../generated/prisma/enums";
 import httpStatus from "http-status";
 import CustomizedError from "../../error/customized-error";
 import { tokenGenerator } from "../../utils/jwt-helpers";
+import { OTPGenerator, OTPVerifier } from "../../utils/sms-sender";
+import emailSender from "../../utils/email-sender";
+import { OTPTemplate } from "../../template/otp-template";
 
-const register = async (payload: RegisterPayload) => {
-  const hashedPassword = await bcrypt.hash(
-    payload.password,
-    Number(config.salt_rounds),
-  );
-
-  const user = await prisma.user.create({
-    data: {
-      ...payload,
-      password: hashedPassword,
+// -------------------------------------- GET OTP --------------------------------------------
+const getOTP = async (payload: RegisterPayload) => {
+  let user = await prisma.user.findUnique({
+    where: {
+      email: payload.email,
     },
   });
 
-  return user;
+  if (!user) {
+    user = await prisma.user.create({
+      data: {
+        email: payload.email,
+      },
+    });
+  }
+
+  const generatedOTP = OTPGenerator();
+  const expirationTime = (new Date().getTime() + 5 * 60000).toString();
+
+  const emailBody = OTPTemplate(String(generatedOTP));
+
+  let emailResponse;
+  if (user.email) {
+    emailResponse = await emailSender(user.email, emailBody, "Verify OTP");
+  }
+
+  if (emailResponse?.accepted?.length === 0)
+    throw new CustomizedError(
+      httpStatus.INTERNAL_SERVER_ERROR,
+      "Failed to send OTP",
+    );
+
+  const result = await prisma.oTP.create({
+    data: {
+      email: user.email,
+      otp: generatedOTP,
+      expires_at: expirationTime,
+    },
+    select: {
+      email: true,
+      expires_at: true,
+    },
+  });
+
+  return result;
 };
 
-// -------------------------------------- LOGIN ---------------------------------------------
-const login = async (credential: LoginPayload) => {
-  const { email, password } = credential;
+// -------------------------------------- VALIDATE OTP ---------------------------------------
+const validateOTP = async (credential: ValidateOTPPayload) => {
+  const { otp, email } = credential;
+
+  const storedOTP = await prisma.oTP.findFirst({
+    where: {
+      otp: Number(otp),
+      email: email,
+    },
+  });
+
+  if (!storedOTP) {
+    throw new CustomizedError(httpStatus.FORBIDDEN, "OTP not matched");
+  }
+
+  const verifiedOTP = await OTPVerifier(
+    Number(otp),
+    storedOTP.otp,
+    Number(storedOTP.expires_at),
+  );
+
+  if (verifiedOTP.success === false) {
+    throw new CustomizedError(httpStatus.FORBIDDEN, verifiedOTP.message);
+  }
 
   const user = await prisma.user.findFirst({
     where: {
-      OR: [
-        {
-          email: email,
-        },
-        {
-          contact_number: email,
-        },
-      ],
+      email: email,
       status: UserStatus.ACTIVE,
       is_deleted: false,
     },
@@ -44,14 +91,6 @@ const login = async (credential: LoginPayload) => {
 
   if (!user) {
     throw new CustomizedError(httpStatus.NOT_FOUND, "User not found");
-  }
-
-  const checkPassword = await bcrypt.compare(password, user.password);
-  if (!checkPassword) {
-    throw new CustomizedError(
-      httpStatus.FORBIDDEN,
-      "Email/Contact number or password is invalid",
-    );
   }
 
   const jwtPayload = {
@@ -91,6 +130,6 @@ const login = async (credential: LoginPayload) => {
 };
 
 export const AuthServices = {
-  register,
-  login,
+  getOTP,
+  validateOTP,
 };
