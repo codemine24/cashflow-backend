@@ -47,3 +47,18 @@ export type User = Prisma.UserModel
  * 
  */
 export type OTP = Prisma.OTPModel
+/**
+ * Model Book
+ * 
+ */
+export type Book = Prisma.BookModel
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel
