@@ -4,6 +4,7 @@ import httpStatus from "http-status";
 import { BookServices } from "./Book.services";
 import { TAuthUser } from "../../interfaces/common";
 
+// -------------------------------------- CREATE BOOK ------------------------------------
 const createBook = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await BookServices.createBook(user, req.body);
@@ -15,6 +16,7 @@ const createBook = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- GET ALL BOOKS ----------------------------------
 const getAllBooks = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await BookServices.getAllBooks(user, req.query);
@@ -27,6 +29,7 @@ const getAllBooks = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- GET BOOK BY ID ---------------------------------
 const getBookById = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await BookServices.getBookById(user, req.params.id);
@@ -38,6 +41,7 @@ const getBookById = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- UPDATE BOOK ------------------------------------
 const updateBook = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await BookServices.updateBook(user, req.params.id, req.body);
@@ -49,9 +53,10 @@ const updateBook = catchAsync(async (req, res) => {
   });
 });
 
-const deleteBook = catchAsync(async (req, res) => {
+// -------------------------------------- DELETE BOOKS -----------------------------------
+const deleteBooks = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await BookServices.deleteBook(user, req.params.id);
+  const result = await BookServices.deleteBooks(user, req.body.ids);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -65,5 +70,5 @@ export const BookControllers = {
   getAllBooks,
   getBookById,
   updateBook,
-  deleteBook,
+  deleteBooks,
 };

@@ -6,6 +6,7 @@ import { bookQueryValidationConfig, bookSearchableFields } from "./Book.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 
+// -------------------------------------- CREATE BOOK ------------------------------------
 const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
   const result = await prisma.book.create({
     data: {
@@ -16,6 +17,7 @@ const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
   return result;
 };
 
+// -------------------------------------- GET ALL BOOKS ----------------------------------
 const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
   const { search_term, page, limit, sort_by, sort_order } = query;
 
@@ -58,9 +60,42 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       orderBy: {
         [sortWith]: sortSequence,
       },
+      include: {
+        transactions: true,
+      },
     }),
     await prisma.book.count({ where: whereConditions }),
   ]);
+
+  const formattedResult = result.map((book) => {
+    const totalIn = book.transactions.reduce((acc, transaction) => {
+      if (transaction.type === "IN") {
+        return acc + Number(transaction.amount);
+      } else {
+        return acc;
+      }
+    }, 0);
+
+    const totalOut = book.transactions.reduce((acc, transaction) => {
+      if (transaction.type === "OUT") {
+        return acc + Number(transaction.amount);
+      } else {
+        return acc;
+      }
+    }, 0);
+
+    const balance = totalIn - totalOut;
+
+    return {
+      id: book.id,
+      name: book.name,
+      in: totalIn,
+      out: totalOut,
+      balance,
+      created_at: book.created_at,
+      updated_at: book.updated_at,
+    };
+  });
 
   return {
     meta: {
@@ -68,20 +103,53 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       limit: limitNumber,
       total,
     },
-    data: result,
+    data: formattedResult,
   };
 };
 
+// -------------------------------------- GET BOOK BY ID ---------------------------------
 const getBookById = async (user: TAuthUser, id: string) => {
   const result = await prisma.book.findFirstOrThrow({
     where: {
       id,
       user_id: user.id,
     },
+    include: {
+      transactions: true,
+    },
   });
-  return result;
+
+  const totalIn = result.transactions.reduce((acc, transaction) => {
+    if (transaction.type === "IN") {
+      return acc + Number(transaction.amount);
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const totalOut = result.transactions.reduce((acc, transaction) => {
+    if (transaction.type === "OUT") {
+      return acc + Number(transaction.amount);
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const balance = totalIn - totalOut;
+
+  return {
+    id: result.id,
+    name: result.name,
+    in: totalIn,
+    out: totalOut,
+    balance,
+    transactions: result.transactions,
+    created_at: result.created_at,
+    updated_at: result.updated_at,
+  };
 };
 
+// -------------------------------------- UPDATE BOOK ------------------------------------
 const updateBook = async (
   user: TAuthUser,
   id: string,
@@ -103,19 +171,17 @@ const updateBook = async (
   return result;
 };
 
-const deleteBook = async (user: TAuthUser, id: string) => {
-  await prisma.book.findFirstOrThrow({
+// -------------------------------------- DELETE BOOKS -----------------------------------
+const deleteBooks = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.book.deleteMany({
     where: {
-      id,
+      id: {
+        in: ids,
+      },
       user_id: user.id,
     },
   });
 
-  const result = await prisma.book.delete({
-    where: {
-      id,
-    },
-  });
   return result;
 };
 
@@ -124,5 +190,5 @@ export const BookServices = {
   getAllBooks,
   getBookById,
   updateBook,
-  deleteBook,
+  deleteBooks,
 };

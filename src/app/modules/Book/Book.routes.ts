@@ -4,6 +4,7 @@ import payloadValidator from "../../middlewares/payload-validator";
 import { BookSchemas } from "./Book.schemas";
 import { BookControllers } from "./Book.controllers";
 import { UserRole } from "../../../generated/prisma/enums";
+import { deleteRecordsValidationSchema } from "../../shared/schema";
 
 const router = Router();
 
@@ -34,9 +35,10 @@ router.patch(
 );
 
 router.delete(
-  "/:id",
+  "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  BookControllers.deleteBook,
+  payloadValidator(deleteRecordsValidationSchema),
+  BookControllers.deleteBooks,
 );
 
 export const BookRoutes = router;
