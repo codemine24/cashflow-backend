@@ -4,6 +4,7 @@ import payloadValidator from "../../middlewares/payload-validator";
 import { CategorySchemas } from "./Category.schemas";
 import { CategoryControllers } from "./Category.controllers";
 import { UserRole } from "../../../generated/prisma/enums";
+import { deleteRecordsValidationSchema } from "../../shared/schema";
 
 const router = Router();
 
@@ -17,7 +18,7 @@ router.post(
 router.get(
   "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  CategoryControllers.getAllCategories,
+  CategoryControllers.getCategories,
 );
 
 router.get(
@@ -34,9 +35,10 @@ router.patch(
 );
 
 router.delete(
-  "/:id",
+  "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  CategoryControllers.deleteCategory,
+  payloadValidator(deleteRecordsValidationSchema),
+  CategoryControllers.deleteCategories,
 );
 
 export const CategoryRoutes = router;

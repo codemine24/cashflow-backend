@@ -216,6 +216,7 @@ export type CategoryOrderByWithRelationInput = {
 
 export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  user_id_title?: Prisma.CategoryUser_idTitleCompoundUniqueInput
   AND?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
   OR?: Prisma.CategoryWhereInput[]
   NOT?: Prisma.CategoryWhereInput | Prisma.CategoryWhereInput[]
@@ -227,7 +228,7 @@ export type CategoryWhereUniqueInput = Prisma.AtLeast<{
   updated_at?: Prisma.DateTimeFilter<"Category"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   transactions?: Prisma.TransactionListRelationFilter
-}, "id">
+}, "id" | "user_id_title">
 
 export type CategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -341,6 +342,11 @@ export type CategoryOrderByRelationAggregateInput = {
 export type CategoryNullableScalarRelationFilter = {
   is?: Prisma.CategoryWhereInput | null
   isNot?: Prisma.CategoryWhereInput | null
+}
+
+export type CategoryUser_idTitleCompoundUniqueInput = {
+  user_id: string
+  title: string
 }
 
 export type CategoryCountOrderByAggregateInput = {

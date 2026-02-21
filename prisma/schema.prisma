@@ -79,6 +79,7 @@ model Category {
   user         User          @relation(fields: [user_id], references: [id])
   transactions Transaction[]
 
+  @@unique([user_id, title])
   @@map("categories")
 }
 
@@ -95,6 +96,6 @@ enum UserRole {
 }
 
 enum TransactionType {
-  INCOME
-  EXPENSE
+  IN
+  OUT
 }

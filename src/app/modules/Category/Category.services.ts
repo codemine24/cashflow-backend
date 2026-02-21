@@ -12,6 +12,7 @@ import {
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 
+// -------------------------------------- CREATE CATEGORY ----------------------------------
 const createCategory = async (
   user: TAuthUser,
   payload: CreateCategoryPayload,
@@ -25,10 +26,8 @@ const createCategory = async (
   return result;
 };
 
-const getAllCategories = async (
-  user: TAuthUser,
-  query: Record<string, any>,
-) => {
+// -------------------------------------- GET CATEGORIES -----------------------------------
+const getCategories = async (user: TAuthUser, query: Record<string, any>) => {
   const { search_term, page, limit, sort_by, sort_order } = query;
 
   if (sort_by)
@@ -85,6 +84,7 @@ const getAllCategories = async (
   };
 };
 
+// -------------------------------------- GET CATEGORY BY ID -------------------------------
 const getCategoryById = async (user: TAuthUser, id: string) => {
   const result = await prisma.category.findFirstOrThrow({
     where: {
@@ -95,6 +95,7 @@ const getCategoryById = async (user: TAuthUser, id: string) => {
   return result;
 };
 
+// -------------------------------------- UPDATE CATEGORY ----------------------------------
 const updateCategory = async (
   user: TAuthUser,
   id: string,
@@ -113,29 +114,28 @@ const updateCategory = async (
     },
     data: payload,
   });
+
   return result;
 };
 
-const deleteCategory = async (user: TAuthUser, id: string) => {
-  await prisma.category.findFirstOrThrow({
+// -------------------------------------- DELETE CATEGORIES --------------------------------
+const deleteCategories = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.category.deleteMany({
     where: {
-      id,
+      id: {
+        in: ids,
+      },
       user_id: user.id,
     },
   });
 
-  const result = await prisma.category.delete({
-    where: {
-      id,
-    },
-  });
   return result;
 };
 
 export const CategoryServices = {
   createCategory,
-  getAllCategories,
+  getCategories,
   getCategoryById,
   updateCategory,
-  deleteCategory,
+  deleteCategories,
 };

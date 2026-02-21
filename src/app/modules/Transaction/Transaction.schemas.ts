@@ -10,8 +10,10 @@ const createTransaction = z.object({
       amount: z.number({
         message: "Amount is required",
       }),
-      type: z.enum([TransactionType.INCOME, TransactionType.EXPENSE] as const, {
-        message: "Type is required",
+      type: z.enum(Object.values(TransactionType), {
+        message: `Transaction type should be one of ${Object.values(
+          TransactionType,
+        ).join(" | ")}`,
       }),
       remark: z.string().optional(),
       category_id: z.string().optional(),
@@ -24,7 +26,11 @@ const updateTransaction = z.object({
     .object({
       amount: z.number().optional(),
       type: z
-        .enum([TransactionType.INCOME, TransactionType.EXPENSE])
+        .enum(Object.values(TransactionType), {
+          message: `Transaction type should be one of ${Object.values(
+            TransactionType,
+          ).join(" | ")}`,
+        })
         .optional(),
       remark: z.string().optional(),
       category_id: z.string().optional(),

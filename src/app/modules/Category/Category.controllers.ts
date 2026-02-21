@@ -4,6 +4,7 @@ import httpStatus from "http-status";
 import { CategoryServices } from "./Category.services";
 import { TAuthUser } from "../../interfaces/common";
 
+// -------------------------------------- CREATE CATEGORY ----------------------------------
 const createCategory = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await CategoryServices.createCategory(user, req.body);
@@ -15,9 +16,10 @@ const createCategory = catchAsync(async (req, res) => {
   });
 });
 
-const getAllCategories = catchAsync(async (req, res) => {
+// -------------------------------------- GET CATEGORIES -----------------------------------
+const getCategories = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await CategoryServices.getAllCategories(user, req.query);
+  const result = await CategoryServices.getCategories(user, req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -27,6 +29,7 @@ const getAllCategories = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- GET CATEGORY BY ID -------------------------------
 const getCategoryById = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await CategoryServices.getCategoryById(user, req.params.id);
@@ -38,6 +41,7 @@ const getCategoryById = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- UPDATE CATEGORY ----------------------------------
 const updateCategory = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await CategoryServices.updateCategory(
@@ -53,21 +57,22 @@ const updateCategory = catchAsync(async (req, res) => {
   });
 });
 
-const deleteCategory = catchAsync(async (req, res) => {
+// -------------------------------------- DELETE CATEGORIES --------------------------------
+const deleteCategories = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await CategoryServices.deleteCategory(user, req.params.id);
+  const result = await CategoryServices.deleteCategories(user, req.body.ids);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: "Category deleted successfully",
+    message: "Categories deleted successfully",
     data: result,
   });
 });
 
 export const CategoryControllers = {
   createCategory,
-  getAllCategories,
+  getCategories,
   getCategoryById,
   updateCategory,
-  deleteCategory,
+  deleteCategories,
 };
