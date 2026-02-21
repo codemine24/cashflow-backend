@@ -12,6 +12,7 @@ import {
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 
+// -------------------------------------- CREATE TRANSACTION --------------------------------
 const createTransaction = async (
   user: TAuthUser,
   payload: CreateTransactionPayload,
@@ -33,20 +34,14 @@ const createTransaction = async (
   return result;
 };
 
-const getAllTransactions = async (
+// -------------------------------------- GET TRANSACTIONS BY BOOK --------------------------
+const getTransactionsByBook = async (
   user: TAuthUser,
+  bookId: string,
   query: Record<string, any>,
 ) => {
-  const {
-    search_term,
-    page,
-    limit,
-    sort_by,
-    sort_order,
-    book_id,
-    type,
-    category_id,
-  } = query;
+  const { search_term, page, limit, sort_by, sort_order, type, category_id } =
+    query;
 
   if (sort_by)
     queryValidator(transactionQueryValidationConfig, "sort_by", sort_by);
@@ -62,10 +57,9 @@ const getAllTransactions = async (
     });
 
   const andConditions: Prisma.TransactionWhereInput[] = [
-    { entry_by_id: user.id },
+    { entry_by_id: user.id, book_id: bookId },
   ];
 
-  if (book_id) andConditions.push({ book_id });
   if (type) andConditions.push({ type });
   if (category_id) andConditions.push({ category_id });
 
@@ -120,6 +114,7 @@ const getAllTransactions = async (
   };
 };
 
+// -------------------------------------- GET TRANSACTION BY ID -----------------------------
 const getTransactionById = async (user: TAuthUser, id: string) => {
   const result = await prisma.transaction.findFirstOrThrow({
     where: {
@@ -134,6 +129,7 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
   return result;
 };
 
+// -------------------------------------- UPDATE TRANSACTION --------------------------------
 const updateTransaction = async (
   user: TAuthUser,
   id: string,
@@ -155,26 +151,24 @@ const updateTransaction = async (
   return result;
 };
 
-const deleteTransaction = async (user: TAuthUser, id: string) => {
-  await prisma.transaction.findFirstOrThrow({
+// -------------------------------------- DELETE TRANSACTIONS -------------------------------
+const deleteTransactions = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.transaction.deleteMany({
     where: {
-      id,
+      id: {
+        in: ids,
+      },
       entry_by_id: user.id,
     },
   });
 
-  const result = await prisma.transaction.delete({
-    where: {
-      id,
-    },
-  });
   return result;
 };
 
 export const TransactionServices = {
   createTransaction,
-  getAllTransactions,
+  getTransactionsByBook,
   getTransactionById,
   updateTransaction,
-  deleteTransaction,
+  deleteTransactions,
 };

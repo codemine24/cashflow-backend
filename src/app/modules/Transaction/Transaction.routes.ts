@@ -4,6 +4,7 @@ import payloadValidator from "../../middlewares/payload-validator";
 import { TransactionSchemas } from "./Transaction.schemas";
 import { TransactionControllers } from "./Transaction.controllers";
 import { UserRole } from "../../../generated/prisma/enums";
+import { deleteRecordsValidationSchema } from "../../shared/schema";
 
 const router = Router();
 
@@ -15,9 +16,9 @@ router.post(
 );
 
 router.get(
-  "/",
+  "/book/:bookId",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  TransactionControllers.getAllTransactions,
+  TransactionControllers.getTransactionsByBook,
 );
 
 router.get(
@@ -34,8 +35,9 @@ router.patch(
 );
 
 router.delete(
-  "/:id",
+  "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(deleteRecordsValidationSchema),
   TransactionControllers.deleteTransaction,
 );
 

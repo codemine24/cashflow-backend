@@ -4,11 +4,11 @@ import { TransactionType } from "../../../generated/prisma/enums";
 const createTransaction = z.object({
   body: z
     .object({
-      book_id: z.string({
-        message: "Book ID is required",
+      book_id: z.uuid({
+        message: "Book ID should be a valid UUID",
       }),
       amount: z.number({
-        message: "Amount is required",
+        message: "Amount should be a valid number",
       }),
       type: z.enum(Object.values(TransactionType), {
         message: `Transaction type should be one of ${Object.values(

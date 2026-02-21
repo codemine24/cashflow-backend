@@ -15,9 +15,13 @@ const createTransaction = catchAsync(async (req, res) => {
   });
 });
 
-const getAllTransactions = catchAsync(async (req, res) => {
+const getTransactionsByBook = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await TransactionServices.getAllTransactions(user, req.query);
+  const result = await TransactionServices.getTransactionsByBook(
+    user,
+    req.params.bookId,
+    req.query,
+  );
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -58,9 +62,9 @@ const updateTransaction = catchAsync(async (req, res) => {
 
 const deleteTransaction = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await TransactionServices.deleteTransaction(
+  const result = await TransactionServices.deleteTransactions(
     user,
-    req.params.id,
+    req.body.ids,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -72,7 +76,7 @@ const deleteTransaction = catchAsync(async (req, res) => {
 
 export const TransactionControllers = {
   createTransaction,
-  getAllTransactions,
+  getTransactionsByBook,
   getTransactionById,
   updateTransaction,
   deleteTransaction,
