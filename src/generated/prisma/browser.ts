@@ -38,6 +38,16 @@ export type Book = Prisma.BookModel
  */
 export type Transaction = Prisma.TransactionModel
 /**
+ * Model Goal
+ * 
+ */
+export type Goal = Prisma.GoalModel
+/**
+ * Model GoalTransaction
+ * 
+ */
+export type GoalTransaction = Prisma.GoalTransactionModel
+/**
  * Model Category
  * 
  */

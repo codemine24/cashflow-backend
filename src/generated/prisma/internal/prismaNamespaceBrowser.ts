@@ -55,6 +55,8 @@ export const ModelName = {
   OTP: 'OTP',
   Book: 'Book',
   Transaction: 'Transaction',
+  Goal: 'Goal',
+  GoalTransaction: 'GoalTransaction',
   Category: 'Category'
 } as const
 
@@ -126,6 +128,32 @@ export const TransactionScalarFieldEnum = {
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const GoalScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  target_amount: 'target_amount',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
+
+
+export const GoalTransactionScalarFieldEnum = {
+  id: 'id',
+  goal_id: 'goal_id',
+  entry_by_id: 'entry_by_id',
+  amount: 'amount',
+  type: 'type',
+  remark: 'remark',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type GoalTransactionScalarFieldEnum = (typeof GoalTransactionScalarFieldEnum)[keyof typeof GoalTransactionScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
