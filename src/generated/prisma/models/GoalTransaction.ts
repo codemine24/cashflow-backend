@@ -38,33 +38,39 @@ export type GoalTransactionMinAggregateOutputType = {
   id: string | null
   goal_id: string | null
   entry_by_id: string | null
+  update_by_id: string | null
   amount: runtime.Decimal | null
   type: $Enums.TransactionType | null
   remark: string | null
   created_at: Date | null
   updated_at: Date | null
+  userId: string | null
 }
 
 export type GoalTransactionMaxAggregateOutputType = {
   id: string | null
   goal_id: string | null
   entry_by_id: string | null
+  update_by_id: string | null
   amount: runtime.Decimal | null
   type: $Enums.TransactionType | null
   remark: string | null
   created_at: Date | null
   updated_at: Date | null
+  userId: string | null
 }
 
 export type GoalTransactionCountAggregateOutputType = {
   id: number
   goal_id: number
   entry_by_id: number
+  update_by_id: number
   amount: number
   type: number
   remark: number
   created_at: number
   updated_at: number
+  userId: number
   _all: number
 }
 
@@ -81,33 +87,39 @@ export type GoalTransactionMinAggregateInputType = {
   id?: true
   goal_id?: true
   entry_by_id?: true
+  update_by_id?: true
   amount?: true
   type?: true
   remark?: true
   created_at?: true
   updated_at?: true
+  userId?: true
 }
 
 export type GoalTransactionMaxAggregateInputType = {
   id?: true
   goal_id?: true
   entry_by_id?: true
+  update_by_id?: true
   amount?: true
   type?: true
   remark?: true
   created_at?: true
   updated_at?: true
+  userId?: true
 }
 
 export type GoalTransactionCountAggregateInputType = {
   id?: true
   goal_id?: true
   entry_by_id?: true
+  update_by_id?: true
   amount?: true
   type?: true
   remark?: true
   created_at?: true
   updated_at?: true
+  userId?: true
   _all?: true
 }
 
@@ -201,11 +213,13 @@ export type GoalTransactionGroupByOutputType = {
   id: string
   goal_id: string
   entry_by_id: string
+  update_by_id: string | null
   amount: runtime.Decimal
   type: $Enums.TransactionType
   remark: string | null
   created_at: Date
   updated_at: Date
+  userId: string | null
   _count: GoalTransactionCountAggregateOutputType | null
   _avg: GoalTransactionAvgAggregateOutputType | null
   _sum: GoalTransactionSumAggregateOutputType | null
@@ -235,26 +249,34 @@ export type GoalTransactionWhereInput = {
   id?: Prisma.StringFilter<"GoalTransaction"> | string
   goal_id?: Prisma.StringFilter<"GoalTransaction"> | string
   entry_by_id?: Prisma.StringFilter<"GoalTransaction"> | string
+  update_by_id?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   amount?: Prisma.DecimalFilter<"GoalTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFilter<"GoalTransaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   created_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
+  userId?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   goal?: Prisma.XOR<Prisma.GoalScalarRelationFilter, Prisma.GoalWhereInput>
   entry_by?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  updated_by?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
 export type GoalTransactionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   goal_id?: Prisma.SortOrder
   entry_by_id?: Prisma.SortOrder
+  update_by_id?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   goal?: Prisma.GoalOrderByWithRelationInput
   entry_by?: Prisma.UserOrderByWithRelationInput
+  updated_by?: Prisma.UserOrderByWithRelationInput
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type GoalTransactionWhereUniqueInput = Prisma.AtLeast<{
@@ -264,24 +286,30 @@ export type GoalTransactionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.GoalTransactionWhereInput | Prisma.GoalTransactionWhereInput[]
   goal_id?: Prisma.StringFilter<"GoalTransaction"> | string
   entry_by_id?: Prisma.StringFilter<"GoalTransaction"> | string
+  update_by_id?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   amount?: Prisma.DecimalFilter<"GoalTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFilter<"GoalTransaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   created_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
+  userId?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   goal?: Prisma.XOR<Prisma.GoalScalarRelationFilter, Prisma.GoalWhereInput>
   entry_by?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  updated_by?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id">
 
 export type GoalTransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   goal_id?: Prisma.SortOrder
   entry_by_id?: Prisma.SortOrder
+  update_by_id?: Prisma.SortOrderInput | Prisma.SortOrder
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GoalTransactionCountOrderByAggregateInput
   _avg?: Prisma.GoalTransactionAvgOrderByAggregateInput
   _max?: Prisma.GoalTransactionMaxOrderByAggregateInput
@@ -296,11 +324,13 @@ export type GoalTransactionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"GoalTransaction"> | string
   goal_id?: Prisma.StringWithAggregatesFilter<"GoalTransaction"> | string
   entry_by_id?: Prisma.StringWithAggregatesFilter<"GoalTransaction"> | string
+  update_by_id?: Prisma.StringNullableWithAggregatesFilter<"GoalTransaction"> | string | null
   amount?: Prisma.DecimalWithAggregatesFilter<"GoalTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeWithAggregatesFilter<"GoalTransaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableWithAggregatesFilter<"GoalTransaction"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"GoalTransaction"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"GoalTransaction"> | Date | string
+  userId?: Prisma.StringNullableWithAggregatesFilter<"GoalTransaction"> | string | null
 }
 
 export type GoalTransactionCreateInput = {
@@ -311,18 +341,22 @@ export type GoalTransactionCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   goal: Prisma.GoalCreateNestedOneWithoutTransactionsInput
-  entry_by: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
+  entry_by: Prisma.UserCreateNestedOneWithoutEntered_goal_transactionsInput
+  updated_by?: Prisma.UserCreateNestedOneWithoutUpdated_goal_transactionsInput
+  user?: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
 }
 
 export type GoalTransactionUncheckedCreateInput = {
   id?: string
   goal_id: string
   entry_by_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  userId?: string | null
 }
 
 export type GoalTransactionUpdateInput = {
@@ -333,29 +367,35 @@ export type GoalTransactionUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goal?: Prisma.GoalUpdateOneRequiredWithoutTransactionsNestedInput
-  entry_by?: Prisma.UserUpdateOneRequiredWithoutGoal_transactionsNestedInput
+  entry_by?: Prisma.UserUpdateOneRequiredWithoutEntered_goal_transactionsNestedInput
+  updated_by?: Prisma.UserUpdateOneWithoutUpdated_goal_transactionsNestedInput
+  user?: Prisma.UserUpdateOneWithoutGoal_transactionsNestedInput
 }
 
 export type GoalTransactionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   goal_id?: Prisma.StringFieldUpdateOperationsInput | string
   entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GoalTransactionCreateManyInput = {
   id?: string
   goal_id: string
   entry_by_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  userId?: string | null
 }
 
 export type GoalTransactionUpdateManyMutationInput = {
@@ -371,11 +411,13 @@ export type GoalTransactionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   goal_id?: Prisma.StringFieldUpdateOperationsInput | string
   entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GoalTransactionListRelationFilter = {
@@ -392,11 +434,13 @@ export type GoalTransactionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   goal_id?: Prisma.SortOrder
   entry_by_id?: Prisma.SortOrder
+  update_by_id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type GoalTransactionAvgOrderByAggregateInput = {
@@ -407,22 +451,26 @@ export type GoalTransactionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   goal_id?: Prisma.SortOrder
   entry_by_id?: Prisma.SortOrder
+  update_by_id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type GoalTransactionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   goal_id?: Prisma.SortOrder
   entry_by_id?: Prisma.SortOrder
+  update_by_id?: Prisma.SortOrder
   amount?: Prisma.SortOrder
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
 }
 
 export type GoalTransactionSumOrderByAggregateInput = {
@@ -436,10 +484,38 @@ export type GoalTransactionCreateNestedManyWithoutEntry_byInput = {
   connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
 }
 
+export type GoalTransactionCreateNestedManyWithoutUpdated_byInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput> | Prisma.GoalTransactionCreateWithoutUpdated_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput | Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUpdated_byInputEnvelope
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+}
+
+export type GoalTransactionCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput> | Prisma.GoalTransactionCreateWithoutUserInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUserInput | Prisma.GoalTransactionCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUserInputEnvelope
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+}
+
 export type GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput = {
   create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutEntry_byInput, Prisma.GoalTransactionUncheckedCreateWithoutEntry_byInput> | Prisma.GoalTransactionCreateWithoutEntry_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutEntry_byInput[]
   connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutEntry_byInput | Prisma.GoalTransactionCreateOrConnectWithoutEntry_byInput[]
   createMany?: Prisma.GoalTransactionCreateManyEntry_byInputEnvelope
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+}
+
+export type GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput> | Prisma.GoalTransactionCreateWithoutUpdated_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput | Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUpdated_byInputEnvelope
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+}
+
+export type GoalTransactionUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput> | Prisma.GoalTransactionCreateWithoutUserInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUserInput | Prisma.GoalTransactionCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUserInputEnvelope
   connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
 }
 
@@ -457,6 +533,34 @@ export type GoalTransactionUpdateManyWithoutEntry_byNestedInput = {
   deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
 }
 
+export type GoalTransactionUpdateManyWithoutUpdated_byNestedInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput> | Prisma.GoalTransactionCreateWithoutUpdated_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput | Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput[]
+  upsert?: Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUpdated_byInput | Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUpdated_byInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUpdated_byInputEnvelope
+  set?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  disconnect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  delete?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  update?: Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUpdated_byInput | Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUpdated_byInput[]
+  updateMany?: Prisma.GoalTransactionUpdateManyWithWhereWithoutUpdated_byInput | Prisma.GoalTransactionUpdateManyWithWhereWithoutUpdated_byInput[]
+  deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
+}
+
+export type GoalTransactionUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput> | Prisma.GoalTransactionCreateWithoutUserInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUserInput | Prisma.GoalTransactionCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUserInput | Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUserInputEnvelope
+  set?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  disconnect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  delete?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  update?: Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUserInput | Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.GoalTransactionUpdateManyWithWhereWithoutUserInput | Prisma.GoalTransactionUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
+}
+
 export type GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput = {
   create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutEntry_byInput, Prisma.GoalTransactionUncheckedCreateWithoutEntry_byInput> | Prisma.GoalTransactionCreateWithoutEntry_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutEntry_byInput[]
   connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutEntry_byInput | Prisma.GoalTransactionCreateOrConnectWithoutEntry_byInput[]
@@ -468,6 +572,34 @@ export type GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput = {
   connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
   update?: Prisma.GoalTransactionUpdateWithWhereUniqueWithoutEntry_byInput | Prisma.GoalTransactionUpdateWithWhereUniqueWithoutEntry_byInput[]
   updateMany?: Prisma.GoalTransactionUpdateManyWithWhereWithoutEntry_byInput | Prisma.GoalTransactionUpdateManyWithWhereWithoutEntry_byInput[]
+  deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
+}
+
+export type GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput> | Prisma.GoalTransactionCreateWithoutUpdated_byInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput | Prisma.GoalTransactionCreateOrConnectWithoutUpdated_byInput[]
+  upsert?: Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUpdated_byInput | Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUpdated_byInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUpdated_byInputEnvelope
+  set?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  disconnect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  delete?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  update?: Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUpdated_byInput | Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUpdated_byInput[]
+  updateMany?: Prisma.GoalTransactionUpdateManyWithWhereWithoutUpdated_byInput | Prisma.GoalTransactionUpdateManyWithWhereWithoutUpdated_byInput[]
+  deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
+}
+
+export type GoalTransactionUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput> | Prisma.GoalTransactionCreateWithoutUserInput[] | Prisma.GoalTransactionUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.GoalTransactionCreateOrConnectWithoutUserInput | Prisma.GoalTransactionCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUserInput | Prisma.GoalTransactionUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.GoalTransactionCreateManyUserInputEnvelope
+  set?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  disconnect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  delete?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  connect?: Prisma.GoalTransactionWhereUniqueInput | Prisma.GoalTransactionWhereUniqueInput[]
+  update?: Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUserInput | Prisma.GoalTransactionUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.GoalTransactionUpdateManyWithWhereWithoutUserInput | Prisma.GoalTransactionUpdateManyWithWhereWithoutUserInput[]
   deleteMany?: Prisma.GoalTransactionScalarWhereInput | Prisma.GoalTransactionScalarWhereInput[]
 }
 
@@ -521,16 +653,20 @@ export type GoalTransactionCreateWithoutEntry_byInput = {
   created_at?: Date | string
   updated_at?: Date | string
   goal: Prisma.GoalCreateNestedOneWithoutTransactionsInput
+  updated_by?: Prisma.UserCreateNestedOneWithoutUpdated_goal_transactionsInput
+  user?: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
 }
 
 export type GoalTransactionUncheckedCreateWithoutEntry_byInput = {
   id?: string
   goal_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  userId?: string | null
 }
 
 export type GoalTransactionCreateOrConnectWithoutEntry_byInput = {
@@ -540,6 +676,74 @@ export type GoalTransactionCreateOrConnectWithoutEntry_byInput = {
 
 export type GoalTransactionCreateManyEntry_byInputEnvelope = {
   data: Prisma.GoalTransactionCreateManyEntry_byInput | Prisma.GoalTransactionCreateManyEntry_byInput[]
+  skipDuplicates?: boolean
+}
+
+export type GoalTransactionCreateWithoutUpdated_byInput = {
+  id?: string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  goal: Prisma.GoalCreateNestedOneWithoutTransactionsInput
+  entry_by: Prisma.UserCreateNestedOneWithoutEntered_goal_transactionsInput
+  user?: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
+}
+
+export type GoalTransactionUncheckedCreateWithoutUpdated_byInput = {
+  id?: string
+  goal_id: string
+  entry_by_id: string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  userId?: string | null
+}
+
+export type GoalTransactionCreateOrConnectWithoutUpdated_byInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput>
+}
+
+export type GoalTransactionCreateManyUpdated_byInputEnvelope = {
+  data: Prisma.GoalTransactionCreateManyUpdated_byInput | Prisma.GoalTransactionCreateManyUpdated_byInput[]
+  skipDuplicates?: boolean
+}
+
+export type GoalTransactionCreateWithoutUserInput = {
+  id?: string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  goal: Prisma.GoalCreateNestedOneWithoutTransactionsInput
+  entry_by: Prisma.UserCreateNestedOneWithoutEntered_goal_transactionsInput
+  updated_by?: Prisma.UserCreateNestedOneWithoutUpdated_goal_transactionsInput
+}
+
+export type GoalTransactionUncheckedCreateWithoutUserInput = {
+  id?: string
+  goal_id: string
+  entry_by_id: string
+  update_by_id?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type GoalTransactionCreateOrConnectWithoutUserInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput>
+}
+
+export type GoalTransactionCreateManyUserInputEnvelope = {
+  data: Prisma.GoalTransactionCreateManyUserInput | Prisma.GoalTransactionCreateManyUserInput[]
   skipDuplicates?: boolean
 }
 
@@ -566,11 +770,45 @@ export type GoalTransactionScalarWhereInput = {
   id?: Prisma.StringFilter<"GoalTransaction"> | string
   goal_id?: Prisma.StringFilter<"GoalTransaction"> | string
   entry_by_id?: Prisma.StringFilter<"GoalTransaction"> | string
+  update_by_id?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   amount?: Prisma.DecimalFilter<"GoalTransaction"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFilter<"GoalTransaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
   created_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GoalTransaction"> | Date | string
+  userId?: Prisma.StringNullableFilter<"GoalTransaction"> | string | null
+}
+
+export type GoalTransactionUpsertWithWhereUniqueWithoutUpdated_byInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.GoalTransactionUpdateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedUpdateWithoutUpdated_byInput>
+  create: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedCreateWithoutUpdated_byInput>
+}
+
+export type GoalTransactionUpdateWithWhereUniqueWithoutUpdated_byInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.GoalTransactionUpdateWithoutUpdated_byInput, Prisma.GoalTransactionUncheckedUpdateWithoutUpdated_byInput>
+}
+
+export type GoalTransactionUpdateManyWithWhereWithoutUpdated_byInput = {
+  where: Prisma.GoalTransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.GoalTransactionUpdateManyMutationInput, Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byInput>
+}
+
+export type GoalTransactionUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.GoalTransactionUpdateWithoutUserInput, Prisma.GoalTransactionUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.GoalTransactionCreateWithoutUserInput, Prisma.GoalTransactionUncheckedCreateWithoutUserInput>
+}
+
+export type GoalTransactionUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.GoalTransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.GoalTransactionUpdateWithoutUserInput, Prisma.GoalTransactionUncheckedUpdateWithoutUserInput>
+}
+
+export type GoalTransactionUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.GoalTransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.GoalTransactionUpdateManyMutationInput, Prisma.GoalTransactionUncheckedUpdateManyWithoutUserInput>
 }
 
 export type GoalTransactionCreateWithoutGoalInput = {
@@ -580,17 +818,21 @@ export type GoalTransactionCreateWithoutGoalInput = {
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
-  entry_by: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
+  entry_by: Prisma.UserCreateNestedOneWithoutEntered_goal_transactionsInput
+  updated_by?: Prisma.UserCreateNestedOneWithoutUpdated_goal_transactionsInput
+  user?: Prisma.UserCreateNestedOneWithoutGoal_transactionsInput
 }
 
 export type GoalTransactionUncheckedCreateWithoutGoalInput = {
   id?: string
   entry_by_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  userId?: string | null
 }
 
 export type GoalTransactionCreateOrConnectWithoutGoalInput = {
@@ -622,6 +864,32 @@ export type GoalTransactionUpdateManyWithWhereWithoutGoalInput = {
 export type GoalTransactionCreateManyEntry_byInput = {
   id?: string
   goal_id: string
+  update_by_id?: string | null
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  userId?: string | null
+}
+
+export type GoalTransactionCreateManyUpdated_byInput = {
+  id?: string
+  goal_id: string
+  entry_by_id: string
+  amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  type: $Enums.TransactionType
+  remark?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  userId?: string | null
+}
+
+export type GoalTransactionCreateManyUserInput = {
+  id?: string
+  goal_id: string
+  entry_by_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
@@ -637,11 +905,87 @@ export type GoalTransactionUpdateWithoutEntry_byInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   goal?: Prisma.GoalUpdateOneRequiredWithoutTransactionsNestedInput
+  updated_by?: Prisma.UserUpdateOneWithoutUpdated_goal_transactionsNestedInput
+  user?: Prisma.UserUpdateOneWithoutGoal_transactionsNestedInput
 }
 
 export type GoalTransactionUncheckedUpdateWithoutEntry_byInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type GoalTransactionUncheckedUpdateManyWithoutEntry_byInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type GoalTransactionUpdateWithoutUpdated_byInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goal?: Prisma.GoalUpdateOneRequiredWithoutTransactionsNestedInput
+  entry_by?: Prisma.UserUpdateOneRequiredWithoutEntered_goal_transactionsNestedInput
+  user?: Prisma.UserUpdateOneWithoutGoal_transactionsNestedInput
+}
+
+export type GoalTransactionUncheckedUpdateWithoutUpdated_byInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type GoalTransactionUncheckedUpdateManyWithoutUpdated_byInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type GoalTransactionUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
+  remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  goal?: Prisma.GoalUpdateOneRequiredWithoutTransactionsNestedInput
+  entry_by?: Prisma.UserUpdateOneRequiredWithoutEntered_goal_transactionsNestedInput
+  updated_by?: Prisma.UserUpdateOneWithoutUpdated_goal_transactionsNestedInput
+}
+
+export type GoalTransactionUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -649,9 +993,11 @@ export type GoalTransactionUncheckedUpdateWithoutEntry_byInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type GoalTransactionUncheckedUpdateManyWithoutEntry_byInput = {
+export type GoalTransactionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   goal_id?: Prisma.StringFieldUpdateOperationsInput | string
+  entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -662,11 +1008,13 @@ export type GoalTransactionUncheckedUpdateManyWithoutEntry_byInput = {
 export type GoalTransactionCreateManyGoalInput = {
   id?: string
   entry_by_id: string
+  update_by_id?: string | null
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
   created_at?: Date | string
   updated_at?: Date | string
+  userId?: string | null
 }
 
 export type GoalTransactionUpdateWithoutGoalInput = {
@@ -676,27 +1024,33 @@ export type GoalTransactionUpdateWithoutGoalInput = {
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  entry_by?: Prisma.UserUpdateOneRequiredWithoutGoal_transactionsNestedInput
+  entry_by?: Prisma.UserUpdateOneRequiredWithoutEntered_goal_transactionsNestedInput
+  updated_by?: Prisma.UserUpdateOneWithoutUpdated_goal_transactionsNestedInput
+  user?: Prisma.UserUpdateOneWithoutGoal_transactionsNestedInput
 }
 
 export type GoalTransactionUncheckedUpdateWithoutGoalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GoalTransactionUncheckedUpdateManyWithoutGoalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   entry_by_id?: Prisma.StringFieldUpdateOperationsInput | string
+  update_by_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -705,64 +1059,84 @@ export type GoalTransactionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   id?: boolean
   goal_id?: boolean
   entry_by_id?: boolean
+  update_by_id?: boolean
   amount?: boolean
   type?: boolean
   remark?: boolean
   created_at?: boolean
   updated_at?: boolean
+  userId?: boolean
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }, ExtArgs["result"]["goalTransaction"]>
 
 export type GoalTransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   goal_id?: boolean
   entry_by_id?: boolean
+  update_by_id?: boolean
   amount?: boolean
   type?: boolean
   remark?: boolean
   created_at?: boolean
   updated_at?: boolean
+  userId?: boolean
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }, ExtArgs["result"]["goalTransaction"]>
 
 export type GoalTransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   goal_id?: boolean
   entry_by_id?: boolean
+  update_by_id?: boolean
   amount?: boolean
   type?: boolean
   remark?: boolean
   created_at?: boolean
   updated_at?: boolean
+  userId?: boolean
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }, ExtArgs["result"]["goalTransaction"]>
 
 export type GoalTransactionSelectScalar = {
   id?: boolean
   goal_id?: boolean
   entry_by_id?: boolean
+  update_by_id?: boolean
   amount?: boolean
   type?: boolean
   remark?: boolean
   created_at?: boolean
   updated_at?: boolean
+  userId?: boolean
 }
 
-export type GoalTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "goal_id" | "entry_by_id" | "amount" | "type" | "remark" | "created_at" | "updated_at", ExtArgs["result"]["goalTransaction"]>
+export type GoalTransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "goal_id" | "entry_by_id" | "update_by_id" | "amount" | "type" | "remark" | "created_at" | "updated_at" | "userId", ExtArgs["result"]["goalTransaction"]>
 export type GoalTransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }
 export type GoalTransactionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }
 export type GoalTransactionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   goal?: boolean | Prisma.GoalDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  updated_by?: boolean | Prisma.GoalTransaction$updated_byArgs<ExtArgs>
+  user?: boolean | Prisma.GoalTransaction$userArgs<ExtArgs>
 }
 
 export type $GoalTransactionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -770,16 +1144,20 @@ export type $GoalTransactionPayload<ExtArgs extends runtime.Types.Extensions.Int
   objects: {
     goal: Prisma.$GoalPayload<ExtArgs>
     entry_by: Prisma.$UserPayload<ExtArgs>
+    updated_by: Prisma.$UserPayload<ExtArgs> | null
+    user: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     goal_id: string
     entry_by_id: string
+    update_by_id: string | null
     amount: runtime.Decimal
     type: $Enums.TransactionType
     remark: string | null
     created_at: Date
     updated_at: Date
+    userId: string | null
   }, ExtArgs["result"]["goalTransaction"]>
   composites: {}
 }
@@ -1176,6 +1554,8 @@ export interface Prisma__GoalTransactionClient<T, Null = never, ExtArgs extends 
   readonly [Symbol.toStringTag]: "PrismaPromise"
   goal<T extends Prisma.GoalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoalDefaultArgs<ExtArgs>>): Prisma.Prisma__GoalClient<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   entry_by<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  updated_by<T extends Prisma.GoalTransaction$updated_byArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoalTransaction$updated_byArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  user<T extends Prisma.GoalTransaction$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoalTransaction$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1208,11 +1588,13 @@ export interface GoalTransactionFieldRefs {
   readonly id: Prisma.FieldRef<"GoalTransaction", 'String'>
   readonly goal_id: Prisma.FieldRef<"GoalTransaction", 'String'>
   readonly entry_by_id: Prisma.FieldRef<"GoalTransaction", 'String'>
+  readonly update_by_id: Prisma.FieldRef<"GoalTransaction", 'String'>
   readonly amount: Prisma.FieldRef<"GoalTransaction", 'Decimal'>
   readonly type: Prisma.FieldRef<"GoalTransaction", 'TransactionType'>
   readonly remark: Prisma.FieldRef<"GoalTransaction", 'String'>
   readonly created_at: Prisma.FieldRef<"GoalTransaction", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"GoalTransaction", 'DateTime'>
+  readonly userId: Prisma.FieldRef<"GoalTransaction", 'String'>
 }
     
 
@@ -1606,6 +1988,44 @@ export type GoalTransactionDeleteManyArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many GoalTransactions to delete.
    */
   limit?: number
+}
+
+/**
+ * GoalTransaction.updated_by
+ */
+export type GoalTransaction$updated_byArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * GoalTransaction.user
+ */
+export type GoalTransaction$userArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

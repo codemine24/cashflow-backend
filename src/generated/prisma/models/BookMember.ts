@@ -237,7 +237,7 @@ export type BookMemberCreateInput = {
   role?: $Enums.ShareRole
   created_at?: Date | string
   book: Prisma.BookCreateNestedOneWithoutBook_membersInput
-  user: Prisma.UserCreateNestedOneWithoutBookMembersInput
+  user: Prisma.UserCreateNestedOneWithoutBooks_memberInput
 }
 
 export type BookMemberUncheckedCreateInput = {
@@ -253,7 +253,7 @@ export type BookMemberUpdateInput = {
   role?: Prisma.EnumShareRoleFieldUpdateOperationsInput | $Enums.ShareRole
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   book?: Prisma.BookUpdateOneRequiredWithoutBook_membersNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutBookMembersNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutBooks_memberNestedInput
 }
 
 export type BookMemberUncheckedUpdateInput = {
@@ -468,7 +468,7 @@ export type BookMemberCreateWithoutBookInput = {
   id?: string
   role?: $Enums.ShareRole
   created_at?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutBookMembersInput
+  user: Prisma.UserCreateNestedOneWithoutBooks_memberInput
 }
 
 export type BookMemberUncheckedCreateWithoutBookInput = {
@@ -543,7 +543,7 @@ export type BookMemberUpdateWithoutBookInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumShareRoleFieldUpdateOperationsInput | $Enums.ShareRole
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutBookMembersNestedInput
+  user?: Prisma.UserUpdateOneRequiredWithoutBooks_memberNestedInput
 }
 
 export type BookMemberUncheckedUpdateWithoutBookInput = {

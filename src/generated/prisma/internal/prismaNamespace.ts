@@ -390,6 +390,7 @@ export const ModelName = {
   BookMember: 'BookMember',
   Transaction: 'Transaction',
   Goal: 'Goal',
+  GoalMember: 'GoalMember',
   GoalTransaction: 'GoalTransaction',
   Category: 'Category'
 } as const
@@ -407,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "oTP" | "book" | "bookMember" | "transaction" | "goal" | "goalTransaction" | "category"
+    modelProps: "user" | "oTP" | "book" | "bookMember" | "transaction" | "goal" | "goalMember" | "goalTransaction" | "category"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -855,6 +856,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GoalMember: {
+      payload: Prisma.$GoalMemberPayload<ExtArgs>
+      fields: Prisma.GoalMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoalMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoalMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.GoalMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoalMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        findMany: {
+          args: Prisma.GoalMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>[]
+        }
+        create: {
+          args: Prisma.GoalMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        createMany: {
+          args: Prisma.GoalMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoalMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.GoalMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        update: {
+          args: Prisma.GoalMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoalMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoalMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoalMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoalMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoalMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.GoalMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoalMember>
+        }
+        groupBy: {
+          args: Prisma.GoalMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoalMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoalMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoalMemberCountAggregateOutputType> | number
+        }
+      }
+    }
     GoalTransaction: {
       payload: Prisma.$GoalTransactionPayload<ExtArgs>
       fields: Prisma.GoalTransactionFieldRefs
@@ -1120,15 +1195,28 @@ export const GoalScalarFieldEnum = {
 export type GoalScalarFieldEnum = (typeof GoalScalarFieldEnum)[keyof typeof GoalScalarFieldEnum]
 
 
+export const GoalMemberScalarFieldEnum = {
+  id: 'id',
+  goal_id: 'goal_id',
+  user_id: 'user_id',
+  role: 'role',
+  created_at: 'created_at'
+} as const
+
+export type GoalMemberScalarFieldEnum = (typeof GoalMemberScalarFieldEnum)[keyof typeof GoalMemberScalarFieldEnum]
+
+
 export const GoalTransactionScalarFieldEnum = {
   id: 'id',
   goal_id: 'goal_id',
   entry_by_id: 'entry_by_id',
+  update_by_id: 'update_by_id',
   amount: 'amount',
   type: 'type',
   remark: 'remark',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  userId: 'userId'
 } as const
 
 export type GoalTransactionScalarFieldEnum = (typeof GoalTransactionScalarFieldEnum)[keyof typeof GoalTransactionScalarFieldEnum]
@@ -1394,6 +1482,7 @@ export type GlobalOmitConfig = {
   bookMember?: Prisma.BookMemberOmit
   transaction?: Prisma.TransactionOmit
   goal?: Prisma.GoalOmit
+  goalMember?: Prisma.GoalMemberOmit
   goalTransaction?: Prisma.GoalTransactionOmit
   category?: Prisma.CategoryOmit
 }

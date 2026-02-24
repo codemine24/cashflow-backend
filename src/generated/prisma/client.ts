@@ -68,6 +68,11 @@ export type Transaction = Prisma.TransactionModel
  */
 export type Goal = Prisma.GoalModel
 /**
+ * Model GoalMember
+ * 
+ */
+export type GoalMember = Prisma.GoalMemberModel
+/**
  * Model GoalTransaction
  * 
  */
