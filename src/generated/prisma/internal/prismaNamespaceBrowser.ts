@@ -131,6 +131,7 @@ export const TransactionScalarFieldEnum = {
   id: 'id',
   book_id: 'book_id',
   entry_by_id: 'entry_by_id',
+  update_by_id: 'update_by_id',
   amount: 'amount',
   type: 'type',
   remark: 'remark',

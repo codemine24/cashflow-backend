@@ -8,23 +8,24 @@ datasource db {
 }
 
 model User {
-  id                  String            @id @default(uuid())
-  name                String?
-  email               String            @unique
-  contact_number      String?           @unique
-  avatar              String?
-  status              UserStatus        @default(ACTIVE)
-  role                UserRole          @default(USER)
-  is_deleted          Boolean           @default(false)
-  password_changed_at DateTime          @default(now())
-  created_at          DateTime          @default(now())
-  updated_at          DateTime          @updatedAt
-  books               Book[]
-  transactions        Transaction[]
-  goal_transactions   GoalTransaction[]
-  categories          Category[]
-  goals               Goal[]
-  bookMembers         BookMember[]
+  id                   String            @id @default(uuid())
+  name                 String?
+  email                String            @unique
+  contact_number       String?           @unique
+  avatar               String?
+  status               UserStatus        @default(ACTIVE)
+  role                 UserRole          @default(USER)
+  is_deleted           Boolean           @default(false)
+  password_changed_at  DateTime          @default(now())
+  created_at           DateTime          @default(now())
+  updated_at           DateTime          @updatedAt
+  books                Book[]
+  entered_transactions Transaction[]     @relation("EnteredTransactions")
+  updated_transactions Transaction[]     @relation("UpdatedTransactions")
+  goal_transactions    GoalTransaction[]
+  categories           Category[]
+  goals                Goal[]
+  bookMembers          BookMember[]
 
   @@map("users")
 }
@@ -68,19 +69,21 @@ model BookMember {
 }
 
 model Transaction {
-  id          String          @id @default(uuid())
-  book_id     String
-  entry_by_id String
-  amount      Decimal         @default(0)
-  type        TransactionType
-  remark      String?
-  category_id String?
-  created_at  DateTime        @default(now())
-  updated_at  DateTime        @updatedAt
+  id           String          @id @default(uuid())
+  book_id      String
+  entry_by_id  String
+  update_by_id String?
+  amount       Decimal         @default(0)
+  type         TransactionType
+  remark       String?
+  category_id  String?
+  created_at   DateTime        @default(now())
+  updated_at   DateTime        @updatedAt
 
-  book     Book      @relation(fields: [book_id], references: [id])
-  entry_by User      @relation(fields: [entry_by_id], references: [id])
-  category Category? @relation(fields: [category_id], references: [id])
+  book      Book      @relation(fields: [book_id], references: [id])
+  entry_by  User      @relation("EnteredTransactions", fields: [entry_by_id], references: [id])
+  update_by User?     @relation("UpdatedTransactions", fields: [update_by_id], references: [id])
+  category  Category? @relation(fields: [category_id], references: [id])
 
   @@map("transactions")
 }

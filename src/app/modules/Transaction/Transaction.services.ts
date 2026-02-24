@@ -17,13 +17,25 @@ const createTransaction = async (
   user: TAuthUser,
   payload: CreateTransactionPayload,
 ) => {
-  // Ensure the book belongs to the user
-  await prisma.book.findFirstOrThrow({
+  const book = await prisma.book.findFirst({
     where: {
       id: payload.book_id,
-      user_id: user.id,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id, role: "EDITOR" },
+          },
+        },
+      ],
     },
   });
+
+  if (!book) {
+    throw new Error(
+      "Book not found or you are not the authorized to create transaction",
+    );
+  }
 
   const result = await prisma.transaction.create({
     data: {
@@ -40,6 +52,26 @@ const getTransactionsByBook = async (
   bookId: string,
   query: Record<string, any>,
 ) => {
+  const book = await prisma.book.findFirst({
+    where: {
+      id: bookId,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!book) {
+    throw new Error(
+      "Book not found or you are not the authorized to view transactions",
+    );
+  }
+
   const { search_term, page, limit, sort_by, sort_order, type, category_id } =
     query;
 
@@ -56,9 +88,7 @@ const getTransactionsByBook = async (
       sort_order,
     });
 
-  const andConditions: Prisma.TransactionWhereInput[] = [
-    { entry_by_id: user.id, book_id: bookId },
-  ];
+  const andConditions: Prisma.TransactionWhereInput[] = [{ book_id: bookId }];
 
   if (type) andConditions.push({ type });
   if (category_id) andConditions.push({ category_id });
@@ -99,6 +129,18 @@ const getTransactionsByBook = async (
             title: true,
           },
         },
+        entry_by: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        update_by: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
       },
     }),
     prisma.transaction.count({ where: whereConditions }),
@@ -124,6 +166,18 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
     include: {
       book: true,
       category: true,
+      entry_by: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+      update_by: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
     },
   });
   return result;
@@ -135,19 +189,42 @@ const updateTransaction = async (
   id: string,
   payload: UpdateTransactionPayload,
 ) => {
-  await prisma.transaction.findFirstOrThrow({
+  const transaction = await prisma.transaction.findFirstOrThrow({
     where: {
       id,
-      entry_by_id: user.id,
     },
   });
+
+  const book = await prisma.book.findFirst({
+    where: {
+      id: transaction.book_id,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id, role: "EDITOR" },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!book) {
+    throw new Error(
+      "Book not found or you are not the authorized to update transaction",
+    );
+  }
 
   const result = await prisma.transaction.update({
     where: {
       id,
     },
-    data: payload,
+    data: {
+      ...payload,
+      update_by_id: user.id,
+    },
   });
+
   return result;
 };
 
