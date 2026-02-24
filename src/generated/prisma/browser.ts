@@ -27,3 +27,28 @@ export type User = Prisma.UserModel
  * 
  */
 export type OTP = Prisma.OTPModel
+/**
+ * Model Book
+ * 
+ */
+export type Book = Prisma.BookModel
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
+ * Model Goal
+ * 
+ */
+export type Goal = Prisma.GoalModel
+/**
+ * Model GoalTransaction
+ * 
+ */
+export type GoalTransaction = Prisma.GoalTransactionModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel

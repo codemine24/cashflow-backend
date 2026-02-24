@@ -10,4 +10,9 @@
  */
 export type * from './models/User'
 export type * from './models/OTP'
+export type * from './models/Book'
+export type * from './models/Transaction'
+export type * from './models/Goal'
+export type * from './models/GoalTransaction'
+export type * from './models/Category'
 export type * from './commonInputTypes'
