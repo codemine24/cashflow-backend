@@ -52,6 +52,26 @@ const getGoalTransactionsByGoal = async (
   goalId: string,
   query: Record<string, any>,
 ) => {
+  const goal = await prisma.goal.findFirst({
+    where: {
+      id: goalId,
+      OR: [
+        { user_id: user.id },
+        {
+          goal_members: {
+            some: { user_id: user.id },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!goal) {
+    throw new Error(
+      "Goal not found or you are not the authorized to view transactions",
+    );
+  }
+
   const { search_term, page, limit, sort_by, sort_order, type } = query;
 
   if (sort_by)
@@ -72,7 +92,7 @@ const getGoalTransactionsByGoal = async (
     });
 
   const andConditions: Prisma.GoalTransactionWhereInput[] = [
-    { entry_by_id: user.id, goal_id: goalId },
+    { goal_id: goalId },
   ];
 
   if (type) andConditions.push({ type });
@@ -108,6 +128,20 @@ const getGoalTransactionsByGoal = async (
             name: true,
           },
         },
+        entry_by: {
+          select: {
+            name: true,
+            email: true,
+            avatar: true,
+          },
+        },
+        updated_by: {
+          select: {
+            name: true,
+            email: true,
+            avatar: true,
+          },
+        },
       },
     }),
     prisma.goalTransaction.count({ where: whereConditions }),
@@ -132,6 +166,18 @@ const getGoalTransactionById = async (user: TAuthUser, id: string) => {
     },
     include: {
       goal: true,
+      entry_by: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
+      updated_by: {
+        select: {
+          name: true,
+          email: true,
+        },
+      },
     },
   });
   return result;
@@ -143,18 +189,40 @@ const updateGoalTransaction = async (
   id: string,
   payload: UpdateGoalTransactionPayload,
 ) => {
-  await prisma.goalTransaction.findFirstOrThrow({
+  const transaction = await prisma.goalTransaction.findFirstOrThrow({
     where: {
       id,
-      entry_by_id: user.id,
     },
   });
+
+  const goal = await prisma.goal.findFirst({
+    where: {
+      id: transaction.goal_id,
+      OR: [
+        { user_id: user.id },
+        {
+          goal_members: {
+            some: { user_id: user.id, role: "EDITOR" },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!goal) {
+    throw new Error(
+      "Goal not found or you are not the authorized to update transaction",
+    );
+  }
 
   const result = await prisma.goalTransaction.update({
     where: {
       id,
     },
-    data: payload,
+    data: {
+      ...payload,
+      update_by_id: user.id,
+    },
   });
   return result;
 };

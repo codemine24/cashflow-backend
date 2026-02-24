@@ -341,7 +341,7 @@ export type UserCreateInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -365,7 +365,7 @@ export type UserUncheckedCreateInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -389,7 +389,7 @@ export type UserUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -413,7 +413,7 @@ export type UserUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -700,7 +700,7 @@ export type UserCreateWithoutBooksInput = {
   created_at?: Date | string
   updated_at?: Date | string
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -723,7 +723,7 @@ export type UserUncheckedCreateWithoutBooksInput = {
   created_at?: Date | string
   updated_at?: Date | string
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -762,7 +762,7 @@ export type UserUpdateWithoutBooksInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -785,7 +785,7 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -809,7 +809,7 @@ export type UserCreateWithoutBooks_memberInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -832,7 +832,7 @@ export type UserUncheckedCreateWithoutBooks_memberInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -871,7 +871,7 @@ export type UserUpdateWithoutBooks_memberInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -894,7 +894,7 @@ export type UserUncheckedUpdateWithoutBooks_memberInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -916,7 +916,7 @@ export type UserCreateWithoutEntered_transactionsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -939,7 +939,7 @@ export type UserUncheckedCreateWithoutEntered_transactionsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1029,7 +1029,7 @@ export type UserUpdateWithoutEntered_transactionsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -1052,7 +1052,7 @@ export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1133,7 +1133,7 @@ export type UserCreateWithoutGoalsInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -1156,7 +1156,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1195,7 +1195,7 @@ export type UserUpdateWithoutGoalsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -1218,7 +1218,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1241,7 +1241,7 @@ export type UserCreateWithoutGoals_memberInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -1264,7 +1264,7 @@ export type UserUncheckedCreateWithoutGoals_memberInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1303,7 +1303,7 @@ export type UserUpdateWithoutGoals_memberInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -1326,7 +1326,7 @@ export type UserUncheckedUpdateWithoutGoals_memberInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
@@ -1349,7 +1349,7 @@ export type UserCreateWithoutEntered_goal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -1372,7 +1372,7 @@ export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -1400,7 +1400,7 @@ export type UserCreateWithoutUpdated_goal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -1423,7 +1423,7 @@ export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -1451,7 +1451,7 @@ export type UserCreateWithoutGoal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
@@ -1474,7 +1474,7 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
@@ -1513,7 +1513,7 @@ export type UserUpdateWithoutEntered_goal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -1536,7 +1536,7 @@ export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -1570,7 +1570,7 @@ export type UserUpdateWithoutUpdated_goal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -1593,7 +1593,7 @@ export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -1627,7 +1627,7 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
@@ -1650,7 +1650,7 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -1673,7 +1673,7 @@ export type UserCreateWithoutCategoriesInput = {
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
@@ -1696,7 +1696,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdate_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
@@ -1735,7 +1735,7 @@ export type UserUpdateWithoutCategoriesInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
@@ -1758,7 +1758,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdate_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput

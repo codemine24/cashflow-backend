@@ -133,12 +133,14 @@ const getTransactionsByBook = async (
           select: {
             name: true,
             email: true,
+            avatar: true,
           },
         },
-        update_by: {
+        updated_by: {
           select: {
             name: true,
             email: true,
+            avatar: true,
           },
         },
       },
@@ -172,7 +174,7 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
           email: true,
         },
       },
-      update_by: {
+      updated_by: {
         select: {
           name: true,
           email: true,

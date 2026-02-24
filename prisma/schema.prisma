@@ -86,7 +86,7 @@ model Transaction {
 
   book      Book      @relation(fields: [book_id], references: [id])
   entry_by  User      @relation("EnteredTransactions", fields: [entry_by_id], references: [id])
-  update_by User?     @relation("UpdatedTransactions", fields: [update_by_id], references: [id])
+  updated_by User?     @relation("UpdatedTransactions", fields: [update_by_id], references: [id])
   category  Category? @relation(fields: [category_id], references: [id])
 
   @@map("transactions")
