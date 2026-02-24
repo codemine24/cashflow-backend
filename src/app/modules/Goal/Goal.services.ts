@@ -127,9 +127,15 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       role: member.role,
     }));
 
+    const role =
+      goal.user_id === user.id
+        ? "OWNER"
+        : members.find((member) => member.id === user.id)?.role;
+
     return {
       id: goal.id,
       name: goal.name,
+      role,
       target_amount: goal.target_amount,
       in: totalIn,
       out: totalOut,
@@ -161,6 +167,27 @@ const getGoalById = async (user: TAuthUser, id: string) => {
     },
     include: {
       transactions: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          avatar: true,
+        },
+      },
+      goal_members: {
+        select: {
+          role: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatar: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -182,13 +209,27 @@ const getGoalById = async (user: TAuthUser, id: string) => {
 
   const balance = totalIn - totalOut;
 
+  const members = result.goal_members.map((member) => ({
+    ...member.user,
+    role: member.role,
+  }));
+
+  const role =
+    result.user_id === user.id
+      ? "OWNER"
+      : members.find((member) => member.id === user.id)?.role;
+
   return {
     id: result.id,
     name: result.name,
+    role,
     target_amount: result.target_amount,
     in: totalIn,
     out: totalOut,
     balance,
+    others_member: [...members, { ...result.user, role: "OWNER" }].filter(
+      (member) => member.id !== user.id,
+    ),
     transactions: result.transactions,
     created_at: result.created_at,
     updated_at: result.updated_at,

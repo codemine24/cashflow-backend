@@ -124,13 +124,15 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
 
     const balance = totalIn - totalOut;
 
-    const role =
-      book.user_id === user.id ? "OWNER" : book.book_members[0]?.role;
-
     const members = book.book_members.map((member) => ({
       ...member.user,
       role: member.role,
     }));
+
+    const role =
+      book.user_id === user.id
+        ? "OWNER"
+        : members.find((member) => member.id === user.id)?.role;
 
     return {
       id: book.id,
@@ -175,9 +177,25 @@ const getBookById = async (user: TAuthUser, id: string) => {
     },
     include: {
       transactions: true,
+      user: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          avatar: true,
+        },
+      },
       book_members: {
-        where: {
-          user_id: user.id,
+        select: {
+          role: true,
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              avatar: true,
+            },
+          },
         },
       },
     },
@@ -201,8 +219,15 @@ const getBookById = async (user: TAuthUser, id: string) => {
 
   const balance = totalIn - totalOut;
 
+  const members = result.book_members.map((member) => ({
+    ...member.user,
+    role: member.role,
+  }));
+
   const role =
-    result.user_id === user.id ? "OWNER" : result.book_members[0]?.role;
+    result.user_id === user.id
+      ? "OWNER"
+      : members.find((member) => member.id === user.id)?.role;
 
   return {
     id: result.id,
@@ -211,6 +236,9 @@ const getBookById = async (user: TAuthUser, id: string) => {
     in: totalIn,
     out: totalOut,
     balance,
+    others_member: [...members, { ...result.user, role: "OWNER" }].filter(
+      (member) => member.id !== user.id,
+    ),
     transactions: result.transactions,
     created_at: result.created_at,
     updated_at: result.updated_at,
