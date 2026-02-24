@@ -1,5 +1,9 @@
 import { prisma } from "../../shared/prisma";
-import { CreateBookPayload, UpdateBookPayload } from "./Book.interfaces";
+import {
+  CreateBookPayload,
+  ShareBookPayload,
+  UpdateBookPayload,
+} from "./Book.interfaces";
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
 import { bookQueryValidationConfig, bookSearchableFields } from "./Book.utils";
@@ -33,7 +37,20 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       sort_order,
     });
 
-  const andConditions: Prisma.BookWhereInput[] = [{ user_id: user.id }];
+  const andConditions: Prisma.BookWhereInput[] = [
+    {
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: {
+              user_id: user.id,
+            },
+          },
+        },
+      ],
+    },
+  ];
 
   if (search_term) {
     andConditions.push({
@@ -62,6 +79,11 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       },
       include: {
         transactions: true,
+        book_members: {
+          where: {
+            user_id: user.id,
+          },
+        },
       },
     }),
     await prisma.book.count({ where: whereConditions }),
@@ -86,9 +108,13 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
 
     const balance = totalIn - totalOut;
 
+    const role =
+      book.user_id === user.id ? "OWNER" : book.book_members[0]?.role;
+
     return {
       id: book.id,
       name: book.name,
+      role,
       in: totalIn,
       out: totalOut,
       balance,
@@ -112,10 +138,24 @@ const getBookById = async (user: TAuthUser, id: string) => {
   const result = await prisma.book.findFirstOrThrow({
     where: {
       id,
-      user_id: user.id,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: {
+              user_id: user.id,
+            },
+          },
+        },
+      ],
     },
     include: {
       transactions: true,
+      book_members: {
+        where: {
+          user_id: user.id,
+        },
+      },
     },
   });
 
@@ -137,9 +177,13 @@ const getBookById = async (user: TAuthUser, id: string) => {
 
   const balance = totalIn - totalOut;
 
+  const role =
+    result.user_id === user.id ? "OWNER" : result.book_members[0]?.role;
+
   return {
     id: result.id,
     name: result.name,
+    role,
     in: totalIn,
     out: totalOut,
     balance,
@@ -185,10 +229,58 @@ const deleteBooks = async (user: TAuthUser, ids: string[]) => {
   return result;
 };
 
+// -------------------------------------- SHARE BOOK --------------------------------------
+const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
+  const { book_id, user_id, role = "VIEWER" } = payload;
+
+  // Step 1: Verify ownership
+  const owner = await prisma.book.findFirst({
+    where: {
+      id: book_id,
+      user_id: user.id,
+    },
+  });
+
+  if (!owner) {
+    throw new Error("Book not found or you are not the owner");
+  }
+
+  // Step 2: Check shared user exist
+  const sharedUser = await prisma.user.findUnique({
+    where: {
+      id: user_id,
+    },
+  });
+
+  if (!sharedUser) {
+    throw new Error("The user you are trying to share with can't be found");
+  }
+
+  const result = await prisma.bookMember.upsert({
+    where: {
+      book_id_user_id: {
+        book_id,
+        user_id,
+      },
+    },
+    update: {
+      role,
+    },
+    create: {
+      book_id,
+      user_id,
+      role,
+    },
+  });
+
+  return result;
+};
+
 export const BookServices = {
   createBook,
   getAllBooks,
   getBookById,
   updateBook,
   deleteBooks,
+  shareBook,
 };

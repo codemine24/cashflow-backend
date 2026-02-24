@@ -1,10 +1,11 @@
 import { z } from "zod";
+import { ShareRole } from "../../../generated/prisma/enums";
 
 const createBook = z.object({
   body: z
     .object({
       name: z.string({
-        message: "Name is required",
+        message: "Name should be a text",
       }),
     })
     .strict(),
@@ -13,7 +14,23 @@ const createBook = z.object({
 const updateBook = z.object({
   body: z
     .object({
-      name: z.string({ message: "Name is required" }),
+      name: z.string({ message: "Name should be a text" }),
+    })
+    .strict(),
+});
+
+const shareBook = z.object({
+  body: z
+    .object({
+      book_id: z.uuid({ message: "Book ID should be a valid UUID" }),
+      user_id: z.uuid({ message: "User ID should be a valid UUID" }),
+      role: z
+        .enum(Object.values(ShareRole), {
+          message: `Role should be one of ${Object.values(ShareRole).join(
+            " | ",
+          )}`,
+        })
+        .default(ShareRole.VIEWER),
     })
     .strict(),
 });
@@ -21,4 +38,5 @@ const updateBook = z.object({
 export const BookSchemas = {
   createBook,
   updateBook,
+  shareBook,
 };
