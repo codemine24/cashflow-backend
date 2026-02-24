@@ -79,9 +79,25 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       },
       include: {
         transactions: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            avatar: true,
+          },
+        },
         book_members: {
-          where: {
-            user_id: user.id,
+          select: {
+            role: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                avatar: true,
+              },
+            },
           },
         },
       },
@@ -111,6 +127,11 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
     const role =
       book.user_id === user.id ? "OWNER" : book.book_members[0]?.role;
 
+    const members = book.book_members.map((member) => ({
+      ...member.user,
+      role: member.role,
+    }));
+
     return {
       id: book.id,
       name: book.name,
@@ -118,6 +139,9 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       in: totalIn,
       out: totalOut,
       balance,
+      others_member: [...members, { ...book.user, role: "OWNER" }].filter(
+        (member) => member.id !== user.id,
+      ),
       created_at: book.created_at,
       updated_at: book.updated_at,
     };

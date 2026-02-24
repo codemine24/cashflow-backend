@@ -41,4 +41,11 @@ router.delete(
   GoalControllers.deleteGoals,
 );
 
+router.post(
+  "/share",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(GoalSchemas.shareGoal),
+  GoalControllers.shareGoal,
+);
+
 export const GoalRoutes = router;

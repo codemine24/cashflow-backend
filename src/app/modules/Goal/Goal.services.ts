@@ -33,7 +33,22 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       sort_order,
     });
 
-  const andConditions: Prisma.GoalWhereInput[] = [{ user_id: user.id }];
+  const andConditions: Prisma.GoalWhereInput[] = [
+    {
+      OR: [
+        {
+          user_id: user.id,
+        },
+        {
+          goal_members: {
+            some: {
+              user_id: user.id,
+            },
+          },
+        },
+      ],
+    },
+  ];
 
   if (search_term) {
     andConditions.push({
@@ -62,6 +77,27 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       },
       include: {
         transactions: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            avatar: true,
+          },
+        },
+        goal_members: {
+          select: {
+            role: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                avatar: true,
+              },
+            },
+          },
+        },
       },
     }),
     prisma.goal.count({ where: whereConditions }),
@@ -86,6 +122,11 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
 
     const balance = totalIn - totalOut;
 
+    const members = goal.goal_members.map((member) => ({
+      ...member.user,
+      role: member.role,
+    }));
+
     return {
       id: goal.id,
       name: goal.name,
@@ -93,6 +134,9 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       in: totalIn,
       out: totalOut,
       balance,
+      others_member: [...members, { ...goal.user, role: "OWNER" }].filter(
+        (member) => member.id !== user.id,
+      ),
       created_at: goal.created_at,
       updated_at: goal.updated_at,
     };
@@ -187,10 +231,58 @@ const deleteGoals = async (user: TAuthUser, ids: string[]) => {
   return result;
 };
 
+// -------------------------------------- SHARE GOAL -------------------------------------
+const shareGoal = async (user: TAuthUser, payload: any) => {
+  const { goal_id, user_id, role = "VIEWER" } = payload;
+
+  // Step 1: Verify ownership
+  const owner = await prisma.goal.findFirst({
+    where: {
+      id: goal_id,
+      user_id: user.id,
+    },
+  });
+
+  if (!owner) {
+    throw new Error("Goal not found or you are not the owner");
+  }
+
+  // Step 2: Check shared user exist
+  const sharedUser = await prisma.user.findUnique({
+    where: {
+      id: user_id,
+    },
+  });
+
+  if (!sharedUser) {
+    throw new Error("The user you are trying to share with can't be found");
+  }
+
+  const result = await prisma.goalMember.upsert({
+    where: {
+      goal_id_user_id: {
+        goal_id,
+        user_id,
+      },
+    },
+    update: {
+      role,
+    },
+    create: {
+      goal_id,
+      user_id,
+      role,
+    },
+  });
+
+  return result;
+};
+
 export const GoalServices = {
   createGoal,
   getAllGoals,
   getGoalById,
   updateGoal,
   deleteGoals,
+  shareGoal,
 };

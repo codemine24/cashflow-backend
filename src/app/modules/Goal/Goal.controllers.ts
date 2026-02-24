@@ -65,10 +65,23 @@ const deleteGoals = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- SHARE GOAL -------------------------------------
+const shareGoal = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await GoalServices.shareGoal(user, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Goal shared successfully",
+    data: result,
+  });
+});
+
 export const GoalControllers = {
   createGoal,
   getAllGoals,
   getGoalById,
   updateGoal,
   deleteGoals,
+  shareGoal,
 };

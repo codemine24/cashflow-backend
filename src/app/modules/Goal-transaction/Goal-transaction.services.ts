@@ -17,13 +17,25 @@ const createGoalTransaction = async (
   user: TAuthUser,
   payload: CreateGoalTransactionPayload,
 ) => {
-  // Ensure the goal belongs to the user
-  await prisma.goal.findFirstOrThrow({
+  const goal = await prisma.goal.findFirst({
     where: {
       id: payload.goal_id,
-      user_id: user.id,
+      OR: [
+        { user_id: user.id },
+        {
+          goal_members: {
+            some: { user_id: user.id, role: "EDITOR" },
+          },
+        },
+      ],
     },
   });
+
+  if (!goal) {
+    throw new Error(
+      "Goal not found or you are not the authorized to create transaction",
+    );
+  }
 
   const result = await prisma.goalTransaction.create({
     data: {

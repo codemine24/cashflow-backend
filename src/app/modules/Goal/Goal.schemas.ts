@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { ShareRole } from "../../../generated/prisma/enums";
 
 const createGoal = z.object({
   body: z
@@ -9,6 +10,22 @@ const createGoal = z.object({
       target_amount: z.number({
         message: "Target amount should be a valid number",
       }),
+    })
+    .strict(),
+});
+
+const shareGoal = z.object({
+  body: z
+    .object({
+      goal_id: z.uuid({ message: "Goal ID should be a valid UUID" }),
+      user_id: z.uuid({ message: "User ID should be a valid UUID" }),
+      role: z
+        .enum(Object.values(ShareRole), {
+          message: `Role should be one of ${Object.values(ShareRole).join(
+            " | ",
+          )}`,
+        })
+        .default(ShareRole.VIEWER),
     })
     .strict(),
 });
@@ -25,4 +42,5 @@ const updateGoal = z.object({
 export const GoalSchemas = {
   createGoal,
   updateGoal,
+  shareGoal,
 };
