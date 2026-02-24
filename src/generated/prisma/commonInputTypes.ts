@@ -184,6 +184,23 @@ export type IntWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntFilter<$PrismaModel>
 }
 
+export type EnumShareRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareRole | Prisma.EnumShareRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareRoleFilter<$PrismaModel> | $Enums.ShareRole
+}
+
+export type EnumShareRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareRole | Prisma.EnumShareRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareRoleWithAggregatesFilter<$PrismaModel> | $Enums.ShareRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareRoleFilter<$PrismaModel>
+}
+
 export type DecimalFilter<$PrismaModel = never> = {
   equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>
   in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>
@@ -409,6 +426,23 @@ export type NestedFloatFilter<$PrismaModel = never> = {
   gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>
   not?: Prisma.NestedFloatFilter<$PrismaModel> | number
+}
+
+export type NestedEnumShareRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareRole | Prisma.EnumShareRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareRoleFilter<$PrismaModel> | $Enums.ShareRole
+}
+
+export type NestedEnumShareRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ShareRole | Prisma.EnumShareRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ShareRole[] | Prisma.ListEnumShareRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumShareRoleWithAggregatesFilter<$PrismaModel> | $Enums.ShareRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumShareRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumShareRoleFilter<$PrismaModel>
 }
 
 export type NestedDecimalFilter<$PrismaModel = never> = {

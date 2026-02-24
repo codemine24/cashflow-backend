@@ -235,6 +235,7 @@ export type UserWhereInput = {
   goal_transactions?: Prisma.GoalTransactionListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   goals?: Prisma.GoalListRelationFilter
+  bookMembers?: Prisma.BookMemberListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -254,6 +255,7 @@ export type UserOrderByWithRelationInput = {
   goal_transactions?: Prisma.GoalTransactionOrderByRelationAggregateInput
   categories?: Prisma.CategoryOrderByRelationAggregateInput
   goals?: Prisma.GoalOrderByRelationAggregateInput
+  bookMembers?: Prisma.BookMemberOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -276,6 +278,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   goal_transactions?: Prisma.GoalTransactionListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   goals?: Prisma.GoalListRelationFilter
+  bookMembers?: Prisma.BookMemberListRelationFilter
 }, "id" | "email" | "contact_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -329,6 +332,7 @@ export type UserCreateInput = {
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -348,6 +352,7 @@ export type UserUncheckedCreateInput = {
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -367,6 +372,7 @@ export type UserUpdateInput = {
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -386,6 +392,7 @@ export type UserUncheckedUpdateInput = {
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -515,6 +522,20 @@ export type UserUpdateOneRequiredWithoutBooksNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBooksInput, Prisma.UserUpdateWithoutBooksInput>, Prisma.UserUncheckedUpdateWithoutBooksInput>
 }
 
+export type UserCreateNestedOneWithoutBookMembersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookMembersInput, Prisma.UserUncheckedCreateWithoutBookMembersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookMembersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutBookMembersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutBookMembersInput, Prisma.UserUncheckedCreateWithoutBookMembersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBookMembersInput
+  upsert?: Prisma.UserUpsertWithoutBookMembersInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutBookMembersInput, Prisma.UserUpdateWithoutBookMembersInput>, Prisma.UserUncheckedUpdateWithoutBookMembersInput>
+}
+
 export type UserCreateNestedOneWithoutTransactionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutTransactionsInput, Prisma.UserUncheckedCreateWithoutTransactionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransactionsInput
@@ -587,6 +608,7 @@ export type UserCreateWithoutBooksInput = {
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBooksInput = {
@@ -605,6 +627,7 @@ export type UserUncheckedCreateWithoutBooksInput = {
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBooksInput = {
@@ -639,6 +662,7 @@ export type UserUpdateWithoutBooksInput = {
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooksInput = {
@@ -653,6 +677,99 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutBookMembersInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
+  goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutBookMembersInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutBookMembersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookMembersInput, Prisma.UserUncheckedCreateWithoutBookMembersInput>
+}
+
+export type UserUpsertWithoutBookMembersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutBookMembersInput, Prisma.UserUncheckedUpdateWithoutBookMembersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutBookMembersInput, Prisma.UserUncheckedCreateWithoutBookMembersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutBookMembersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutBookMembersInput, Prisma.UserUncheckedUpdateWithoutBookMembersInput>
+}
+
+export type UserUpdateWithoutBookMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutBookMembersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
@@ -675,6 +792,7 @@ export type UserCreateWithoutTransactionsInput = {
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -693,6 +811,7 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -727,6 +846,7 @@ export type UserUpdateWithoutTransactionsInput = {
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -745,6 +865,7 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -763,6 +884,7 @@ export type UserCreateWithoutGoalsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -781,6 +903,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -815,6 +938,7 @@ export type UserUpdateWithoutGoalsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -833,6 +957,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoal_transactionsInput = {
@@ -851,6 +976,7 @@ export type UserCreateWithoutGoal_transactionsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoal_transactionsInput = {
@@ -869,6 +995,7 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoal_transactionsInput = {
@@ -903,6 +1030,7 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
@@ -921,6 +1049,7 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -939,6 +1068,7 @@ export type UserCreateWithoutCategoriesInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -957,6 +1087,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
   goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  bookMembers?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -991,6 +1122,7 @@ export type UserUpdateWithoutCategoriesInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1009,6 +1141,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  bookMembers?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1022,6 +1155,7 @@ export type UserCountOutputType = {
   goal_transactions: number
   categories: number
   goals: number
+  bookMembers: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1030,6 +1164,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   goal_transactions?: boolean | UserCountOutputTypeCountGoal_transactionsArgs
   categories?: boolean | UserCountOutputTypeCountCategoriesArgs
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
+  bookMembers?: boolean | UserCountOutputTypeCountBookMembersArgs
 }
 
 /**
@@ -1077,6 +1212,13 @@ export type UserCountOutputTypeCountGoalsArgs<ExtArgs extends runtime.Types.Exte
   where?: Prisma.GoalWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountBookMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.BookMemberWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1095,6 +1237,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   goal_transactions?: boolean | Prisma.User$goal_transactionsArgs<ExtArgs>
   categories?: boolean | Prisma.User$categoriesArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
+  bookMembers?: boolean | Prisma.User$bookMembersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1147,6 +1290,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   goal_transactions?: boolean | Prisma.User$goal_transactionsArgs<ExtArgs>
   categories?: boolean | Prisma.User$categoriesArgs<ExtArgs>
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
+  bookMembers?: boolean | Prisma.User$bookMembersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1160,6 +1304,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     goal_transactions: Prisma.$GoalTransactionPayload<ExtArgs>[]
     categories: Prisma.$CategoryPayload<ExtArgs>[]
     goals: Prisma.$GoalPayload<ExtArgs>[]
+    bookMembers: Prisma.$BookMemberPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1572,6 +1717,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   goal_transactions<T extends Prisma.User$goal_transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goal_transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalTransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categories<T extends Prisma.User$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   goals<T extends Prisma.User$goalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  bookMembers<T extends Prisma.User$bookMembersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$bookMembersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2117,6 +2263,30 @@ export type User$goalsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.GoalScalarFieldEnum | Prisma.GoalScalarFieldEnum[]
+}
+
+/**
+ * User.bookMembers
+ */
+export type User$bookMembersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the BookMember
+   */
+  select?: Prisma.BookMemberSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the BookMember
+   */
+  omit?: Prisma.BookMemberOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.BookMemberInclude<ExtArgs> | null
+  where?: Prisma.BookMemberWhereInput
+  orderBy?: Prisma.BookMemberOrderByWithRelationInput | Prisma.BookMemberOrderByWithRelationInput[]
+  cursor?: Prisma.BookMemberWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.BookMemberScalarFieldEnum | Prisma.BookMemberScalarFieldEnum[]
 }
 
 /**

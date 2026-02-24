@@ -53,6 +53,11 @@ export type OTP = Prisma.OTPModel
  */
 export type Book = Prisma.BookModel
 /**
+ * Model BookMember
+ * 
+ */
+export type BookMember = Prisma.BookMemberModel
+/**
  * Model Transaction
  * 
  */

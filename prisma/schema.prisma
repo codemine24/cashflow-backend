@@ -8,22 +8,23 @@ datasource db {
 }
 
 model User {
-  id                  String        @id @default(uuid())
+  id                  String            @id @default(uuid())
   name                String?
-  email               String        @unique
-  contact_number      String?       @unique
+  email               String            @unique
+  contact_number      String?           @unique
   avatar              String?
-  status              UserStatus    @default(ACTIVE)
-  role                UserRole      @default(USER)
-  is_deleted          Boolean       @default(false)
-  password_changed_at DateTime      @default(now())
-  created_at          DateTime      @default(now())
-  updated_at          DateTime      @updatedAt
+  status              UserStatus        @default(ACTIVE)
+  role                UserRole          @default(USER)
+  is_deleted          Boolean           @default(false)
+  password_changed_at DateTime          @default(now())
+  created_at          DateTime          @default(now())
+  updated_at          DateTime          @updatedAt
   books               Book[]
   transactions        Transaction[]
   goal_transactions   GoalTransaction[]
   categories          Category[]
   goals               Goal[]
+  bookMembers         BookMember[]
 
   @@map("users")
 }
@@ -47,8 +48,23 @@ model Book {
 
   user         User          @relation(fields: [user_id], references: [id])
   transactions Transaction[]
+  book_members BookMember[]
 
   @@map("books")
+}
+
+model BookMember {
+  id         String    @id @default(uuid())
+  book_id    String
+  user_id    String
+  role       ShareRole @default(VIEWER)
+  created_at DateTime  @default(now())
+
+  book Book @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([book_id, user_id])
+  @@map("book_members")
 }
 
 model Transaction {
@@ -70,14 +86,14 @@ model Transaction {
 }
 
 model Goal {
-  id String @id @default(uuid())
-  user_id String
-  name String
+  id            String   @id @default(uuid())
+  user_id       String
+  name          String
   target_amount Decimal
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
 
-  user User @relation(fields: [user_id], references: [id])
+  user         User              @relation(fields: [user_id], references: [id])
   transactions GoalTransaction[]
 
   @@map("goals")
@@ -93,8 +109,8 @@ model GoalTransaction {
   created_at  DateTime        @default(now())
   updated_at  DateTime        @updatedAt
 
-  goal     Goal      @relation(fields: [goal_id], references: [id])
-  entry_by User      @relation(fields: [entry_by_id], references: [id])
+  goal     Goal @relation(fields: [goal_id], references: [id], onDelete: Cascade)
+  entry_by User @relation(fields: [entry_by_id], references: [id])
 
   @@map("goal_transactions")
 }
@@ -125,6 +141,12 @@ enum UserRole {
   SUPER_ADMIN
   ADMIN
   USER
+}
+
+enum ShareRole {
+  OWNER
+  EDITOR
+  VIEWER
 }
 
 enum TransactionType {

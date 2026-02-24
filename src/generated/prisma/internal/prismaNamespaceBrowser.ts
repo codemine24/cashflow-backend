@@ -54,6 +54,7 @@ export const ModelName = {
   User: 'User',
   OTP: 'OTP',
   Book: 'Book',
+  BookMember: 'BookMember',
   Transaction: 'Transaction',
   Goal: 'Goal',
   GoalTransaction: 'GoalTransaction',
@@ -113,6 +114,17 @@ export const BookScalarFieldEnum = {
 } as const
 
 export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
+
+
+export const BookMemberScalarFieldEnum = {
+  id: 'id',
+  book_id: 'book_id',
+  user_id: 'user_id',
+  role: 'role',
+  created_at: 'created_at'
+} as const
+
+export type BookMemberScalarFieldEnum = (typeof BookMemberScalarFieldEnum)[keyof typeof BookMemberScalarFieldEnum]
 
 
 export const TransactionScalarFieldEnum = {

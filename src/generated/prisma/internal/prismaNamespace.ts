@@ -387,6 +387,7 @@ export const ModelName = {
   User: 'User',
   OTP: 'OTP',
   Book: 'Book',
+  BookMember: 'BookMember',
   Transaction: 'Transaction',
   Goal: 'Goal',
   GoalTransaction: 'GoalTransaction',
@@ -406,7 +407,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "oTP" | "book" | "transaction" | "goal" | "goalTransaction" | "category"
+    modelProps: "user" | "oTP" | "book" | "bookMember" | "transaction" | "goal" | "goalTransaction" | "category"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -629,6 +630,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.BookCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.BookCountAggregateOutputType> | number
+        }
+      }
+    }
+    BookMember: {
+      payload: Prisma.$BookMemberPayload<ExtArgs>
+      fields: Prisma.BookMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.BookMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.BookMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.BookMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.BookMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        findMany: {
+          args: Prisma.BookMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>[]
+        }
+        create: {
+          args: Prisma.BookMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        createMany: {
+          args: Prisma.BookMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.BookMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.BookMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        update: {
+          args: Prisma.BookMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.BookMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.BookMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.BookMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.BookMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$BookMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.BookMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateBookMember>
+        }
+        groupBy: {
+          args: Prisma.BookMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.BookMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.BookMemberCountAggregateOutputType> | number
         }
       }
     }
@@ -1006,6 +1081,17 @@ export const BookScalarFieldEnum = {
 export type BookScalarFieldEnum = (typeof BookScalarFieldEnum)[keyof typeof BookScalarFieldEnum]
 
 
+export const BookMemberScalarFieldEnum = {
+  id: 'id',
+  book_id: 'book_id',
+  user_id: 'user_id',
+  role: 'role',
+  created_at: 'created_at'
+} as const
+
+export type BookMemberScalarFieldEnum = (typeof BookMemberScalarFieldEnum)[keyof typeof BookMemberScalarFieldEnum]
+
+
 export const TransactionScalarFieldEnum = {
   id: 'id',
   book_id: 'book_id',
@@ -1168,6 +1254,20 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
+ * Reference to a field of type 'ShareRole'
+ */
+export type EnumShareRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareRole'>
+    
+
+
+/**
+ * Reference to a field of type 'ShareRole[]'
+ */
+export type ListEnumShareRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ShareRole[]'>
+    
+
+
+/**
  * Reference to a field of type 'Decimal'
  */
 export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
@@ -1290,6 +1390,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   oTP?: Prisma.OTPOmit
   book?: Prisma.BookOmit
+  bookMember?: Prisma.BookMemberOmit
   transaction?: Prisma.TransactionOmit
   goal?: Prisma.GoalOmit
   goalTransaction?: Prisma.GoalTransactionOmit
