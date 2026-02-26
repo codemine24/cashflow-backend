@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { TransactionType } from "../../../generated/prisma/enums";
+import { dateRegex, timeRegex } from "../../constants/common";
 
 const createTransaction = z.object({
   body: z
@@ -19,13 +20,13 @@ const createTransaction = z.object({
       category_id: z.string().optional(),
       date: z
         .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/, {
+        .regex(dateRegex, {
           message: "Date must be in YYYY-MM-DD format",
         })
         .optional(),
       time: z
         .string()
-        .regex(/^\d{2}:\d{2}(:\d{2})?$/, {
+        .regex(timeRegex, {
           message: "Time must be in HH:MM or HH:MM:SS format",
         })
         .optional(),
@@ -48,13 +49,13 @@ const updateTransaction = z.object({
       category_id: z.string().optional(),
       date: z
         .string()
-        .regex(/^\d{4}-\d{2}-\d{2}$/, {
+        .regex(dateRegex, {
           message: "Date must be in YYYY-MM-DD format",
         })
         .optional(),
       time: z
         .string()
-        .regex(/^\d{2}:\d{2}(:\d{2})?$/, {
+        .regex(timeRegex, {
           message: "Time must be in HH:MM or HH:MM:SS format",
         })
         .optional(),
