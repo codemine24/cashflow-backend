@@ -37,10 +37,20 @@ const createTransaction = async (
     );
   }
 
+  const { date, time, ...transactionData } = payload;
+
+  let created_at: Date | undefined;
+  if (date || time) {
+    const datePart = date ?? new Date().toISOString().slice(0, 10);
+    const timePart = time ?? "00:00:00";
+    created_at = new Date(`${datePart}T${timePart}`);
+  }
+
   const result = await prisma.transaction.create({
     data: {
-      ...payload,
+      ...transactionData,
       entry_by_id: user.id,
+      ...(created_at ? { created_at } : {}),
     },
   });
   return result;
@@ -217,13 +227,23 @@ const updateTransaction = async (
     );
   }
 
+  const { date, time, ...transactionData } = payload;
+
+  let created_at: Date | undefined;
+  if (date || time) {
+    const datePart = date ?? new Date().toISOString().slice(0, 10);
+    const timePart = time ?? "00:00:00";
+    created_at = new Date(`${datePart}T${timePart}`);
+  }
+
   const result = await prisma.transaction.update({
     where: {
       id,
     },
     data: {
-      ...payload,
+      ...transactionData,
       update_by_id: user.id,
+      ...(created_at ? { created_at } : {}),
     },
   });
 

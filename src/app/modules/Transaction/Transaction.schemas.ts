@@ -17,6 +17,18 @@ const createTransaction = z.object({
       }),
       remark: z.string().optional(),
       category_id: z.string().optional(),
+      date: z
+        .string()
+        .regex(/^\d{4}-\d{2}-\d{2}$/, {
+          message: "Date must be in YYYY-MM-DD format",
+        })
+        .optional(),
+      time: z
+        .string()
+        .regex(/^\d{2}:\d{2}(:\d{2})?$/, {
+          message: "Time must be in HH:MM or HH:MM:SS format",
+        })
+        .optional(),
     })
     .strict(),
 });
@@ -34,6 +46,18 @@ const updateTransaction = z.object({
         .optional(),
       remark: z.string().optional(),
       category_id: z.string().optional(),
+      date: z
+        .string()
+        .regex(/^\d{4}-\d{2}-\d{2}$/, {
+          message: "Date must be in YYYY-MM-DD format",
+        })
+        .optional(),
+      time: z
+        .string()
+        .regex(/^\d{2}:\d{2}(:\d{2})?$/, {
+          message: "Time must be in HH:MM or HH:MM:SS format",
+        })
+        .optional(),
     })
     .strict(),
 });
