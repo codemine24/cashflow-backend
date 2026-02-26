@@ -46,12 +46,23 @@ const createTransaction = async (
     created_at = new Date(`${datePart}T${timePart}`);
   }
 
-  const result = await prisma.transaction.create({
-    data: {
-      ...transactionData,
-      entry_by_id: user.id,
-      ...(created_at ? { created_at } : {}),
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.transaction.create({
+      data: {
+        ...transactionData,
+        entry_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.book.update({
+      where: { id: book.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
   return result;
 };
@@ -236,15 +247,26 @@ const updateTransaction = async (
     created_at = new Date(`${datePart}T${timePart}`);
   }
 
-  const result = await prisma.transaction.update({
-    where: {
-      id,
-    },
-    data: {
-      ...transactionData,
-      update_by_id: user.id,
-      ...(created_at ? { created_at } : {}),
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.transaction.update({
+      where: {
+        id,
+      },
+      data: {
+        ...transactionData,
+        update_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.book.update({
+      where: { id: book.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
 
   return result;

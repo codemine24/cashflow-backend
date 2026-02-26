@@ -46,12 +46,23 @@ const createGoalTransaction = async (
     created_at = new Date(`${datePart}T${timePart}`);
   }
 
-  const result = await prisma.goalTransaction.create({
-    data: {
-      ...transactionData,
-      entry_by_id: user.id,
-      ...(created_at ? { created_at } : {}),
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.goalTransaction.create({
+      data: {
+        ...transactionData,
+        entry_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.goal.update({
+      where: { id: goal.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
   return result;
 };
@@ -234,15 +245,26 @@ const updateGoalTransaction = async (
     created_at = new Date(`${datePart}T${timePart}`);
   }
 
-  const result = await prisma.goalTransaction.update({
-    where: {
-      id,
-    },
-    data: {
-      ...transactionData,
-      update_by_id: user.id,
-      ...(created_at ? { created_at } : {}),
-    },
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.goalTransaction.update({
+      where: {
+        id,
+      },
+      data: {
+        ...transactionData,
+        update_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.goal.update({
+      where: { id: goal.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
   return result;
 };
