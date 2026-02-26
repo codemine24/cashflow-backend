@@ -6,6 +6,7 @@ import { CategoryRoutes } from "../modules/Category/Category.routes";
 import { GoalTransactionRoutes } from "../modules/Goal-transaction/Goal-transaction.routes";
 import { GoalRoutes } from "../modules/Goal/Goal.routes";
 import { UserRoutes } from "../modules/User/User.routes";
+import { SettingRoutes } from "../modules/Setting/Setting.routes";
 
 const router = Router();
 
@@ -37,6 +38,10 @@ const routes = [
   {
     path: "/goal",
     route: GoalRoutes,
+  },
+  {
+    path: "/setting",
+    route: SettingRoutes,
   },
 ];
 
