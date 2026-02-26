@@ -65,10 +65,23 @@ const deleteBooks = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- SHARE BOOK --------------------------------------
+const shareBook = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await BookServices.shareBook(user, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Book shared successfully",
+    data: result,
+  });
+});
+
 export const BookControllers = {
   createBook,
   getAllBooks,
   getBookById,
   updateBook,
   deleteBooks,
+  shareBook,
 };

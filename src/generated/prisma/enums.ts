@@ -27,6 +27,14 @@ export const UserRole = {
 export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
+export const ShareRole = {
+  EDITOR: 'EDITOR',
+  VIEWER: 'VIEWER'
+} as const
+
+export type ShareRole = (typeof ShareRole)[keyof typeof ShareRole]
+
+
 export const TransactionType = {
   IN: 'IN',
   OUT: 'OUT'

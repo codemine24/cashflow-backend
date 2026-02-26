@@ -1,28 +1,23 @@
 import { z } from "zod";
 import { ShareRole } from "../../../generated/prisma/enums";
 
-const createBook = z.object({
+const createGoal = z.object({
   body: z
     .object({
       name: z.string({
-        message: "Name should be a text",
+        message: "Name is required",
+      }),
+      target_amount: z.number({
+        message: "Target amount should be a valid number",
       }),
     })
     .strict(),
 });
 
-const updateBook = z.object({
+const shareGoal = z.object({
   body: z
     .object({
-      name: z.string({ message: "Name should be a text" }),
-    })
-    .strict(),
-});
-
-const shareBook = z.object({
-  body: z
-    .object({
-      book_id: z.uuid({ message: "Book ID should be a valid UUID" }),
+      goal_id: z.uuid({ message: "Goal ID should be a valid UUID" }),
       user_id: z.uuid({ message: "User ID should be a valid UUID" }),
       role: z
         .enum(Object.values(ShareRole), {
@@ -35,8 +30,17 @@ const shareBook = z.object({
     .strict(),
 });
 
-export const BookSchemas = {
-  createBook,
-  updateBook,
-  shareBook,
+const updateGoal = z.object({
+  body: z
+    .object({
+      name: z.string().optional(),
+      target_amount: z.number().optional(),
+    })
+    .strict(),
+});
+
+export const GoalSchemas = {
+  createGoal,
+  updateGoal,
+  shareGoal,
 };

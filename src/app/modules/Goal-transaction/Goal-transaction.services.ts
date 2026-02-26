@@ -1,29 +1,29 @@
 import { prisma } from "../../shared/prisma";
 import {
-  CreateTransactionPayload,
-  UpdateTransactionPayload,
-} from "./Transaction.interfaces";
+  CreateGoalTransactionPayload,
+  UpdateGoalTransactionPayload,
+} from "./Goal-transaction.interfaces";
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
 import {
-  transactionQueryValidationConfig,
-  transactionSearchableFields,
-} from "./Transaction.utils";
+  goalTransactionQueryValidationConfig,
+  goalTransactionSearchableFields,
+} from "./Goal-transaction.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 
-// -------------------------------------- CREATE TRANSACTION --------------------------------
-const createTransaction = async (
+// -------------------------------------- CREATE GOAL TRANSACTION --------------------------------
+const createGoalTransaction = async (
   user: TAuthUser,
-  payload: CreateTransactionPayload,
+  payload: CreateGoalTransactionPayload,
 ) => {
-  const book = await prisma.book.findFirst({
+  const goal = await prisma.goal.findFirst({
     where: {
-      id: payload.book_id,
+      id: payload.goal_id,
       OR: [
         { user_id: user.id },
         {
-          book_members: {
+          goal_members: {
             some: { user_id: user.id, role: "EDITOR" },
           },
         },
@@ -31,13 +31,13 @@ const createTransaction = async (
     },
   });
 
-  if (!book) {
+  if (!goal) {
     throw new Error(
-      "Book not found or you are not the authorized to create transaction",
+      "Goal not found or you are not the authorized to create transaction",
     );
   }
 
-  const result = await prisma.transaction.create({
+  const result = await prisma.goalTransaction.create({
     data: {
       ...payload,
       entry_by_id: user.id,
@@ -46,19 +46,19 @@ const createTransaction = async (
   return result;
 };
 
-// -------------------------------------- GET TRANSACTIONS BY BOOK --------------------------
-const getTransactionsByBook = async (
+// -------------------------------------- GET GOAL TRANSACTIONS BY GOAL --------------------------
+const getGoalTransactionsByGoal = async (
   user: TAuthUser,
-  bookId: string,
+  goalId: string,
   query: Record<string, any>,
 ) => {
-  const book = await prisma.book.findFirst({
+  const goal = await prisma.goal.findFirst({
     where: {
-      id: bookId,
+      id: goalId,
       OR: [
         { user_id: user.id },
         {
-          book_members: {
+          goal_members: {
             some: { user_id: user.id },
           },
         },
@@ -66,19 +66,22 @@ const getTransactionsByBook = async (
     },
   });
 
-  if (!book) {
+  if (!goal) {
     throw new Error(
-      "Book not found or you are not the authorized to view transactions",
+      "Goal not found or you are not the authorized to view transactions",
     );
   }
 
-  const { search_term, page, limit, sort_by, sort_order, type, category_id } =
-    query;
+  const { search_term, page, limit, sort_by, sort_order, type } = query;
 
   if (sort_by)
-    queryValidator(transactionQueryValidationConfig, "sort_by", sort_by);
+    queryValidator(goalTransactionQueryValidationConfig, "sort_by", sort_by);
   if (sort_order)
-    queryValidator(transactionQueryValidationConfig, "sort_order", sort_order);
+    queryValidator(
+      goalTransactionQueryValidationConfig,
+      "sort_order",
+      sort_order,
+    );
 
   const { pageNumber, limitNumber, skip, sortWith, sortSequence } =
     paginationMaker({
@@ -88,14 +91,15 @@ const getTransactionsByBook = async (
       sort_order,
     });
 
-  const andConditions: Prisma.TransactionWhereInput[] = [{ book_id: bookId }];
+  const andConditions: Prisma.GoalTransactionWhereInput[] = [
+    { goal_id: goalId },
+  ];
 
   if (type) andConditions.push({ type });
-  if (category_id) andConditions.push({ category_id });
 
   if (search_term) {
     andConditions.push({
-      OR: transactionSearchableFields.map((field) => {
+      OR: goalTransactionSearchableFields.map((field) => {
         return {
           [field]: {
             contains: search_term.trim(),
@@ -111,7 +115,7 @@ const getTransactionsByBook = async (
   };
 
   const [result, total] = await Promise.all([
-    prisma.transaction.findMany({
+    prisma.goalTransaction.findMany({
       where: whereConditions,
       skip: skip,
       take: limitNumber,
@@ -119,14 +123,9 @@ const getTransactionsByBook = async (
         [sortWith]: sortSequence,
       },
       include: {
-        book: {
+        goal: {
           select: {
             name: true,
-          },
-        },
-        category: {
-          select: {
-            title: true,
           },
         },
         entry_by: {
@@ -145,7 +144,7 @@ const getTransactionsByBook = async (
         },
       },
     }),
-    prisma.transaction.count({ where: whereConditions }),
+    prisma.goalTransaction.count({ where: whereConditions }),
   ]);
 
   return {
@@ -158,16 +157,15 @@ const getTransactionsByBook = async (
   };
 };
 
-// -------------------------------------- GET TRANSACTION BY ID -----------------------------
-const getTransactionById = async (user: TAuthUser, id: string) => {
-  const result = await prisma.transaction.findFirstOrThrow({
+// -------------------------------------- GET GOAL TRANSACTION BY ID -----------------------------
+const getGoalTransactionById = async (user: TAuthUser, id: string) => {
+  const result = await prisma.goalTransaction.findFirstOrThrow({
     where: {
       id,
       entry_by_id: user.id,
     },
     include: {
-      book: true,
-      category: true,
+      goal: true,
       entry_by: {
         select: {
           name: true,
@@ -185,25 +183,25 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
   return result;
 };
 
-// -------------------------------------- UPDATE TRANSACTION --------------------------------
-const updateTransaction = async (
+// -------------------------------------- UPDATE GOAL TRANSACTION --------------------------------
+const updateGoalTransaction = async (
   user: TAuthUser,
   id: string,
-  payload: UpdateTransactionPayload,
+  payload: UpdateGoalTransactionPayload,
 ) => {
-  const transaction = await prisma.transaction.findFirstOrThrow({
+  const transaction = await prisma.goalTransaction.findFirstOrThrow({
     where: {
       id,
     },
   });
 
-  const book = await prisma.book.findFirst({
+  const goal = await prisma.goal.findFirst({
     where: {
-      id: transaction.book_id,
+      id: transaction.goal_id,
       OR: [
         { user_id: user.id },
         {
-          book_members: {
+          goal_members: {
             some: { user_id: user.id, role: "EDITOR" },
           },
         },
@@ -211,13 +209,13 @@ const updateTransaction = async (
     },
   });
 
-  if (!book) {
+  if (!goal) {
     throw new Error(
-      "Book not found or you are not the authorized to update transaction",
+      "Goal not found or you are not the authorized to update transaction",
     );
   }
 
-  const result = await prisma.transaction.update({
+  const result = await prisma.goalTransaction.update({
     where: {
       id,
     },
@@ -226,13 +224,12 @@ const updateTransaction = async (
       update_by_id: user.id,
     },
   });
-
   return result;
 };
 
-// -------------------------------------- DELETE TRANSACTIONS -------------------------------
-const deleteTransactions = async (user: TAuthUser, ids: string[]) => {
-  const result = await prisma.transaction.deleteMany({
+// -------------------------------------- DELETE GOAL TRANSACTIONS -------------------------------
+const deleteGoalTransactions = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.goalTransaction.deleteMany({
     where: {
       id: {
         in: ids,
@@ -244,10 +241,10 @@ const deleteTransactions = async (user: TAuthUser, ids: string[]) => {
   return result;
 };
 
-export const TransactionServices = {
-  createTransaction,
-  getTransactionsByBook,
-  getTransactionById,
-  updateTransaction,
-  deleteTransactions,
+export const GoalTransactionServices = {
+  createGoalTransaction,
+  getGoalTransactionsByGoal,
+  getGoalTransactionById,
+  updateGoalTransaction,
+  deleteGoalTransactions,
 };

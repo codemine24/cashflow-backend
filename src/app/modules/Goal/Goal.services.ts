@@ -1,18 +1,14 @@
 import { prisma } from "../../shared/prisma";
-import {
-  CreateBookPayload,
-  ShareBookPayload,
-  UpdateBookPayload,
-} from "./Book.interfaces";
+import { CreateGoalPayload, UpdateGoalPayload } from "./Goal.interfaces";
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
-import { bookQueryValidationConfig, bookSearchableFields } from "./Book.utils";
+import { goalQueryValidationConfig, goalSearchableFields } from "./Goal.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 
-// -------------------------------------- CREATE BOOK ------------------------------------
-const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
-  const result = await prisma.book.create({
+// -------------------------------------- CREATE GOAL ------------------------------------
+const createGoal = async (user: TAuthUser, payload: CreateGoalPayload) => {
+  const result = await prisma.goal.create({
     data: {
       ...payload,
       user_id: user.id,
@@ -21,13 +17,13 @@ const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
   return result;
 };
 
-// -------------------------------------- GET ALL BOOKS ----------------------------------
-const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
+// -------------------------------------- GET ALL GOALS ----------------------------------
+const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
   const { search_term, page, limit, sort_by, sort_order } = query;
 
-  if (sort_by) queryValidator(bookQueryValidationConfig, "sort_by", sort_by);
+  if (sort_by) queryValidator(goalQueryValidationConfig, "sort_by", sort_by);
   if (sort_order)
-    queryValidator(bookQueryValidationConfig, "sort_order", sort_order);
+    queryValidator(goalQueryValidationConfig, "sort_order", sort_order);
 
   const { pageNumber, limitNumber, skip, sortWith, sortSequence } =
     paginationMaker({
@@ -37,12 +33,14 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       sort_order,
     });
 
-  const andConditions: Prisma.BookWhereInput[] = [
+  const andConditions: Prisma.GoalWhereInput[] = [
     {
       OR: [
-        { user_id: user.id },
         {
-          book_members: {
+          user_id: user.id,
+        },
+        {
+          goal_members: {
             some: {
               user_id: user.id,
             },
@@ -54,7 +52,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
 
   if (search_term) {
     andConditions.push({
-      OR: bookSearchableFields.map((field) => {
+      OR: goalSearchableFields.map((field) => {
         return {
           [field]: {
             contains: search_term.trim(),
@@ -70,7 +68,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
   };
 
   const [result, total] = await Promise.all([
-    prisma.book.findMany({
+    prisma.goal.findMany({
       where: whereConditions,
       skip: skip,
       take: limitNumber,
@@ -87,7 +85,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
             avatar: true,
           },
         },
-        book_members: {
+        goal_members: {
           select: {
             role: true,
             user: {
@@ -102,11 +100,11 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
         },
       },
     }),
-    await prisma.book.count({ where: whereConditions }),
+    prisma.goal.count({ where: whereConditions }),
   ]);
 
-  const formattedResult = result.map((book) => {
-    const totalIn = book.transactions.reduce((acc, transaction) => {
+  const formattedResult = result.map((goal) => {
+    const totalIn = goal.transactions.reduce((acc, transaction) => {
       if (transaction.type === "IN") {
         return acc + Number(transaction.amount);
       } else {
@@ -114,7 +112,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       }
     }, 0);
 
-    const totalOut = book.transactions.reduce((acc, transaction) => {
+    const totalOut = goal.transactions.reduce((acc, transaction) => {
       if (transaction.type === "OUT") {
         return acc + Number(transaction.amount);
       } else {
@@ -124,28 +122,29 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
 
     const balance = totalIn - totalOut;
 
-    const members = book.book_members.map((member) => ({
+    const members = goal.goal_members.map((member) => ({
       ...member.user,
       role: member.role,
     }));
 
     const role =
-      book.user_id === user.id
+      goal.user_id === user.id
         ? "OWNER"
         : members.find((member) => member.id === user.id)?.role;
 
     return {
-      id: book.id,
-      name: book.name,
+      id: goal.id,
+      name: goal.name,
       role,
+      target_amount: goal.target_amount,
       in: totalIn,
       out: totalOut,
       balance,
-      others_member: [...members, { ...book.user, role: "OWNER" }].filter(
+      others_member: [...members, { ...goal.user, role: "OWNER" }].filter(
         (member) => member.id !== user.id,
       ),
-      created_at: book.created_at,
-      updated_at: book.updated_at,
+      created_at: goal.created_at,
+      updated_at: goal.updated_at,
     };
   });
 
@@ -159,21 +158,12 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
   };
 };
 
-// -------------------------------------- GET BOOK BY ID ---------------------------------
-const getBookById = async (user: TAuthUser, id: string) => {
-  const result = await prisma.book.findFirstOrThrow({
+// -------------------------------------- GET GOAL BY ID ---------------------------------
+const getGoalById = async (user: TAuthUser, id: string) => {
+  const result = await prisma.goal.findFirstOrThrow({
     where: {
       id,
-      OR: [
-        { user_id: user.id },
-        {
-          book_members: {
-            some: {
-              user_id: user.id,
-            },
-          },
-        },
-      ],
+      user_id: user.id,
     },
     include: {
       transactions: true,
@@ -185,7 +175,7 @@ const getBookById = async (user: TAuthUser, id: string) => {
           avatar: true,
         },
       },
-      book_members: {
+      goal_members: {
         select: {
           role: true,
           user: {
@@ -219,7 +209,7 @@ const getBookById = async (user: TAuthUser, id: string) => {
 
   const balance = totalIn - totalOut;
 
-  const members = result.book_members.map((member) => ({
+  const members = result.goal_members.map((member) => ({
     ...member.user,
     role: member.role,
   }));
@@ -233,6 +223,7 @@ const getBookById = async (user: TAuthUser, id: string) => {
     id: result.id,
     name: result.name,
     role,
+    target_amount: result.target_amount,
     in: totalIn,
     out: totalOut,
     balance,
@@ -245,20 +236,20 @@ const getBookById = async (user: TAuthUser, id: string) => {
   };
 };
 
-// -------------------------------------- UPDATE BOOK ------------------------------------
-const updateBook = async (
+// -------------------------------------- UPDATE GOAL ------------------------------------
+const updateGoal = async (
   user: TAuthUser,
   id: string,
-  payload: UpdateBookPayload,
+  payload: UpdateGoalPayload,
 ) => {
-  await prisma.book.findFirstOrThrow({
+  await prisma.goal.findFirstOrThrow({
     where: {
       id,
       user_id: user.id,
     },
   });
 
-  const result = await prisma.book.update({
+  const result = await prisma.goal.update({
     where: {
       id,
     },
@@ -267,9 +258,9 @@ const updateBook = async (
   return result;
 };
 
-// -------------------------------------- DELETE BOOKS -----------------------------------
-const deleteBooks = async (user: TAuthUser, ids: string[]) => {
-  const result = await prisma.book.deleteMany({
+// -------------------------------------- DELETE GOALS -----------------------------------
+const deleteGoals = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.goal.deleteMany({
     where: {
       id: {
         in: ids,
@@ -281,20 +272,20 @@ const deleteBooks = async (user: TAuthUser, ids: string[]) => {
   return result;
 };
 
-// -------------------------------------- SHARE BOOK --------------------------------------
-const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
-  const { book_id, user_id, role = "VIEWER" } = payload;
+// -------------------------------------- SHARE GOAL -------------------------------------
+const shareGoal = async (user: TAuthUser, payload: any) => {
+  const { goal_id, user_id, role = "VIEWER" } = payload;
 
   // Step 1: Verify ownership
-  const owner = await prisma.book.findFirst({
+  const owner = await prisma.goal.findFirst({
     where: {
-      id: book_id,
+      id: goal_id,
       user_id: user.id,
     },
   });
 
   if (!owner) {
-    throw new Error("Book not found or you are not the owner");
+    throw new Error("Goal not found or you are not the owner");
   }
 
   // Step 2: Check shared user exist
@@ -308,10 +299,10 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     throw new Error("The user you are trying to share with can't be found");
   }
 
-  const result = await prisma.bookMember.upsert({
+  const result = await prisma.goalMember.upsert({
     where: {
-      book_id_user_id: {
-        book_id,
+      goal_id_user_id: {
+        goal_id,
         user_id,
       },
     },
@@ -319,7 +310,7 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
       role,
     },
     create: {
-      book_id,
+      goal_id,
       user_id,
       role,
     },
@@ -328,11 +319,11 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
   return result;
 };
 
-export const BookServices = {
-  createBook,
-  getAllBooks,
-  getBookById,
-  updateBook,
-  deleteBooks,
-  shareBook,
+export const GoalServices = {
+  createGoal,
+  getAllGoals,
+  getGoalById,
+  updateGoal,
+  deleteGoals,
+  shareGoal,
 };

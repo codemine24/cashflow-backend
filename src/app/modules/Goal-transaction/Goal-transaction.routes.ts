@@ -1,8 +1,8 @@
 import { Router } from "express";
 import auth from "../../middlewares/auth";
 import payloadValidator from "../../middlewares/payload-validator";
-import { BookSchemas } from "./Book.schemas";
-import { BookControllers } from "./Book.controllers";
+import { GoalTransactionSchemas } from "./Goal-transaction.schemas";
+import { GoalTransactionControllers } from "./Goal-transaction.controllers";
 import { UserRole } from "../../../generated/prisma/enums";
 import { deleteRecordsValidationSchema } from "../../shared/schema";
 
@@ -11,41 +11,34 @@ const router = Router();
 router.post(
   "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(BookSchemas.createBook),
-  BookControllers.createBook,
+  payloadValidator(GoalTransactionSchemas.createGoalTransaction),
+  GoalTransactionControllers.createGoalTransaction,
 );
 
 router.get(
-  "/",
+  "/goal/:goalId",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  BookControllers.getAllBooks,
+  GoalTransactionControllers.getGoalTransactionsByGoal,
 );
 
 router.get(
   "/:id",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  BookControllers.getBookById,
+  GoalTransactionControllers.getGoalTransactionById,
 );
 
 router.patch(
   "/:id",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(BookSchemas.updateBook),
-  BookControllers.updateBook,
+  payloadValidator(GoalTransactionSchemas.updateGoalTransaction),
+  GoalTransactionControllers.updateGoalTransaction,
 );
 
 router.delete(
   "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   payloadValidator(deleteRecordsValidationSchema),
-  BookControllers.deleteBooks,
+  GoalTransactionControllers.deleteGoalTransaction,
 );
 
-router.post(
-  "/share",
-  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(BookSchemas.shareBook),
-  BookControllers.shareBook,
-);
-
-export const BookRoutes = router;
+export const GoalTransactionRoutes = router;

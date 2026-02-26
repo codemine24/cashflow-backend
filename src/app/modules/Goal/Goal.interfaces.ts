@@ -1,0 +1,5 @@
+import z from "zod";
+import { GoalSchemas } from "./Goal.schemas";
+
+export type CreateGoalPayload = z.infer<typeof GoalSchemas.createGoal>["body"];
+export type UpdateGoalPayload = z.infer<typeof GoalSchemas.updateGoal>["body"];
