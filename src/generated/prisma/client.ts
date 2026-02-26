@@ -82,3 +82,8 @@ export type GoalTransaction = Prisma.GoalTransactionModel
  * 
  */
 export type Category = Prisma.CategoryModel
+/**
+ * Model File
+ * 
+ */
+export type File = Prisma.FileModel

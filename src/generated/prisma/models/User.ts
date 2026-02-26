@@ -240,6 +240,7 @@ export type UserWhereInput = {
   goals?: Prisma.GoalListRelationFilter
   books_member?: Prisma.BookMemberListRelationFilter
   goals_member?: Prisma.GoalMemberListRelationFilter
+  files?: Prisma.FileListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -264,6 +265,7 @@ export type UserOrderByWithRelationInput = {
   goals?: Prisma.GoalOrderByRelationAggregateInput
   books_member?: Prisma.BookMemberOrderByRelationAggregateInput
   goals_member?: Prisma.GoalMemberOrderByRelationAggregateInput
+  files?: Prisma.FileOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -291,6 +293,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   goals?: Prisma.GoalListRelationFilter
   books_member?: Prisma.BookMemberListRelationFilter
   goals_member?: Prisma.GoalMemberListRelationFilter
+  files?: Prisma.FileListRelationFilter
 }, "id" | "email" | "contact_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -349,6 +352,7 @@ export type UserCreateInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -373,6 +377,7 @@ export type UserUncheckedCreateInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUpdateInput = {
@@ -397,6 +402,7 @@ export type UserUpdateInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -421,6 +427,7 @@ export type UserUncheckedUpdateInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -687,6 +694,22 @@ export type UserUpdateOneRequiredWithoutCategoriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCategoriesInput, Prisma.UserUpdateWithoutCategoriesInput>, Prisma.UserUncheckedUpdateWithoutCategoriesInput>
 }
 
+export type UserCreateNestedOneWithoutFilesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutFilesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutFilesInput
+  upsert?: Prisma.UserUpsertWithoutFilesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
+}
+
 export type UserCreateWithoutBooksInput = {
   id?: string
   name?: string | null
@@ -708,6 +731,7 @@ export type UserCreateWithoutBooksInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutBooksInput = {
@@ -731,6 +755,7 @@ export type UserUncheckedCreateWithoutBooksInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutBooksInput = {
@@ -770,6 +795,7 @@ export type UserUpdateWithoutBooksInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooksInput = {
@@ -793,6 +819,7 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutBooks_memberInput = {
@@ -816,6 +843,7 @@ export type UserCreateWithoutBooks_memberInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutBooks_memberInput = {
@@ -839,6 +867,7 @@ export type UserUncheckedCreateWithoutBooks_memberInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutBooks_memberInput = {
@@ -878,6 +907,7 @@ export type UserUpdateWithoutBooks_memberInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooks_memberInput = {
@@ -901,6 +931,7 @@ export type UserUncheckedUpdateWithoutBooks_memberInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutEntered_transactionsInput = {
@@ -924,6 +955,7 @@ export type UserCreateWithoutEntered_transactionsInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutEntered_transactionsInput = {
@@ -947,6 +979,7 @@ export type UserUncheckedCreateWithoutEntered_transactionsInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutEntered_transactionsInput = {
@@ -975,6 +1008,7 @@ export type UserCreateWithoutUpdated_transactionsInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
@@ -998,6 +1032,7 @@ export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_transactionsInput = {
@@ -1037,6 +1072,7 @@ export type UserUpdateWithoutEntered_transactionsInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
@@ -1060,6 +1096,7 @@ export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUpsertWithoutUpdated_transactionsInput = {
@@ -1094,6 +1131,7 @@ export type UserUpdateWithoutUpdated_transactionsInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
@@ -1117,6 +1155,7 @@ export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1140,6 +1179,7 @@ export type UserCreateWithoutGoalsInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -1163,6 +1203,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1202,6 +1243,7 @@ export type UserUpdateWithoutGoalsInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -1225,6 +1267,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutGoals_memberInput = {
@@ -1248,6 +1291,7 @@ export type UserCreateWithoutGoals_memberInput = {
   categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutGoals_memberInput = {
@@ -1271,6 +1315,7 @@ export type UserUncheckedCreateWithoutGoals_memberInput = {
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutGoals_memberInput = {
@@ -1310,6 +1355,7 @@ export type UserUpdateWithoutGoals_memberInput = {
   categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoals_memberInput = {
@@ -1333,6 +1379,7 @@ export type UserUncheckedUpdateWithoutGoals_memberInput = {
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutEntered_goal_transactionsInput = {
@@ -1356,6 +1403,7 @@ export type UserCreateWithoutEntered_goal_transactionsInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
@@ -1379,6 +1427,7 @@ export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutEntered_goal_transactionsInput = {
@@ -1407,6 +1456,7 @@ export type UserCreateWithoutUpdated_goal_transactionsInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
@@ -1430,6 +1480,7 @@ export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_goal_transactionsInput = {
@@ -1458,6 +1509,7 @@ export type UserCreateWithoutGoal_transactionsInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutGoal_transactionsInput = {
@@ -1481,6 +1533,7 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutGoal_transactionsInput = {
@@ -1520,6 +1573,7 @@ export type UserUpdateWithoutEntered_goal_transactionsInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
@@ -1543,6 +1597,7 @@ export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUpsertWithoutUpdated_goal_transactionsInput = {
@@ -1577,6 +1632,7 @@ export type UserUpdateWithoutUpdated_goal_transactionsInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
@@ -1600,6 +1656,7 @@ export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUpsertWithoutGoal_transactionsInput = {
@@ -1634,6 +1691,7 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
@@ -1657,6 +1715,7 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -1680,6 +1739,7 @@ export type UserCreateWithoutCategoriesInput = {
   goals?: Prisma.GoalCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -1703,6 +1763,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -1742,6 +1803,7 @@ export type UserUpdateWithoutCategoriesInput = {
   goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1765,6 +1827,119 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
+}
+
+export type UserCreateWithoutFilesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookCreateNestedManyWithoutUserInput
+  entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
+  entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
+  updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
+  goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
+  goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutFilesInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
+  entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
+  entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
+  goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutFilesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+}
+
+export type UserUpsertWithoutFilesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutFilesInput, Prisma.UserUncheckedCreateWithoutFilesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutFilesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutFilesInput, Prisma.UserUncheckedUpdateWithoutFilesInput>
+}
+
+export type UserUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUpdateManyWithoutUserNestedInput
+  entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
+  entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
+  updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
+  goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutFilesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
+  entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
+  entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
+  goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -1783,6 +1958,7 @@ export type UserCountOutputType = {
   goals: number
   books_member: number
   goals_member: number
+  files: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1796,6 +1972,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   goals?: boolean | UserCountOutputTypeCountGoalsArgs
   books_member?: boolean | UserCountOutputTypeCountBooks_memberArgs
   goals_member?: boolean | UserCountOutputTypeCountGoals_memberArgs
+  files?: boolean | UserCountOutputTypeCountFilesArgs
 }
 
 /**
@@ -1878,6 +2055,13 @@ export type UserCountOutputTypeCountGoals_memberArgs<ExtArgs extends runtime.Typ
   where?: Prisma.GoalMemberWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountFilesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.FileWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1901,6 +2085,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   books_member?: boolean | Prisma.User$books_memberArgs<ExtArgs>
   goals_member?: boolean | Prisma.User$goals_memberArgs<ExtArgs>
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1958,6 +2143,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   goals?: boolean | Prisma.User$goalsArgs<ExtArgs>
   books_member?: boolean | Prisma.User$books_memberArgs<ExtArgs>
   goals_member?: boolean | Prisma.User$goals_memberArgs<ExtArgs>
+  files?: boolean | Prisma.User$filesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1976,6 +2162,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     goals: Prisma.$GoalPayload<ExtArgs>[]
     books_member: Prisma.$BookMemberPayload<ExtArgs>[]
     goals_member: Prisma.$GoalMemberPayload<ExtArgs>[]
+    files: Prisma.$FilePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2393,6 +2580,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   goals<T extends Prisma.User$goalsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goalsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   books_member<T extends Prisma.User$books_memberArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$books_memberArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BookMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   goals_member<T extends Prisma.User$goals_memberArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goals_memberArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3058,6 +3246,30 @@ export type User$goals_memberArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.GoalMemberScalarFieldEnum | Prisma.GoalMemberScalarFieldEnum[]
+}
+
+/**
+ * User.files
+ */
+export type User$filesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the File
+   */
+  select?: Prisma.FileSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the File
+   */
+  omit?: Prisma.FileOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInclude<ExtArgs> | null
+  where?: Prisma.FileWhereInput
+  orderBy?: Prisma.FileOrderByWithRelationInput | Prisma.FileOrderByWithRelationInput[]
+  cursor?: Prisma.FileWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.FileScalarFieldEnum | Prisma.FileScalarFieldEnum[]
 }
 
 /**

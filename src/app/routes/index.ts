@@ -5,6 +5,7 @@ import { TransactionRoutes } from "../modules/Transaction/Transaction.routes";
 import { CategoryRoutes } from "../modules/Category/Category.routes";
 import { GoalTransactionRoutes } from "../modules/Goal-transaction/Goal-transaction.routes";
 import { GoalRoutes } from "../modules/Goal/Goal.routes";
+import { UserRoutes } from "../modules/User/User.routes";
 
 const router = Router();
 
@@ -12,6 +13,10 @@ const routes = [
   {
     path: "/auth",
     route: AuthRoutes,
+  },
+  {
+    path: "/user",
+    route: UserRoutes,
   },
   {
     path: "/book",
