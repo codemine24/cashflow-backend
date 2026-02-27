@@ -1,4 +1,4 @@
 {
-  name: "Main menu",
-  items: 16
+  name: "Main menu";
+  items: 15
 }
