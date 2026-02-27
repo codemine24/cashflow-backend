@@ -1,12 +1,14 @@
+import { Theme } from "../../../generated/prisma/enums";
+
 export type CreateSettingPayload = {
-  theme: string;
+  theme: Theme;
   language?: string;
   currency?: string;
   push_notification?: boolean;
 };
 
 export type UpdateSettingPayload = {
-  theme?: string;
+  theme?: Theme;
   language?: string;
   currency?: string;
   push_notification?: boolean;
