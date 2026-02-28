@@ -14,7 +14,7 @@ export const seedSuperAdmin = async () => {
     where: {
       role: UserRole.SUPER_ADMIN,
     },
-  });
+  }); //demo
 
   if (!isExistSuperAdmin?.id) {
     await prisma.user.create({

@@ -6,6 +6,77 @@ import config from "../../../config";
 import CustomizedError from "../../error/customized-error";
 import httpStatus from "http-status";
 import { prisma } from "../../shared/prisma";
+import queryValidator from "../../utils/query-validator";
+import { userQueryValidationConfig, userSearchableFields } from "./user.utils";
+import paginationMaker from "../../utils/pagination-maker";
+import { Prisma } from "../../../generated/prisma/client";
+
+// -------------------------------------- GET ALL USERS ------------------------------------
+const getAllUsers = async (user: TAuthUser, query: Record<string, any>) => {
+   const { search_term, page, limit, sort_by, sort_order } = query;
+
+  if (sort_by) queryValidator(userQueryValidationConfig, "sort_by", sort_by);
+  if (sort_order)
+    queryValidator(userQueryValidationConfig, "sort_order", sort_order);
+
+    const { pageNumber, limitNumber, skip, sortWith, sortSequence } =
+    paginationMaker({
+      page,
+      limit,
+      sort_by,
+      sort_order,
+    });
+
+    const andConditions: Prisma.UserWhereInput[] = [
+      {
+        email: {
+          not: user.email,
+        },
+      },
+    ];
+
+    if(search_term){
+      andConditions.push({
+        OR: userSearchableFields.map((field) => ({
+          [field]: {
+            contains: search_term,
+            mode: "insensitive",
+          },
+        })),
+      });
+    }
+
+  const whereConditions = {
+      AND: andConditions,
+    };
+
+  const [result, total] = await Promise.all([
+    await prisma.user.findMany({
+    where: whereConditions,
+    skip,
+    take: limitNumber,
+    orderBy: {
+      [sortWith]: sortSequence,
+    },
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      avatar: true,
+    },
+  }),
+  prisma.user.count({ where: whereConditions }),
+  ]);
+
+  return {
+    data: result,
+    meta: {
+      page: pageNumber,
+      limit: limitNumber,
+      total,
+    },
+  };
+};
 
 // -------------------------------------- UPDATE PROFILE ------------------------------------
 const updateProfile = async (
@@ -88,5 +159,6 @@ const updateProfile = async (
 };
 
 export const UserServices = {
+  getAllUsers,
   updateProfile,
 };
