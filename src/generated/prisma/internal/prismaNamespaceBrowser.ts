@@ -59,7 +59,8 @@ export const ModelName = {
   Goal: 'Goal',
   GoalMember: 'GoalMember',
   GoalTransaction: 'GoalTransaction',
-  Category: 'Category'
+  Category: 'Category',
+  File: 'File'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -194,6 +195,25 @@ export const CategoryScalarFieldEnum = {
 } as const
 
 export type CategoryScalarFieldEnum = (typeof CategoryScalarFieldEnum)[keyof typeof CategoryScalarFieldEnum]
+
+
+export const FileScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  name: 'name',
+  alt_text: 'alt_text',
+  type: 'type',
+  size: 'size',
+  width: 'width',
+  height: 'height',
+  path: 'path',
+  bucket_id: 'bucket_id',
+  bucket_name: 'bucket_name',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
 
 
 export const SortOrder = {

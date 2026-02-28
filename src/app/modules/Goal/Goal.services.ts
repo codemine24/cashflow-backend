@@ -140,6 +140,7 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       in: totalIn,
       out: totalOut,
       balance,
+      total_transactions: goal.transactions.length,
       others_member: [...members, { ...goal.user, role: "OWNER" }].filter(
         (member) => member.id !== user.id,
       ),
