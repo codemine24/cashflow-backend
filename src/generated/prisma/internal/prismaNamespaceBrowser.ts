@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Settings: 'Settings',
   User: 'User',
   OTP: 'OTP',
   Book: 'Book',
@@ -77,6 +78,19 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const SettingsScalarFieldEnum = {
+  id: 'id',
+  theme: 'theme',
+  language: 'language',
+  currency: 'currency',
+  push_notification: 'push_notification',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type SettingsScalarFieldEnum = (typeof SettingsScalarFieldEnum)[keyof typeof SettingsScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {

@@ -17,7 +17,7 @@ const updateProfile = async (
 
   if (file) {
     const metadata = await sharp(file.buffer).metadata();
-    const fileName = `${Date.now()}_${file.originalname}`;
+    const fileName = `${Date.now()}_${file.originalname.replace(/\s/g, "_")}`;
     const { data } = await supabase.storage
       .from(config.user_bucket)
       .upload(fileName, file.buffer, {
@@ -48,8 +48,6 @@ const updateProfile = async (
       data: avatarData,
     });
 
-    console.log;
-
     const userInfo = await prisma.user.findUniqueOrThrow({
       where: {
         id: user?.id,
@@ -76,7 +74,7 @@ const updateProfile = async (
   }
 
   if (avatar?.path) {
-    payload.profile_pic = avatar.path;
+    payload.avatar = avatar.path;
   }
 
   const result = prisma.user.update({

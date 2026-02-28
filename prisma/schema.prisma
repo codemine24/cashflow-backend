@@ -7,6 +7,18 @@ datasource db {
   provider = "postgresql"
 }
 
+model Settings {
+  id                String   @id @default(uuid())
+  theme             Theme    @default(LIGHT)
+  language          String   @default("english")
+  currency          String   @default("BDT")
+  push_notification Boolean  @default(false)
+  created_at        DateTime @default(now())
+  updated_at        DateTime @updatedAt
+
+  @@map("settings")
+}
+
 model User {
   id                  String     @id @default(uuid())
   name                String?
@@ -85,10 +97,10 @@ model Transaction {
   created_at   DateTime        @default(now())
   updated_at   DateTime        @updatedAt
 
-  book      Book      @relation(fields: [book_id], references: [id])
-  entry_by  User      @relation("EnteredTransactions", fields: [entry_by_id], references: [id])
+  book       Book      @relation(fields: [book_id], references: [id])
+  entry_by   User      @relation("EnteredTransactions", fields: [entry_by_id], references: [id])
   updated_by User?     @relation("UpdatedTransactions", fields: [update_by_id], references: [id])
-  category  Category? @relation(fields: [category_id], references: [id])
+  category   Category? @relation(fields: [category_id], references: [id])
 
   @@map("transactions")
 }
@@ -198,4 +210,10 @@ enum ShareRole {
 enum TransactionType {
   IN
   OUT
+}
+
+enum Theme {
+  LIGHT
+  DARK
+  SYSTEM
 }

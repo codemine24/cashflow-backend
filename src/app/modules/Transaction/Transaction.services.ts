@@ -37,11 +37,32 @@ const createTransaction = async (
     );
   }
 
-  const result = await prisma.transaction.create({
-    data: {
-      ...payload,
-      entry_by_id: user.id,
-    },
+  const { date, time, ...transactionData } = payload;
+
+  let created_at: Date | undefined;
+  if (date || time) {
+    const datePart = date ?? new Date().toISOString().slice(0, 10);
+    const timePart = time ?? "00:00:00";
+    created_at = new Date(`${datePart}T${timePart}`);
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.transaction.create({
+      data: {
+        ...transactionData,
+        entry_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.book.update({
+      where: { id: book.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
   return result;
 };
@@ -217,14 +238,35 @@ const updateTransaction = async (
     );
   }
 
-  const result = await prisma.transaction.update({
-    where: {
-      id,
-    },
-    data: {
-      ...payload,
-      update_by_id: user.id,
-    },
+  const { date, time, ...transactionData } = payload;
+
+  let created_at: Date | undefined;
+  if (date || time) {
+    const datePart = date ?? new Date().toISOString().slice(0, 10);
+    const timePart = time ?? "00:00:00";
+    created_at = new Date(`${datePart}T${timePart}`);
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    const transaction = await tx.transaction.update({
+      where: {
+        id,
+      },
+      data: {
+        ...transactionData,
+        update_by_id: user.id,
+        ...(created_at ? { created_at } : {}),
+      },
+    });
+
+    await tx.book.update({
+      where: { id: book.id },
+      data: {
+        updated_at: new Date(),
+      },
+    });
+
+    return transaction;
   });
 
   return result;
