@@ -1,5 +1,9 @@
 import { prisma } from "../../shared/prisma";
-import { CreateGoalPayload, UpdateGoalPayload } from "./Goal.interfaces";
+import {
+  CreateGoalPayload,
+  ShareGoalPayload,
+  UpdateGoalPayload,
+} from "./Goal.interfaces";
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
 import { goalQueryValidationConfig, goalSearchableFields } from "./Goal.utils";
@@ -274,8 +278,8 @@ const deleteGoals = async (user: TAuthUser, ids: string[]) => {
 };
 
 // -------------------------------------- SHARE GOAL -------------------------------------
-const shareGoal = async (user: TAuthUser, payload: any) => {
-  const { goal_id, user_id, role = "VIEWER" } = payload;
+const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
+  const { goal_id, email, role = "VIEWER" } = payload;
 
   // Step 1: Verify ownership
   const owner = await prisma.goal.findFirst({
@@ -292,7 +296,7 @@ const shareGoal = async (user: TAuthUser, payload: any) => {
   // Step 2: Check shared user exist
   const sharedUser = await prisma.user.findUnique({
     where: {
-      id: user_id,
+      email,
     },
   });
 
@@ -304,7 +308,7 @@ const shareGoal = async (user: TAuthUser, payload: any) => {
     where: {
       goal_id_user_id: {
         goal_id,
-        user_id,
+        user_id: sharedUser.id,
       },
     },
     update: {
@@ -312,7 +316,7 @@ const shareGoal = async (user: TAuthUser, payload: any) => {
     },
     create: {
       goal_id,
-      user_id,
+      user_id: sharedUser.id,
       role,
     },
   });

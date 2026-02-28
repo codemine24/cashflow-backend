@@ -283,7 +283,7 @@ const deleteBooks = async (user: TAuthUser, ids: string[]) => {
 
 // -------------------------------------- SHARE BOOK --------------------------------------
 const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
-  const { book_id, user_id, role = "VIEWER" } = payload;
+  const { book_id, email, role = "VIEWER" } = payload;
 
   // Step 1: Verify ownership
   const owner = await prisma.book.findFirst({
@@ -300,7 +300,7 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
   // Step 2: Check shared user exist
   const sharedUser = await prisma.user.findUnique({
     where: {
-      id: user_id,
+      email,
     },
   });
 
@@ -312,7 +312,7 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     where: {
       book_id_user_id: {
         book_id,
-        user_id,
+        user_id: sharedUser.id,
       },
     },
     update: {
@@ -320,7 +320,7 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     },
     create: {
       book_id,
-      user_id,
+      user_id: sharedUser.id,
       role,
     },
   });

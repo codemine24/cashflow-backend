@@ -18,7 +18,7 @@ const shareGoal = z.object({
   body: z
     .object({
       goal_id: z.uuid({ message: "Goal ID should be a valid UUID" }),
-      user_id: z.uuid({ message: "User ID should be a valid UUID" }),
+      email: z.email({ message: "Email should be a valid email" }),
       role: z
         .enum(Object.values(ShareRole), {
           message: `Role should be one of ${Object.values(ShareRole).join(
