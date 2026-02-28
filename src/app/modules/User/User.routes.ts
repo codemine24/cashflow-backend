@@ -8,6 +8,12 @@ import { UserSchemas } from "./User.schemas";
 
 const router = Router();
 
+router.get(
+  "/",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  UserControllers.getAllUsers,
+);
+
 router.patch(
   "/update-profile",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
