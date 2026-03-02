@@ -115,9 +115,12 @@ export const SubscriptionScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
   plan: 'plan',
+  price: 'price',
   start_date: 'start_date',
   end_date: 'end_date',
-  is_active: 'is_active'
+  is_active: 'is_active',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
 } as const
 
 export type SubscriptionScalarFieldEnum = (typeof SubscriptionScalarFieldEnum)[keyof typeof SubscriptionScalarFieldEnum]

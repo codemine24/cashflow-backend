@@ -52,9 +52,10 @@ export const Theme = {
 export type Theme = (typeof Theme)[keyof typeof Theme]
 
 
-export const UserPlan = {
-  FREE: 'FREE',
-  PREMIUM: 'PREMIUM'
+export const SubscriptionPlan = {
+  MONTHLY: 'MONTHLY',
+  YEARLY: 'YEARLY',
+  LIFETIME: 'LIFETIME'
 } as const
 
-export type UserPlan = (typeof UserPlan)[keyof typeof UserPlan]
+export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
