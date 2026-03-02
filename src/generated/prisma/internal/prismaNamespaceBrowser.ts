@@ -168,6 +168,7 @@ export const TransactionScalarFieldEnum = {
   type: 'type',
   remark: 'remark',
   category_id: 'category_id',
+  attachment: 'attachment',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

@@ -113,6 +113,7 @@ model Transaction {
   type         TransactionType
   remark       String?
   category_id  String?
+  attachment   String[]        @default([])
   created_at   DateTime        @default(now())
   updated_at   DateTime        @updatedAt
 

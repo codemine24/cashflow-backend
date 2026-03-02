@@ -69,6 +69,7 @@ export type TransactionCountAggregateOutputType = {
   type: number
   remark: number
   category_id: number
+  attachment: number
   created_at: number
   updated_at: number
   _all: number
@@ -118,6 +119,7 @@ export type TransactionCountAggregateInputType = {
   type?: true
   remark?: true
   category_id?: true
+  attachment?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -218,6 +220,7 @@ export type TransactionGroupByOutputType = {
   type: $Enums.TransactionType
   remark: string | null
   category_id: string | null
+  attachment: string[]
   created_at: Date
   updated_at: Date
   _count: TransactionCountAggregateOutputType | null
@@ -254,6 +257,7 @@ export type TransactionWhereInput = {
   type?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"Transaction"> | string | null
   category_id?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  attachment?: Prisma.StringNullableListFilter<"Transaction">
   created_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   book?: Prisma.XOR<Prisma.BookScalarRelationFilter, Prisma.BookWhereInput>
@@ -271,6 +275,7 @@ export type TransactionOrderByWithRelationInput = {
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   category_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  attachment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   book?: Prisma.BookOrderByWithRelationInput
@@ -291,6 +296,7 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   type?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"Transaction"> | string | null
   category_id?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  attachment?: Prisma.StringNullableListFilter<"Transaction">
   created_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   book?: Prisma.XOR<Prisma.BookScalarRelationFilter, Prisma.BookWhereInput>
@@ -308,6 +314,7 @@ export type TransactionOrderByWithAggregationInput = {
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrderInput | Prisma.SortOrder
   category_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  attachment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.TransactionCountOrderByAggregateInput
@@ -329,6 +336,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
   type?: Prisma.EnumTransactionTypeWithAggregatesFilter<"Transaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
   category_id?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
+  attachment?: Prisma.StringNullableListFilter<"Transaction">
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
 }
@@ -338,6 +346,7 @@ export type TransactionCreateInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
   book: Prisma.BookCreateNestedOneWithoutTransactionsInput
@@ -355,6 +364,7 @@ export type TransactionUncheckedCreateInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -364,6 +374,7 @@ export type TransactionUpdateInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   book?: Prisma.BookUpdateOneRequiredWithoutTransactionsNestedInput
@@ -381,6 +392,7 @@ export type TransactionUncheckedUpdateInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -394,6 +406,7 @@ export type TransactionCreateManyInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -403,6 +416,7 @@ export type TransactionUpdateManyMutationInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -416,6 +430,7 @@ export type TransactionUncheckedUpdateManyInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -430,6 +445,14 @@ export type TransactionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type TransactionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   book_id?: Prisma.SortOrder
@@ -439,6 +462,7 @@ export type TransactionCountOrderByAggregateInput = {
   type?: Prisma.SortOrder
   remark?: Prisma.SortOrder
   category_id?: Prisma.SortOrder
+  attachment?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -603,6 +627,10 @@ export type TransactionUncheckedUpdateManyWithoutBookNestedInput = {
   deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
 }
 
+export type TransactionCreateattachmentInput = {
+  set: string[]
+}
+
 export type DecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -613,6 +641,11 @@ export type DecimalFieldUpdateOperationsInput = {
 
 export type EnumTransactionTypeFieldUpdateOperationsInput = {
   set?: $Enums.TransactionType
+}
+
+export type TransactionUpdateattachmentInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type TransactionCreateNestedManyWithoutCategoryInput = {
@@ -662,6 +695,7 @@ export type TransactionCreateWithoutEntry_byInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
   book: Prisma.BookCreateNestedOneWithoutTransactionsInput
@@ -677,6 +711,7 @@ export type TransactionUncheckedCreateWithoutEntry_byInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -696,6 +731,7 @@ export type TransactionCreateWithoutUpdated_byInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
   book: Prisma.BookCreateNestedOneWithoutTransactionsInput
@@ -711,6 +747,7 @@ export type TransactionUncheckedCreateWithoutUpdated_byInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -753,6 +790,7 @@ export type TransactionScalarWhereInput = {
   type?: Prisma.EnumTransactionTypeFilter<"Transaction"> | $Enums.TransactionType
   remark?: Prisma.StringNullableFilter<"Transaction"> | string | null
   category_id?: Prisma.StringNullableFilter<"Transaction"> | string | null
+  attachment?: Prisma.StringNullableListFilter<"Transaction">
   created_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Transaction"> | Date | string
 }
@@ -778,6 +816,7 @@ export type TransactionCreateWithoutBookInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
   entry_by: Prisma.UserCreateNestedOneWithoutEntered_transactionsInput
@@ -793,6 +832,7 @@ export type TransactionUncheckedCreateWithoutBookInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -828,6 +868,7 @@ export type TransactionCreateWithoutCategoryInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
   book: Prisma.BookCreateNestedOneWithoutTransactionsInput
@@ -843,6 +884,7 @@ export type TransactionUncheckedCreateWithoutCategoryInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -881,6 +923,7 @@ export type TransactionCreateManyEntry_byInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -893,6 +936,7 @@ export type TransactionCreateManyUpdated_byInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -902,6 +946,7 @@ export type TransactionUpdateWithoutEntry_byInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   book?: Prisma.BookUpdateOneRequiredWithoutTransactionsNestedInput
@@ -917,6 +962,7 @@ export type TransactionUncheckedUpdateWithoutEntry_byInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -929,6 +975,7 @@ export type TransactionUncheckedUpdateManyWithoutEntry_byInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -938,6 +985,7 @@ export type TransactionUpdateWithoutUpdated_byInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   book?: Prisma.BookUpdateOneRequiredWithoutTransactionsNestedInput
@@ -953,6 +1001,7 @@ export type TransactionUncheckedUpdateWithoutUpdated_byInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -965,6 +1014,7 @@ export type TransactionUncheckedUpdateManyWithoutUpdated_byInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -977,6 +1027,7 @@ export type TransactionCreateManyBookInput = {
   type: $Enums.TransactionType
   remark?: string | null
   category_id?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -986,6 +1037,7 @@ export type TransactionUpdateWithoutBookInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entry_by?: Prisma.UserUpdateOneRequiredWithoutEntered_transactionsNestedInput
@@ -1001,6 +1053,7 @@ export type TransactionUncheckedUpdateWithoutBookInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1013,6 +1066,7 @@ export type TransactionUncheckedUpdateManyWithoutBookInput = {
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   category_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1025,6 +1079,7 @@ export type TransactionCreateManyCategoryInput = {
   amount?: runtime.Decimal | runtime.DecimalJsLike | number | string
   type: $Enums.TransactionType
   remark?: string | null
+  attachment?: Prisma.TransactionCreateattachmentInput | string[]
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -1034,6 +1089,7 @@ export type TransactionUpdateWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   book?: Prisma.BookUpdateOneRequiredWithoutTransactionsNestedInput
@@ -1049,6 +1105,7 @@ export type TransactionUncheckedUpdateWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1061,6 +1118,7 @@ export type TransactionUncheckedUpdateManyWithoutCategoryInput = {
   amount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   type?: Prisma.EnumTransactionTypeFieldUpdateOperationsInput | $Enums.TransactionType
   remark?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  attachment?: Prisma.TransactionUpdateattachmentInput | string[]
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1076,6 +1134,7 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   type?: boolean
   remark?: boolean
   category_id?: boolean
+  attachment?: boolean
   created_at?: boolean
   updated_at?: boolean
   book?: boolean | Prisma.BookDefaultArgs<ExtArgs>
@@ -1093,6 +1152,7 @@ export type TransactionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   type?: boolean
   remark?: boolean
   category_id?: boolean
+  attachment?: boolean
   created_at?: boolean
   updated_at?: boolean
   book?: boolean | Prisma.BookDefaultArgs<ExtArgs>
@@ -1110,6 +1170,7 @@ export type TransactionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   type?: boolean
   remark?: boolean
   category_id?: boolean
+  attachment?: boolean
   created_at?: boolean
   updated_at?: boolean
   book?: boolean | Prisma.BookDefaultArgs<ExtArgs>
@@ -1127,11 +1188,12 @@ export type TransactionSelectScalar = {
   type?: boolean
   remark?: boolean
   category_id?: boolean
+  attachment?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "book_id" | "entry_by_id" | "update_by_id" | "amount" | "type" | "remark" | "category_id" | "created_at" | "updated_at", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "book_id" | "entry_by_id" | "update_by_id" | "amount" | "type" | "remark" | "category_id" | "attachment" | "created_at" | "updated_at", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   book?: boolean | Prisma.BookDefaultArgs<ExtArgs>
   entry_by?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1168,6 +1230,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     type: $Enums.TransactionType
     remark: string | null
     category_id: string | null
+    attachment: string[]
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["transaction"]>
@@ -1605,6 +1668,7 @@ export interface TransactionFieldRefs {
   readonly type: Prisma.FieldRef<"Transaction", 'TransactionType'>
   readonly remark: Prisma.FieldRef<"Transaction", 'String'>
   readonly category_id: Prisma.FieldRef<"Transaction", 'String'>
+  readonly attachment: Prisma.FieldRef<"Transaction", 'String[]'>
   readonly created_at: Prisma.FieldRef<"Transaction", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Transaction", 'DateTime'>
 }
