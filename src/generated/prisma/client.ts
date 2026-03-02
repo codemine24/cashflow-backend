@@ -48,6 +48,11 @@ export type Settings = Prisma.SettingsModel
  */
 export type User = Prisma.UserModel
 /**
+ * Model Subscription
+ * 
+ */
+export type Subscription = Prisma.SubscriptionModel
+/**
  * Model OTP
  * 
  */

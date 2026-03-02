@@ -50,3 +50,11 @@ export const Theme = {
 } as const
 
 export type Theme = (typeof Theme)[keyof typeof Theme]
+
+
+export const UserPlan = {
+  FREE: 'FREE',
+  PREMIUM: 'PREMIUM'
+} as const
+
+export type UserPlan = (typeof UserPlan)[keyof typeof UserPlan]

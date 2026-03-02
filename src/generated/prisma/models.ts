@@ -10,6 +10,7 @@
  */
 export type * from './models/Settings'
 export type * from './models/User'
+export type * from './models/Subscription'
 export type * from './models/OTP'
 export type * from './models/Book'
 export type * from './models/BookMember'

@@ -43,8 +43,22 @@ model User {
   books_member              BookMember[]
   goals_member              GoalMember[]
   files                     File[]
+  subscriptions             Subscription[]
 
   @@map("users")
+}
+
+model Subscription {
+  id          String   @id @default(uuid())
+  user_id     String
+  plan        UserPlan
+  start_date  DateTime @default(now())
+  end_date    DateTime
+  is_active   Boolean  @default(true)
+
+  user        User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("subscriptions")
 }
 
 model OTP {
@@ -216,4 +230,9 @@ enum Theme {
   LIGHT
   DARK
   SYSTEM
+}
+
+enum UserPlan {
+  FREE
+  PREMIUM
 }

@@ -174,6 +174,23 @@ export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
 }
 
+export type EnumUserPlanFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserPlan | Prisma.EnumUserPlanFieldRefInput<$PrismaModel>
+  in?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserPlanFilter<$PrismaModel> | $Enums.UserPlan
+}
+
+export type EnumUserPlanWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserPlan | Prisma.EnumUserPlanFieldRefInput<$PrismaModel>
+  in?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserPlanWithAggregatesFilter<$PrismaModel> | $Enums.UserPlan
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserPlanFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserPlanFilter<$PrismaModel>
+}
+
 export type IntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -433,6 +450,23 @@ export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
   _max?: Prisma.NestedEnumUserRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumUserPlanFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserPlan | Prisma.EnumUserPlanFieldRefInput<$PrismaModel>
+  in?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserPlanFilter<$PrismaModel> | $Enums.UserPlan
+}
+
+export type NestedEnumUserPlanWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.UserPlan | Prisma.EnumUserPlanFieldRefInput<$PrismaModel>
+  in?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  notIn?: $Enums.UserPlan[] | Prisma.ListEnumUserPlanFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumUserPlanWithAggregatesFilter<$PrismaModel> | $Enums.UserPlan
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumUserPlanFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumUserPlanFilter<$PrismaModel>
 }
 
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
