@@ -56,6 +56,30 @@ const createTransaction = async (
   const attachment: string[] = [];
 
   if (files && files.length > 0) {
+    const activeSubscription = await prisma.subscription.findFirst({
+      where: {
+        user_id: user.id,
+        is_active: true,
+        OR: [
+          {
+            end_date: null,
+          },
+          {
+            end_date: {
+              gt: new Date(),
+            },
+          },
+        ],
+      },
+    });
+
+    if (!activeSubscription) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "Upgrade to premium for upload attachments.",
+      );
+    }
+
     for (const file of files) {
       const metadata = await sharp(file.buffer).metadata();
       const fileName = `${Date.now()}_${file.originalname.replace(/\s/g, "_")}`;
@@ -302,6 +326,30 @@ const updateTransaction = async (
   const attachment: string[] = existingAttachments || transaction.attachment;
 
   if (files && files.length > 0) {
+    const activeSubscription = await prisma.subscription.findFirst({
+      where: {
+        user_id: user.id,
+        is_active: true,
+        OR: [
+          {
+            end_date: null,
+          },
+          {
+            end_date: {
+              gt: new Date(),
+            },
+          },
+        ],
+      },
+    });
+
+    if (!activeSubscription) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "Upgrade to premium for upload attachments.",
+      );
+    }
+
     for (const file of files) {
       const metadata = await sharp(file.buffer).metadata();
       const fileName = `${Date.now()}_${file.originalname.replace(/\s/g, "_")}`;
