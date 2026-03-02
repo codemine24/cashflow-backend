@@ -58,7 +58,7 @@ const createTransaction = async (
   if (files && files.length > 0) {
     const activeSubscription = await prisma.subscription.findFirst({
       where: {
-        user_id: user.id,
+        user_id: book.user_id,
         is_active: true,
         OR: [
           {
@@ -76,7 +76,7 @@ const createTransaction = async (
     if (!activeSubscription) {
       throw new CustomizedError(
         httpStatus.BAD_REQUEST,
-        "Upgrade to premium for upload attachments.",
+        "Upgrade to premium for upload attachments in this wallet.",
       );
     }
 
@@ -328,7 +328,7 @@ const updateTransaction = async (
   if (files && files.length > 0) {
     const activeSubscription = await prisma.subscription.findFirst({
       where: {
-        user_id: user.id,
+        user_id: book.user_id,
         is_active: true,
         OR: [
           {
@@ -346,7 +346,7 @@ const updateTransaction = async (
     if (!activeSubscription) {
       throw new CustomizedError(
         httpStatus.BAD_REQUEST,
-        "Upgrade to premium for upload attachments.",
+        "Upgrade to premium for upload attachments in this wallet.",
       );
     }
 
