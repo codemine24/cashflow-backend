@@ -11,6 +11,8 @@ import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 import CustomizedError from "../../error/customized-error";
 import httpStatus from "http-status";
+import emailSender from "../../utils/email-sender";
+import { shareBookTemplate } from "../../template/share-book-template";
 
 // -------------------------------------- CREATE BOOK ------------------------------------
 const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
@@ -403,6 +405,21 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
       role,
     },
   });
+
+  // Step 4: Send email notification
+  try {
+    const emailBody = shareBookTemplate({
+      receiverName: sharedUser.name || sharedUser.email || "User",
+      senderName: user.name || user.email || "A user",
+      bookName: owner.name,
+      role: role,
+    });
+
+    await emailSender(sharedUser.email, emailBody, "An wallet Shared With You");
+  } catch (error) {
+    console.error("Failed to send share wallet email:", error);
+    // We don't throw here to avoid failing the share operation if only email fails
+  }
 
   return result;
 };
