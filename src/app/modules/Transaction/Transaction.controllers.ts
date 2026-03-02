@@ -55,6 +55,7 @@ const updateTransaction = catchAsync(async (req, res) => {
     user,
     req.params.id,
     req.body,
+    req.files as any,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,

@@ -257,6 +257,7 @@ const updateTransaction = async (
   user: TAuthUser,
   id: string,
   payload: UpdateTransactionPayload,
+  files: TFile[] | undefined,
 ) => {
   const transaction = await prisma.transaction.findFirstOrThrow({
     where: {
@@ -284,13 +285,56 @@ const updateTransaction = async (
     );
   }
 
-  const { date, time, ...transactionData } = payload;
+  const {
+    date,
+    time,
+    attachment: existingAttachments,
+    ...transactionData
+  } = payload;
 
   let created_at: Date | undefined;
   if (date || time) {
     const datePart = date ?? new Date().toISOString().slice(0, 10);
     const timePart = time ?? "00:00:00";
     created_at = new Date(`${datePart}T${timePart}`);
+  }
+
+  const attachment: string[] = existingAttachments || transaction.attachment;
+
+  if (files && files.length > 0) {
+    for (const file of files) {
+      const metadata = await sharp(file.buffer).metadata();
+      const fileName = `${Date.now()}_${file.originalname.replace(/\s/g, "_")}`;
+      const { data } = await supabase.storage
+        .from(config.general_bucket)
+        .upload(fileName, file.buffer, {
+          contentType: file.mimetype,
+        });
+
+      if (!data?.id) {
+        throw new CustomizedError(
+          httpStatus.INTERNAL_SERVER_ERROR,
+          "Failed to upload attachment",
+        );
+      }
+
+      await prisma.file.create({
+        data: {
+          user_id: user.id,
+          name: file.originalname,
+          alt_text: file.originalname,
+          type: file.mimetype,
+          size: file.size,
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+          path: data.path,
+          bucket_id: data.id,
+          bucket_name: config.general_bucket,
+        },
+      });
+
+      attachment.push(data.path);
+    }
   }
 
   const result = await prisma.$transaction(async (tx) => {
@@ -300,6 +344,7 @@ const updateTransaction = async (
       },
       data: {
         ...transactionData,
+        attachment,
         update_by_id: user.id,
         ...(created_at ? { created_at } : {}),
       },

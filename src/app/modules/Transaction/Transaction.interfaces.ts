@@ -7,4 +7,4 @@ export type CreateTransactionPayload = z.infer<
 
 export type UpdateTransactionPayload = z.infer<
   typeof TransactionSchemas.updateTransaction
->["body"];
+>["body"] & { attachment?: string[] };

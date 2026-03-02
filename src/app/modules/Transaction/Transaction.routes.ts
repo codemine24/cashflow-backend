@@ -33,7 +33,8 @@ router.get(
 router.patch(
   "/:id",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(TransactionSchemas.updateTransaction),
+  fileUploader.upload.array("attachments", 10),
+  formDataValidator(TransactionSchemas.updateTransaction),
   TransactionControllers.updateTransaction,
 );
 

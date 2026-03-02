@@ -47,6 +47,7 @@ const updateTransaction = z.object({
         .optional(),
       remark: z.string().optional(),
       category_id: z.string().optional(),
+      attachment: z.array(z.string()).optional(),
       date: z
         .string()
         .regex(dateRegex, {
