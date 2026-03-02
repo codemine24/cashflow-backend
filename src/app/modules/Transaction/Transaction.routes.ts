@@ -5,13 +5,16 @@ import { TransactionSchemas } from "./Transaction.schemas";
 import { TransactionControllers } from "./Transaction.controllers";
 import { UserRole } from "../../../generated/prisma/enums";
 import { deleteRecordsValidationSchema } from "../../shared/schema";
+import { fileUploader } from "../../utils/file-uploader";
+import formDataValidator from "../../middlewares/form-data-validator";
 
 const router = Router();
 
 router.post(
   "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(TransactionSchemas.createTransaction),
+  fileUploader.upload.array("attachments", 10),
+  formDataValidator(TransactionSchemas.createTransaction),
   TransactionControllers.createTransaction,
 );
 

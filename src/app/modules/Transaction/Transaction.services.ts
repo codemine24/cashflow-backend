@@ -11,11 +11,18 @@ import {
 } from "./Transaction.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
+import { TFile } from "../../interfaces/file";
+import sharp from "sharp";
+import supabase from "../../shared/supabase";
+import config from "../../../config";
+import CustomizedError from "../../error/customized-error";
+import httpStatus from "http-status";
 
 // -------------------------------------- CREATE TRANSACTION --------------------------------
 const createTransaction = async (
   user: TAuthUser,
   payload: CreateTransactionPayload,
+  files: TFile[] | undefined,
 ) => {
   const book = await prisma.book.findFirst({
     where: {
@@ -46,11 +53,50 @@ const createTransaction = async (
     created_at = new Date(`${datePart}T${timePart}`);
   }
 
+  const attachment: string[] = [];
+
+  if (files && files.length > 0) {
+    for (const file of files) {
+      const metadata = await sharp(file.buffer).metadata();
+      const fileName = `${Date.now()}_${file.originalname.replace(/\s/g, "_")}`;
+      const { data } = await supabase.storage
+        .from(config.general_bucket)
+        .upload(fileName, file.buffer, {
+          contentType: file.mimetype,
+        });
+
+      if (!data?.id) {
+        throw new CustomizedError(
+          httpStatus.INTERNAL_SERVER_ERROR,
+          "Failed to upload attachment",
+        );
+      }
+
+      await prisma.file.create({
+        data: {
+          user_id: user.id,
+          name: file.originalname,
+          alt_text: file.originalname,
+          type: file.mimetype,
+          size: file.size,
+          width: metadata.width || 0,
+          height: metadata.height || 0,
+          path: data.path,
+          bucket_id: data.id,
+          bucket_name: config.general_bucket,
+        },
+      });
+
+      attachment.push(data.path);
+    }
+  }
+
   const result = await prisma.$transaction(async (tx) => {
     const transaction = await tx.transaction.create({
       data: {
         ...transactionData,
         entry_by_id: user.id,
+        attachment,
         ...(created_at ? { created_at } : {}),
       },
     });

@@ -17,7 +17,7 @@ router.get(
 router.patch(
   "/update-profile",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  fileUploader.singleUpload.single("avatar"),
+  fileUploader.upload.single("avatar"),
   formDataValidator(UserSchemas.updateProfile),
   UserControllers.updateProfile,
 );

@@ -9,9 +9,9 @@ const multipleUpload = multer({ storage }).fields([
   },
 ]);
 
-const singleUpload = multer({ storage });
+const upload = multer({ storage });
 
 export const fileUploader = {
-  singleUpload,
+  upload,
   multipleUpload,
 };

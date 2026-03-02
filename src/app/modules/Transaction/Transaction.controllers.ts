@@ -6,7 +6,11 @@ import { TAuthUser } from "../../interfaces/common";
 
 const createTransaction = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await TransactionServices.createTransaction(user, req.body);
+  const result = await TransactionServices.createTransaction(
+    user,
+    req.body,
+    req.files as any,
+  );
   sendResponse(res, {
     statusCode: httpStatus.CREATED,
     success: true,
