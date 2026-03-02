@@ -342,6 +342,51 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     throw new Error("The user you are trying to share with can't be found");
   }
 
+  // Step 3: Check for active subscription
+  const activeSubscription = await prisma.subscription.findFirst({
+    where: {
+      user_id: user.id,
+      is_active: true,
+      OR: [
+        {
+          end_date: null,
+        },
+        {
+          end_date: {
+            gt: new Date(),
+          },
+        },
+      ],
+    },
+  });
+
+  if (!activeSubscription) {
+    // Check if this is a NEW member
+    const existingMember = await prisma.bookMember.findUnique({
+      where: {
+        book_id_user_id: {
+          book_id,
+          user_id: sharedUser.id,
+        },
+      },
+    });
+
+    if (!existingMember) {
+      const memberCount = await prisma.bookMember.count({
+        where: {
+          book_id,
+        },
+      });
+
+      if (memberCount >= 1) {
+        throw new CustomizedError(
+          httpStatus.BAD_REQUEST,
+          "Free users can share a book with only one user. Upgrade to premium for unlimited sharing.",
+        );
+      }
+    }
+  }
+
   const result = await prisma.bookMember.upsert({
     where: {
       book_id_user_id: {
