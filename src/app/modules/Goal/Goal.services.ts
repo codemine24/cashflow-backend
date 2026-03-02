@@ -9,9 +9,37 @@ import queryValidator from "../../utils/query-validator";
 import { goalQueryValidationConfig, goalSearchableFields } from "./Goal.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
+import CustomizedError from "../../error/customized-error";
+import httpStatus from "http-status";
 
 // -------------------------------------- CREATE GOAL ------------------------------------
 const createGoal = async (user: TAuthUser, payload: CreateGoalPayload) => {
+  const activeSubscription = await prisma.subscription.findFirst({
+    where: {
+      user_id: user.id,
+      plan: "PREMIUM",
+      is_active: true,
+      end_date: {
+        gt: new Date(),
+      },
+    },
+  });
+
+  if (!activeSubscription) {
+    const goalCount = await prisma.goal.count({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    if (goalCount >= 5) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "Free users can create a maximum of 5 goals. Upgrade to premium for unlimited goals.",
+      );
+    }
+  }
+
   const result = await prisma.goal.create({
     data: {
       ...payload,
