@@ -11,6 +11,8 @@ import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
 import CustomizedError from "../../error/customized-error";
 import httpStatus from "http-status";
+import emailSender from "../../utils/email-sender";
+import { shareGoalTemplate } from "../../template/share-goal-template";
 
 // -------------------------------------- CREATE GOAL ------------------------------------
 const createGoal = async (user: TAuthUser, payload: CreateGoalPayload) => {
@@ -399,6 +401,21 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
       role,
     },
   });
+
+  // Step 4: Send email notification
+  try {
+    const emailBody = shareGoalTemplate({
+      receiverName: sharedUser.name || sharedUser.email || "User",
+      senderName: user.name || user.email || "A user",
+      goalName: owner.name,
+      role: role,
+    });
+
+    await emailSender(sharedUser.email, emailBody, "An goal Shared With You");
+  } catch (error) {
+    console.error("Failed to send share goal email:", error);
+    // We don't throw here to avoid failing the share operation if only email fails
+  }
 
   return result;
 };
