@@ -9,9 +9,43 @@ import queryValidator from "../../utils/query-validator";
 import { bookQueryValidationConfig, bookSearchableFields } from "./Book.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
+import CustomizedError from "../../error/customized-error";
+import httpStatus from "http-status";
 
 // -------------------------------------- CREATE BOOK ------------------------------------
 const createBook = async (user: TAuthUser, payload: CreateBookPayload) => {
+  const activeSubscription = await prisma.subscription.findFirst({
+    where: {
+      user_id: user.id,
+      is_active: true,
+      OR: [
+        {
+          end_date: null,
+        },
+        {
+          end_date: {
+            gt: new Date(),
+          },
+        },
+      ],
+    },
+  });
+
+  if (!activeSubscription) {
+    const bookCount = await prisma.book.count({
+      where: {
+        user_id: user.id,
+      },
+    });
+
+    if (bookCount >= 5) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "Free users can create a maximum of 5 books. Upgrade to premium for unlimited books.",
+      );
+    }
+  }
+
   const result = await prisma.book.create({
     data: {
       ...payload,

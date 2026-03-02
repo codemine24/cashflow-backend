@@ -7,6 +7,7 @@ import { GoalTransactionRoutes } from "../modules/Goal-transaction/Goal-transact
 import { GoalRoutes } from "../modules/Goal/Goal.routes";
 import { UserRoutes } from "../modules/User/User.routes";
 import { SettingRoutes } from "../modules/Setting/Setting.routes";
+import { SubscriptionRoutes } from "../modules/Subscription/Subscription.routes";
 
 const router = Router();
 
@@ -42,6 +43,10 @@ const routes = [
   {
     path: "/setting",
     route: SettingRoutes,
+  },
+  {
+    path: "/subscription",
+    route: SubscriptionRoutes,
   },
 ];
 
