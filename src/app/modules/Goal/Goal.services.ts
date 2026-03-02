@@ -9,8 +9,6 @@ import queryValidator from "../../utils/query-validator";
 import { goalQueryValidationConfig, goalSearchableFields } from "./Goal.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
-import CustomizedError from "../../error/customized-error";
-import httpStatus from "http-status";
 
 // -------------------------------------- CREATE GOAL ------------------------------------
 const createGoal = async (user: TAuthUser, payload: CreateGoalPayload) => {
