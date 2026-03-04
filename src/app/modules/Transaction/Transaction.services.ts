@@ -254,7 +254,6 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
   const result = await prisma.transaction.findFirstOrThrow({
     where: {
       id,
-      entry_by_id: user.id,
     },
     include: {
       book: true,
@@ -263,16 +262,39 @@ const getTransactionById = async (user: TAuthUser, id: string) => {
         select: {
           name: true,
           email: true,
+          avatar: true,
         },
       },
       updated_by: {
         select: {
           name: true,
           email: true,
+          avatar: true,
         },
       },
     },
   });
+
+  const book = await prisma.book.findFirst({
+    where: {
+      id: result.book_id,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!book) {
+    throw new Error(
+      "Transaction not found or you are not the authorized to view transaction",
+    );
+  }
+
   return result;
 };
 
