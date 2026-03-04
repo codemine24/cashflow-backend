@@ -28,6 +28,7 @@ export type UserRole = (typeof UserRole)[keyof typeof UserRole]
 
 
 export const ShareRole = {
+  ADMIN: 'ADMIN',
   EDITOR: 'EDITOR',
   VIEWER: 'VIEWER'
 } as const

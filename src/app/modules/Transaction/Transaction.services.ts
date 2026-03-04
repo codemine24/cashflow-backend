@@ -31,7 +31,7 @@ const createTransaction = async (
         { user_id: user.id },
         {
           book_members: {
-            some: { user_id: user.id, role: "EDITOR" },
+            some: { user_id: user.id, role: { in: ["ADMIN", "EDITOR"] } },
           },
         },
       ],
@@ -318,7 +318,7 @@ const updateTransaction = async (
         { user_id: user.id },
         {
           book_members: {
-            some: { user_id: user.id, role: "EDITOR" },
+            some: { user_id: user.id, role: { in: ["ADMIN", "EDITOR"] } },
           },
         },
       ],
@@ -435,6 +435,32 @@ const updateTransaction = async (
 
 // -------------------------------------- DELETE TRANSACTIONS -------------------------------
 const deleteTransactions = async (user: TAuthUser, ids: string[]) => {
+  const transaction = await prisma.transaction.findFirstOrThrow({
+    where: {
+      id: ids[0], // TODO: need to check all transactions
+    },
+  });
+
+  const book = await prisma.book.findFirst({
+    where: {
+      id: transaction.book_id,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id, role: { in: ["ADMIN", "EDITOR"] } },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!book) {
+    throw new Error(
+      "Book not found or you are not the authorized to update transaction",
+    );
+  }
+
   const result = await prisma.transaction.deleteMany({
     where: {
       id: {
