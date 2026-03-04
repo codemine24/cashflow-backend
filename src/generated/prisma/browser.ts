@@ -77,3 +77,8 @@ export type Category = Prisma.CategoryModel
  * 
  */
 export type File = Prisma.FileModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel

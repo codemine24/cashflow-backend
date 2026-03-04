@@ -385,21 +385,33 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
     }
   }
 
-  const result = await prisma.goalMember.upsert({
-    where: {
-      goal_id_user_id: {
+  const result = await prisma.$transaction(async (tx) => {
+    const goalMember = await tx.goalMember.upsert({
+      where: {
+        goal_id_user_id: {
+          goal_id,
+          user_id: sharedUser.id,
+        },
+      },
+      update: {
+        role,
+      },
+      create: {
         goal_id,
         user_id: sharedUser.id,
+        role,
       },
-    },
-    update: {
-      role,
-    },
-    create: {
-      goal_id,
-      user_id: sharedUser.id,
-      role,
-    },
+    });
+
+    await prisma.notification.create({
+      data: {
+        user_id: sharedUser.id,
+        title: "Goal Shared",
+        message: `${user.name || user.email} shared a goal with you`,
+      },
+    });
+
+    return goalMember;
   });
 
   // Step 4: Send email notification

@@ -242,6 +242,7 @@ export type UserWhereInput = {
   goals_member?: Prisma.GoalMemberListRelationFilter
   files?: Prisma.FileListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -268,6 +269,7 @@ export type UserOrderByWithRelationInput = {
   goals_member?: Prisma.GoalMemberOrderByRelationAggregateInput
   files?: Prisma.FileOrderByRelationAggregateInput
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -297,6 +299,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   goals_member?: Prisma.GoalMemberListRelationFilter
   files?: Prisma.FileListRelationFilter
   subscriptions?: Prisma.SubscriptionListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email" | "contact_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -357,6 +360,7 @@ export type UserCreateInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -383,6 +387,7 @@ export type UserUncheckedCreateInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -409,6 +414,7 @@ export type UserUpdateInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -435,6 +441,7 @@ export type UserUncheckedUpdateInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -719,6 +726,20 @@ export type UserUpdateOneWithoutFilesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFilesInput, Prisma.UserUpdateWithoutFilesInput>, Prisma.UserUncheckedUpdateWithoutFilesInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateWithoutSubscriptionsInput = {
   id?: string
   name?: string | null
@@ -742,6 +763,7 @@ export type UserCreateWithoutSubscriptionsInput = {
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -767,6 +789,7 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -808,6 +831,7 @@ export type UserUpdateWithoutSubscriptionsInput = {
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -833,6 +857,7 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBooksInput = {
@@ -858,6 +883,7 @@ export type UserCreateWithoutBooksInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBooksInput = {
@@ -883,6 +909,7 @@ export type UserUncheckedCreateWithoutBooksInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBooksInput = {
@@ -924,6 +951,7 @@ export type UserUpdateWithoutBooksInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooksInput = {
@@ -949,6 +977,7 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBooks_memberInput = {
@@ -974,6 +1003,7 @@ export type UserCreateWithoutBooks_memberInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBooks_memberInput = {
@@ -999,6 +1029,7 @@ export type UserUncheckedCreateWithoutBooks_memberInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBooks_memberInput = {
@@ -1040,6 +1071,7 @@ export type UserUpdateWithoutBooks_memberInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooks_memberInput = {
@@ -1065,6 +1097,7 @@ export type UserUncheckedUpdateWithoutBooks_memberInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEntered_transactionsInput = {
@@ -1090,6 +1123,7 @@ export type UserCreateWithoutEntered_transactionsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEntered_transactionsInput = {
@@ -1115,6 +1149,7 @@ export type UserUncheckedCreateWithoutEntered_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEntered_transactionsInput = {
@@ -1145,6 +1180,7 @@ export type UserCreateWithoutUpdated_transactionsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
@@ -1170,6 +1206,7 @@ export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_transactionsInput = {
@@ -1211,6 +1248,7 @@ export type UserUpdateWithoutEntered_transactionsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
@@ -1236,6 +1274,7 @@ export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutUpdated_transactionsInput = {
@@ -1272,6 +1311,7 @@ export type UserUpdateWithoutUpdated_transactionsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
@@ -1297,6 +1337,7 @@ export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1322,6 +1363,7 @@ export type UserCreateWithoutGoalsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -1347,6 +1389,7 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1388,6 +1431,7 @@ export type UserUpdateWithoutGoalsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -1413,6 +1457,7 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoals_memberInput = {
@@ -1438,6 +1483,7 @@ export type UserCreateWithoutGoals_memberInput = {
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoals_memberInput = {
@@ -1463,6 +1509,7 @@ export type UserUncheckedCreateWithoutGoals_memberInput = {
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoals_memberInput = {
@@ -1504,6 +1551,7 @@ export type UserUpdateWithoutGoals_memberInput = {
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoals_memberInput = {
@@ -1529,6 +1577,7 @@ export type UserUncheckedUpdateWithoutGoals_memberInput = {
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEntered_goal_transactionsInput = {
@@ -1554,6 +1603,7 @@ export type UserCreateWithoutEntered_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
@@ -1579,6 +1629,7 @@ export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEntered_goal_transactionsInput = {
@@ -1609,6 +1660,7 @@ export type UserCreateWithoutUpdated_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
@@ -1634,6 +1686,7 @@ export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_goal_transactionsInput = {
@@ -1664,6 +1717,7 @@ export type UserCreateWithoutGoal_transactionsInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoal_transactionsInput = {
@@ -1689,6 +1743,7 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoal_transactionsInput = {
@@ -1730,6 +1785,7 @@ export type UserUpdateWithoutEntered_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
@@ -1755,6 +1811,7 @@ export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutUpdated_goal_transactionsInput = {
@@ -1791,6 +1848,7 @@ export type UserUpdateWithoutUpdated_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
@@ -1816,6 +1874,7 @@ export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutGoal_transactionsInput = {
@@ -1852,6 +1911,7 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
@@ -1877,6 +1937,7 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -1902,6 +1963,7 @@ export type UserCreateWithoutCategoriesInput = {
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -1927,6 +1989,7 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -1968,6 +2031,7 @@ export type UserUpdateWithoutCategoriesInput = {
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -1993,6 +2057,7 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFilesInput = {
@@ -2018,6 +2083,7 @@ export type UserCreateWithoutFilesInput = {
   books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFilesInput = {
@@ -2043,6 +2109,7 @@ export type UserUncheckedCreateWithoutFilesInput = {
   books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
   goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFilesInput = {
@@ -2084,6 +2151,7 @@ export type UserUpdateWithoutFilesInput = {
   books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFilesInput = {
@@ -2109,6 +2177,127 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
   goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookCreateNestedManyWithoutUserInput
+  entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
+  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
+  entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
+  updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
+  goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
+  books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
+  goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
+  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
+  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  contact_number?: string | null
+  avatar?: string | null
+  status?: $Enums.UserStatus
+  role?: $Enums.UserRole
+  is_deleted?: boolean
+  password_changed_at?: Date | string
+  created_at?: Date | string
+  updated_at?: Date | string
+  books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
+  entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
+  entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
+  updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
+  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
+  books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
+  goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
+  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
+  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUpdateManyWithoutUserNestedInput
+  entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
+  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
+  entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
+  updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
+  books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
+  goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
+  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
+  entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
+  entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
+  updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
+  goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
+  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
+  books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
+  goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
+  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
+  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -2129,6 +2318,7 @@ export type UserCountOutputType = {
   goals_member: number
   files: number
   subscriptions: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2144,6 +2334,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   goals_member?: boolean | UserCountOutputTypeCountGoals_memberArgs
   files?: boolean | UserCountOutputTypeCountFilesArgs
   subscriptions?: boolean | UserCountOutputTypeCountSubscriptionsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -2240,6 +2431,13 @@ export type UserCountOutputTypeCountSubscriptionsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.SubscriptionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2265,6 +2463,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   goals_member?: boolean | Prisma.User$goals_memberArgs<ExtArgs>
   files?: boolean | Prisma.User$filesArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2324,6 +2523,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   goals_member?: boolean | Prisma.User$goals_memberArgs<ExtArgs>
   files?: boolean | Prisma.User$filesArgs<ExtArgs>
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2344,6 +2544,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     goals_member: Prisma.$GoalMemberPayload<ExtArgs>[]
     files: Prisma.$FilePayload<ExtArgs>[]
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2763,6 +2964,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   goals_member<T extends Prisma.User$goals_memberArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$goals_memberArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoalMemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   files<T extends Prisma.User$filesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$filesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$FilePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3476,6 +3678,30 @@ export type User$subscriptionsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.SubscriptionScalarFieldEnum | Prisma.SubscriptionScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

@@ -62,7 +62,8 @@ export const ModelName = {
   GoalMember: 'GoalMember',
   GoalTransaction: 'GoalTransaction',
   Category: 'Category',
-  File: 'File'
+  File: 'File',
+  Notification: 'Notification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -245,6 +246,20 @@ export const FileScalarFieldEnum = {
 } as const
 
 export type FileScalarFieldEnum = (typeof FileScalarFieldEnum)[keyof typeof FileScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  title: 'title',
+  message: 'message',
+  related_link: 'related_link',
+  is_read: 'is_read',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
 
 
 export const SortOrder = {

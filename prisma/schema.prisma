@@ -44,23 +44,24 @@ model User {
   goals_member              GoalMember[]
   files                     File[]
   subscriptions             Subscription[]
+  notifications             Notification[]
 
   @@map("users")
 }
 
 model Subscription {
-  id            String            @id @default(uuid())
-  user_id       String
-  plan          SubscriptionPlan
-  price         Float
-  start_date    DateTime          @default(now())
-  end_date      DateTime?         // null = lifetime
-  is_active     Boolean           @default(true)
+  id         String           @id @default(uuid())
+  user_id    String
+  plan       SubscriptionPlan
+  price      Float
+  start_date DateTime         @default(now())
+  end_date   DateTime? // null = lifetime
+  is_active  Boolean          @default(true)
 
-  created_at    DateTime          @default(now())
-  updated_at    DateTime          @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
-  user          User              @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
   @@map("subscriptions")
@@ -208,6 +209,21 @@ model File {
   uploaded_by User? @relation(fields: [user_id], references: [id])
 
   @@map("files")
+}
+
+model Notification {
+  id           String   @id @default(uuid())
+  user_id      String
+  title        String
+  message      String
+  related_link String?
+  is_read      Boolean  @default(false)
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }
 
 enum UserStatus {

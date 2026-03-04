@@ -389,21 +389,33 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     }
   }
 
-  const result = await prisma.bookMember.upsert({
-    where: {
-      book_id_user_id: {
+  const result = await prisma.$transaction(async (tx) => {
+    const bookMember = await tx.bookMember.upsert({
+      where: {
+        book_id_user_id: {
+          book_id,
+          user_id: sharedUser.id,
+        },
+      },
+      update: {
+        role,
+      },
+      create: {
         book_id,
         user_id: sharedUser.id,
+        role,
       },
-    },
-    update: {
-      role,
-    },
-    create: {
-      book_id,
-      user_id: sharedUser.id,
-      role,
-    },
+    });
+
+    await prisma.notification.create({
+      data: {
+        user_id: sharedUser.id,
+        title: "Book Shared",
+        message: `${user.name || user.email} shared a book with you`,
+      },
+    });
+
+    return bookMember;
   });
 
   // Step 4: Send email notification
