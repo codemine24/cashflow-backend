@@ -177,9 +177,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       in: totalIn,
       out: totalOut,
       balance,
-      others_member: [...members, { ...book.user, role: "OWNER" }].filter(
-        (member) => member.id !== user.id,
-      ),
+      others_member: [{ ...book.user, role: "OWNER" }, ...members],
       created_at: book.created_at,
       updated_at: book.updated_at,
     };
@@ -272,9 +270,7 @@ const getBookById = async (user: TAuthUser, id: string) => {
     in: totalIn,
     out: totalOut,
     balance,
-    others_member: [...members, { ...result.user, role: "OWNER" }].filter(
-      (member) => member.id !== user.id,
-    ),
+    others_member: [{ ...result.user, role: "OWNER" }, ...members],
     transactions: result.transactions,
     created_at: result.created_at,
     updated_at: result.updated_at,
@@ -322,15 +318,31 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
   const { book_id, email, role = "VIEWER" } = payload;
 
   // Step 1: Verify ownership
-  const owner = await prisma.book.findFirst({
+  const book = await prisma.book.findFirst({
     where: {
       id: book_id,
-      user_id: user.id,
     },
   });
 
-  if (!owner) {
-    throw new Error("Book not found or you are not the owner");
+  if (!book) {
+    throw new CustomizedError(httpStatus.BAD_REQUEST, "Book not found");
+  }
+
+  if (book?.user_id !== user.id) {
+    const isAdmin = await prisma.bookMember.findFirst({
+      where: {
+        book_id,
+        user_id: user.id,
+        role: "ADMIN",
+      },
+    });
+
+    if (!isAdmin) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "You are not authorized to share this book",
+      );
+    }
   }
 
   // Step 2: Check shared user exist
@@ -341,7 +353,10 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
   });
 
   if (!sharedUser) {
-    throw new Error("The user you are trying to share with can't be found");
+    throw new CustomizedError(
+      httpStatus.BAD_REQUEST,
+      "The user you are trying to share with can't be found",
+    );
   }
 
   // Step 3: Check for active subscription
@@ -423,7 +438,7 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
     const emailBody = shareBookTemplate({
       receiverName: sharedUser.name || sharedUser.email || "User",
       senderName: user.name || user.email || "A user",
-      bookName: owner.name,
+      bookName: book.name,
       role: role,
     });
 
