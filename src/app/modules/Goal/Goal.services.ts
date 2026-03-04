@@ -318,15 +318,31 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
   const { goal_id, email, role = "VIEWER" } = payload;
 
   // Step 1: Verify ownership
-  const owner = await prisma.goal.findFirst({
+  const goal = await prisma.goal.findFirst({
     where: {
       id: goal_id,
-      user_id: user.id,
     },
   });
 
-  if (!owner) {
-    throw new Error("Goal not found or you are not the owner");
+  if (!goal) {
+    throw new CustomizedError(httpStatus.BAD_REQUEST, "Goal not found");
+  }
+
+  if (goal.user_id !== user.id) {
+    const isAdmin = await prisma.goalMember.findFirst({
+      where: {
+        goal_id,
+        user_id: user.id,
+        role: "ADMIN",
+      },
+    });
+
+    if (!isAdmin) {
+      throw new CustomizedError(
+        httpStatus.BAD_REQUEST,
+        "You are not authorized to share this goal",
+      );
+    }
   }
 
   // Step 2: Check shared user exist
@@ -337,7 +353,10 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
   });
 
   if (!sharedUser) {
-    throw new Error("The user you are trying to share with can't be found");
+    throw new CustomizedError(
+      httpStatus.BAD_REQUEST,
+      "The user you are trying to share with can't be found",
+    );
   }
 
   // Step 3: Check for active subscription
@@ -419,7 +438,7 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
     const emailBody = shareGoalTemplate({
       receiverName: sharedUser.name || sharedUser.email || "User",
       senderName: user.name || user.email || "A user",
-      goalName: owner.name,
+      goalName: goal.name,
       role: role,
     });
 
