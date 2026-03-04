@@ -67,9 +67,9 @@ const updateTransaction = catchAsync(async (req, res) => {
 
 const deleteTransaction = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await TransactionServices.deleteTransactions(
+  const result = await TransactionServices.deleteTransaction(
     user,
-    req.body.ids,
+    req.params.id,
   );
   sendResponse(res, {
     statusCode: httpStatus.OK,

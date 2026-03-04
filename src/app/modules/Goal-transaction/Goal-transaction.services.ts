@@ -24,7 +24,7 @@ const createGoalTransaction = async (
         { user_id: user.id },
         {
           goal_members: {
-            some: { user_id: user.id, role: "EDITOR" },
+            some: { user_id: user.id, role: { in: ["EDITOR", "ADMIN"] } },
           },
         },
       ],
@@ -223,7 +223,7 @@ const updateGoalTransaction = async (
         { user_id: user.id },
         {
           goal_members: {
-            some: { user_id: user.id, role: "EDITOR" },
+            some: { user_id: user.id, role: { in: ["EDITOR", "ADMIN"] } },
           },
         },
       ],

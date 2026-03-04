@@ -39,9 +39,8 @@ router.patch(
 );
 
 router.delete(
-  "/",
+  "/:id",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(deleteRecordsValidationSchema),
   TransactionControllers.deleteTransaction,
 );
 
