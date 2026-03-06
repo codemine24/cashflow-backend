@@ -12,6 +12,13 @@ const createSubscription = z.object({
       price: z.number({
         message: "Price should be a number",
       }),
+      purchase_token: z.string({
+        error: "Purchase token is required",
+      }),
+      product_id: z.string({
+        error: "Product ID is required",
+      }),
+      package_name: z.string().optional(),
     })
     .strict(),
 });

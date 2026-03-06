@@ -42,6 +42,10 @@ export type SubscriptionMinAggregateOutputType = {
   start_date: Date | null
   end_date: Date | null
   is_active: boolean | null
+  purchase_token: string | null
+  package_name: string | null
+  product_id: string | null
+  transaction_id: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -54,6 +58,10 @@ export type SubscriptionMaxAggregateOutputType = {
   start_date: Date | null
   end_date: Date | null
   is_active: boolean | null
+  purchase_token: string | null
+  package_name: string | null
+  product_id: string | null
+  transaction_id: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -66,6 +74,10 @@ export type SubscriptionCountAggregateOutputType = {
   start_date: number
   end_date: number
   is_active: number
+  purchase_token: number
+  package_name: number
+  product_id: number
+  transaction_id: number
   created_at: number
   updated_at: number
   _all: number
@@ -88,6 +100,10 @@ export type SubscriptionMinAggregateInputType = {
   start_date?: true
   end_date?: true
   is_active?: true
+  purchase_token?: true
+  package_name?: true
+  product_id?: true
+  transaction_id?: true
   created_at?: true
   updated_at?: true
 }
@@ -100,6 +116,10 @@ export type SubscriptionMaxAggregateInputType = {
   start_date?: true
   end_date?: true
   is_active?: true
+  purchase_token?: true
+  package_name?: true
+  product_id?: true
+  transaction_id?: true
   created_at?: true
   updated_at?: true
 }
@@ -112,6 +132,10 @@ export type SubscriptionCountAggregateInputType = {
   start_date?: true
   end_date?: true
   is_active?: true
+  purchase_token?: true
+  package_name?: true
+  product_id?: true
+  transaction_id?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -211,6 +235,10 @@ export type SubscriptionGroupByOutputType = {
   start_date: Date
   end_date: Date | null
   is_active: boolean
+  purchase_token: string | null
+  package_name: string | null
+  product_id: string | null
+  transaction_id: string | null
   created_at: Date
   updated_at: Date
   _count: SubscriptionCountAggregateOutputType | null
@@ -246,6 +274,10 @@ export type SubscriptionWhereInput = {
   start_date?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   end_date?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   is_active?: Prisma.BoolFilter<"Subscription"> | boolean
+  purchase_token?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  package_name?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  product_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  transaction_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
   created_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -259,6 +291,10 @@ export type SubscriptionOrderByWithRelationInput = {
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  purchase_token?: Prisma.SortOrderInput | Prisma.SortOrder
+  package_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  product_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  transaction_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -266,6 +302,7 @@ export type SubscriptionOrderByWithRelationInput = {
 
 export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  purchase_token?: string
   AND?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
   OR?: Prisma.SubscriptionWhereInput[]
   NOT?: Prisma.SubscriptionWhereInput | Prisma.SubscriptionWhereInput[]
@@ -275,10 +312,13 @@ export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
   start_date?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   end_date?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   is_active?: Prisma.BoolFilter<"Subscription"> | boolean
+  package_name?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  product_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  transaction_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
   created_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id">
+}, "id" | "purchase_token">
 
 export type SubscriptionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -288,6 +328,10 @@ export type SubscriptionOrderByWithAggregationInput = {
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  purchase_token?: Prisma.SortOrderInput | Prisma.SortOrder
+  package_name?: Prisma.SortOrderInput | Prisma.SortOrder
+  product_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  transaction_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.SubscriptionCountOrderByAggregateInput
@@ -308,6 +352,10 @@ export type SubscriptionScalarWhereWithAggregatesInput = {
   start_date?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   end_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Subscription"> | Date | string | null
   is_active?: Prisma.BoolWithAggregatesFilter<"Subscription"> | boolean
+  purchase_token?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  package_name?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  product_id?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
+  transaction_id?: Prisma.StringNullableWithAggregatesFilter<"Subscription"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Subscription"> | Date | string
 }
@@ -319,6 +367,10 @@ export type SubscriptionCreateInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   user: Prisma.UserCreateNestedOneWithoutSubscriptionsInput
@@ -332,6 +384,10 @@ export type SubscriptionUncheckedCreateInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -343,6 +399,10 @@ export type SubscriptionUpdateInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutSubscriptionsNestedInput
@@ -356,6 +416,10 @@ export type SubscriptionUncheckedUpdateInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -368,6 +432,10 @@ export type SubscriptionCreateManyInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -379,6 +447,10 @@ export type SubscriptionUpdateManyMutationInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,6 +463,10 @@ export type SubscriptionUncheckedUpdateManyInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -413,6 +489,10 @@ export type SubscriptionCountOrderByAggregateInput = {
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  purchase_token?: Prisma.SortOrder
+  package_name?: Prisma.SortOrder
+  product_id?: Prisma.SortOrder
+  transaction_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -429,6 +509,10 @@ export type SubscriptionMaxOrderByAggregateInput = {
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  purchase_token?: Prisma.SortOrder
+  package_name?: Prisma.SortOrder
+  product_id?: Prisma.SortOrder
+  transaction_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -441,6 +525,10 @@ export type SubscriptionMinOrderByAggregateInput = {
   start_date?: Prisma.SortOrder
   end_date?: Prisma.SortOrder
   is_active?: Prisma.SortOrder
+  purchase_token?: Prisma.SortOrder
+  package_name?: Prisma.SortOrder
+  product_id?: Prisma.SortOrder
+  transaction_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -514,6 +602,10 @@ export type SubscriptionCreateWithoutUserInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -525,6 +617,10 @@ export type SubscriptionUncheckedCreateWithoutUserInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -566,6 +662,10 @@ export type SubscriptionScalarWhereInput = {
   start_date?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   end_date?: Prisma.DateTimeNullableFilter<"Subscription"> | Date | string | null
   is_active?: Prisma.BoolFilter<"Subscription"> | boolean
+  purchase_token?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  package_name?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  product_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
+  transaction_id?: Prisma.StringNullableFilter<"Subscription"> | string | null
   created_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Subscription"> | Date | string
 }
@@ -577,6 +677,10 @@ export type SubscriptionCreateManyUserInput = {
   start_date?: Date | string
   end_date?: Date | string | null
   is_active?: boolean
+  purchase_token?: string | null
+  package_name?: string | null
+  product_id?: string | null
+  transaction_id?: string | null
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -588,6 +692,10 @@ export type SubscriptionUpdateWithoutUserInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -599,6 +707,10 @@ export type SubscriptionUncheckedUpdateWithoutUserInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -610,6 +722,10 @@ export type SubscriptionUncheckedUpdateManyWithoutUserInput = {
   start_date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   is_active?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  purchase_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  package_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  product_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  transaction_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -624,6 +740,10 @@ export type SubscriptionSelect<ExtArgs extends runtime.Types.Extensions.Internal
   start_date?: boolean
   end_date?: boolean
   is_active?: boolean
+  purchase_token?: boolean
+  package_name?: boolean
+  product_id?: boolean
+  transaction_id?: boolean
   created_at?: boolean
   updated_at?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -637,6 +757,10 @@ export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   start_date?: boolean
   end_date?: boolean
   is_active?: boolean
+  purchase_token?: boolean
+  package_name?: boolean
+  product_id?: boolean
+  transaction_id?: boolean
   created_at?: boolean
   updated_at?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -650,6 +774,10 @@ export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   start_date?: boolean
   end_date?: boolean
   is_active?: boolean
+  purchase_token?: boolean
+  package_name?: boolean
+  product_id?: boolean
+  transaction_id?: boolean
   created_at?: boolean
   updated_at?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -663,11 +791,15 @@ export type SubscriptionSelectScalar = {
   start_date?: boolean
   end_date?: boolean
   is_active?: boolean
+  purchase_token?: boolean
+  package_name?: boolean
+  product_id?: boolean
+  transaction_id?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "plan" | "price" | "start_date" | "end_date" | "is_active" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
+export type SubscriptionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "plan" | "price" | "start_date" | "end_date" | "is_active" | "purchase_token" | "package_name" | "product_id" | "transaction_id" | "created_at" | "updated_at", ExtArgs["result"]["subscription"]>
 export type SubscriptionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -691,6 +823,10 @@ export type $SubscriptionPayload<ExtArgs extends runtime.Types.Extensions.Intern
     start_date: Date
     end_date: Date | null
     is_active: boolean
+    purchase_token: string | null
+    package_name: string | null
+    product_id: string | null
+    transaction_id: string | null
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["subscription"]>
@@ -1124,6 +1260,10 @@ export interface SubscriptionFieldRefs {
   readonly start_date: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly end_date: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly is_active: Prisma.FieldRef<"Subscription", 'Boolean'>
+  readonly purchase_token: Prisma.FieldRef<"Subscription", 'String'>
+  readonly package_name: Prisma.FieldRef<"Subscription", 'String'>
+  readonly product_id: Prisma.FieldRef<"Subscription", 'String'>
+  readonly transaction_id: Prisma.FieldRef<"Subscription", 'String'>
   readonly created_at: Prisma.FieldRef<"Subscription", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Subscription", 'DateTime'>
 }

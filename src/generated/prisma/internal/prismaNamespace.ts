@@ -1455,6 +1455,10 @@ export const SubscriptionScalarFieldEnum = {
   start_date: 'start_date',
   end_date: 'end_date',
   is_active: 'is_active',
+  purchase_token: 'purchase_token',
+  package_name: 'package_name',
+  product_id: 'product_id',
+  transaction_id: 'transaction_id',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const

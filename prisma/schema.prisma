@@ -50,13 +50,17 @@ model User {
 }
 
 model Subscription {
-  id         String           @id @default(uuid())
-  user_id    String
-  plan       SubscriptionPlan
-  price      Float
-  start_date DateTime         @default(now())
-  end_date   DateTime? // null = lifetime
-  is_active  Boolean          @default(true)
+  id             String           @id @default(uuid())
+  user_id        String
+  plan           SubscriptionPlan
+  price          Float
+  start_date     DateTime         @default(now())
+  end_date       DateTime? // null = lifetime
+  is_active      Boolean          @default(true)
+  purchase_token String?          @unique
+  package_name   String?
+  product_id     String?
+  transaction_id String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
