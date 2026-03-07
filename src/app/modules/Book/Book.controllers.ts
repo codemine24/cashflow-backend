@@ -77,6 +77,18 @@ const shareBook = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- REMOVE MEMBER -----------------------------------
+const removeMember = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await BookServices.removeMember(user, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Member removed successfully",
+    data: result,
+  });
+});
+
 export const BookControllers = {
   createBook,
   getAllBooks,
@@ -84,4 +96,5 @@ export const BookControllers = {
   updateBook,
   deleteBooks,
   shareBook,
+  removeMember,
 };

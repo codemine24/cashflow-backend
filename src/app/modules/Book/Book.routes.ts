@@ -48,4 +48,11 @@ router.post(
   BookControllers.shareBook,
 );
 
+router.delete(
+  "/remove-member",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(BookSchemas.removeMember),
+  BookControllers.removeMember,
+);
+
 export const BookRoutes = router;

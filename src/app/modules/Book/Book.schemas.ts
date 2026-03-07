@@ -35,8 +35,18 @@ const shareBook = z.object({
     .strict(),
 });
 
+const removeMember = z.object({
+  body: z
+    .object({
+      book_id: z.uuid({ message: "Book ID should be a valid UUID" }),
+      user_id: z.uuid({ message: "User ID should be a valid UUID" }),
+    })
+    .strict(),
+});
+
 export const BookSchemas = {
   createBook,
   updateBook,
   shareBook,
+  removeMember,
 };

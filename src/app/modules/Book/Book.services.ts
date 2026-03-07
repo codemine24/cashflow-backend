@@ -1,9 +1,11 @@
 import { prisma } from "../../shared/prisma";
 import {
   CreateBookPayload,
+  RemoveMemberPayload,
   ShareBookPayload,
   UpdateBookPayload,
 } from "./Book.interfaces";
+
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
 import { bookQueryValidationConfig, bookSearchableFields } from "./Book.utils";
@@ -451,6 +453,71 @@ const shareBook = async (user: TAuthUser, payload: ShareBookPayload) => {
   return result;
 };
 
+// -------------------------------------- REMOVE MEMBER -----------------------------------
+const removeMember = async (user: TAuthUser, payload: RemoveMemberPayload) => {
+  const { book_id, user_id } = payload;
+
+  // Step 1: Verify book existence and role of requester
+  const book = await prisma.book.findFirst({
+    where: {
+      id: book_id,
+    },
+    include: {
+      book_members: {
+        where: {
+          user_id: user.id,
+        },
+      },
+    },
+  });
+
+  if (!book) {
+    throw new CustomizedError(httpStatus.BAD_REQUEST, "Book not found");
+  }
+
+  const isOwner = book.user_id === user.id;
+  const isAdmin = book.book_members.find((m) => m.role === "ADMIN");
+
+  if (!isOwner && !isAdmin) {
+    throw new CustomizedError(
+      httpStatus.FORBIDDEN,
+      "You are not authorized to remove members from this book",
+    );
+  }
+
+  // Step 2: Prevent removing the owner
+  if (user_id === book.user_id) {
+    throw new CustomizedError(
+      httpStatus.BAD_REQUEST,
+      "The owner of the book cannot be removed",
+    );
+  }
+
+  // Step 3: Remove the member
+  const result = await prisma.$transaction(async (tx) => {
+    const deletedMember = await tx.bookMember.delete({
+      where: {
+        book_id_user_id: {
+          book_id,
+          user_id,
+        },
+      },
+    });
+
+    await tx.notification.create({
+      data: {
+        user_id,
+        title: "Access Removed",
+        message: `Your access to the book "${book.name}" has been removed by ${user.name || user.email}`,
+      },
+    });
+
+    return deletedMember;
+  });
+
+  return result;
+};
+
 export const BookServices = {
   createBook,
   getAllBooks,
@@ -458,4 +525,5 @@ export const BookServices = {
   updateBook,
   deleteBooks,
   shareBook,
+  removeMember,
 };
