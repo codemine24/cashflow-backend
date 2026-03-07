@@ -77,6 +77,18 @@ const shareGoal = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- REMOVE MEMBER -----------------------------------
+const removeMember = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await GoalServices.removeMember(user, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Member removed successfully",
+    data: result,
+  });
+});
+
 export const GoalControllers = {
   createGoal,
   getAllGoals,
@@ -84,4 +96,5 @@ export const GoalControllers = {
   updateGoal,
   deleteGoals,
   shareGoal,
+  removeMember,
 };

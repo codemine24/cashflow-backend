@@ -1,9 +1,11 @@
 import { prisma } from "../../shared/prisma";
 import {
   CreateGoalPayload,
+  RemoveMemberFromGoalPayload,
   ShareGoalPayload,
   UpdateGoalPayload,
 } from "./Goal.interfaces";
+
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
 import { goalQueryValidationConfig, goalSearchableFields } from "./Goal.utils";
@@ -451,6 +453,74 @@ const shareGoal = async (user: TAuthUser, payload: ShareGoalPayload) => {
   return result;
 };
 
+// -------------------------------------- REMOVE MEMBER -----------------------------------
+const removeMember = async (
+  user: TAuthUser,
+  payload: RemoveMemberFromGoalPayload,
+) => {
+  const { goal_id, user_id } = payload;
+
+  // Step 1: Verify goal existence and role of requester
+  const goal = await prisma.goal.findFirst({
+    where: {
+      id: goal_id,
+    },
+    include: {
+      goal_members: {
+        where: {
+          user_id: user.id,
+        },
+      },
+    },
+  });
+
+  if (!goal) {
+    throw new CustomizedError(httpStatus.BAD_REQUEST, "Goal not found");
+  }
+
+  const isOwner = goal.user_id === user.id;
+  const isAdmin = goal.goal_members.find((m) => m.role === "ADMIN");
+
+  if (!isOwner && !isAdmin) {
+    throw new CustomizedError(
+      httpStatus.FORBIDDEN,
+      "You are not authorized to remove members from this goal",
+    );
+  }
+
+  // Step 2: Prevent removing the owner
+  if (user_id === goal.user_id) {
+    throw new CustomizedError(
+      httpStatus.BAD_REQUEST,
+      "The owner of the goal cannot be removed",
+    );
+  }
+
+  // Step 3: Remove the member
+  const result = await prisma.$transaction(async (tx) => {
+    const deletedMember = await tx.goalMember.delete({
+      where: {
+        goal_id_user_id: {
+          goal_id,
+          user_id,
+        },
+      },
+    });
+
+    await tx.notification.create({
+      data: {
+        user_id,
+        title: "Access Removed",
+        message: `Your access to the goal "${goal.name}" has been removed by ${user.name || user.email}`,
+      },
+    });
+
+    return deletedMember;
+  });
+
+  return result;
+};
+
 export const GoalServices = {
   createGoal,
   getAllGoals,
@@ -458,4 +528,5 @@ export const GoalServices = {
   updateGoal,
   deleteGoals,
   shareGoal,
+  removeMember,
 };

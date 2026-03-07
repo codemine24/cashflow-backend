@@ -39,8 +39,18 @@ const updateGoal = z.object({
     .strict(),
 });
 
+const removeMember = z.object({
+  body: z
+    .object({
+      goal_id: z.uuid({ message: "Goal ID should be a valid UUID" }),
+      user_id: z.uuid({ message: "User ID should be a valid UUID" }),
+    })
+    .strict(),
+});
+
 export const GoalSchemas = {
   createGoal,
   updateGoal,
   shareGoal,
+  removeMember,
 };

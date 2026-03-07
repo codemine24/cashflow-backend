@@ -48,4 +48,11 @@ router.post(
   GoalControllers.shareGoal,
 );
 
+router.delete(
+  "/remove-member",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(GoalSchemas.removeMember),
+  GoalControllers.removeMember,
+);
+
 export const GoalRoutes = router;
