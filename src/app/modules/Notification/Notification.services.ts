@@ -73,11 +73,13 @@ const getAllNotifications = async (
   };
 };
 
-// -------------------------------------- MARK NOTIFICATION AS READ ----------------------
-const markNotificationAsRead = async (user: TAuthUser, id: string) => {
-  const result = await prisma.notification.update({
+// -------------------------------------- MARK NOTIFICATIONS AS READ --------------------
+const markNotificationsAsRead = async (user: TAuthUser, ids: string[]) => {
+  const result = await prisma.notification.updateMany({
     where: {
-      id,
+      id: {
+        in: ids,
+      },
       user_id: user.id,
     },
     data: {
@@ -89,5 +91,5 @@ const markNotificationAsRead = async (user: TAuthUser, id: string) => {
 
 export const NotificationServices = {
   getAllNotifications,
-  markNotificationAsRead,
+  markNotificationsAsRead,
 };
