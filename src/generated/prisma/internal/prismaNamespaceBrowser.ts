@@ -61,6 +61,8 @@ export const ModelName = {
   Goal: 'Goal',
   GoalMember: 'GoalMember',
   GoalTransaction: 'GoalTransaction',
+  Loan: 'Loan',
+  LoanPayment: 'LoanPayment',
   Category: 'Category',
   File: 'File',
   Notification: 'Notification'
@@ -218,6 +220,34 @@ export const GoalTransactionScalarFieldEnum = {
 } as const
 
 export type GoalTransactionScalarFieldEnum = (typeof GoalTransactionScalarFieldEnum)[keyof typeof GoalTransactionScalarFieldEnum]
+
+
+export const LoanScalarFieldEnum = {
+  id: 'id',
+  user_id: 'user_id',
+  person_name: 'person_name',
+  amount: 'amount',
+  paid_amount: 'paid_amount',
+  type: 'type',
+  status: 'status',
+  remark: 'remark',
+  due_date: 'due_date',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type LoanScalarFieldEnum = (typeof LoanScalarFieldEnum)[keyof typeof LoanScalarFieldEnum]
+
+
+export const LoanPaymentScalarFieldEnum = {
+  id: 'id',
+  loan_id: 'loan_id',
+  amount: 'amount',
+  remark: 'remark',
+  created_at: 'created_at'
+} as const
+
+export type LoanPaymentScalarFieldEnum = (typeof LoanPaymentScalarFieldEnum)[keyof typeof LoanPaymentScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {

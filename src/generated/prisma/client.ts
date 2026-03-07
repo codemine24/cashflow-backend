@@ -88,6 +88,16 @@ export type GoalMember = Prisma.GoalMemberModel
  */
 export type GoalTransaction = Prisma.GoalTransactionModel
 /**
+ * Model Loan
+ * 
+ */
+export type Loan = Prisma.LoanModel
+/**
+ * Model LoanPayment
+ * 
+ */
+export type LoanPayment = Prisma.LoanPaymentModel
+/**
  * Model Category
  * 
  */

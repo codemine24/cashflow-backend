@@ -60,3 +60,20 @@ export const SubscriptionPlan = {
 } as const
 
 export type SubscriptionPlan = (typeof SubscriptionPlan)[keyof typeof SubscriptionPlan]
+
+
+export const LoanType = {
+  GIVEN: 'GIVEN',
+  TAKEN: 'TAKEN'
+} as const
+
+export type LoanType = (typeof LoanType)[keyof typeof LoanType]
+
+
+export const LoanStatus = {
+  ONGOING: 'ONGOING',
+  PAID: 'PAID',
+  OVERDUE: 'OVERDUE'
+} as const
+
+export type LoanStatus = (typeof LoanStatus)[keyof typeof LoanStatus]

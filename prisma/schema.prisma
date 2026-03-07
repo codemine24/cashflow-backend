@@ -45,6 +45,7 @@ model User {
   files                     File[]
   subscriptions             Subscription[]
   notifications             Notification[]
+  loans                     Loan[]
 
   @@map("users")
 }
@@ -179,6 +180,38 @@ model GoalTransaction {
   @@map("goal_transactions")
 }
 
+model Loan {
+  id          String     @id @default(uuid())
+  user_id     String
+  person_name String
+  amount      Decimal
+  paid_amount Decimal    @default(0)
+  type        LoanType
+  status      LoanStatus @default(ONGOING)
+  remark      String?
+  due_date    DateTime?
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  payments LoanPayment[]
+
+  @@map("loans")
+}
+
+model LoanPayment {
+  id         String   @id @default(uuid())
+  loan_id    String
+  amount     Decimal
+  remark     String?
+  created_at DateTime @default(now())
+
+  loan Loan @relation(fields: [loan_id], references: [id], onDelete: Cascade)
+
+  @@map("loan_payments")
+}
+
 model Category {
   id         String   @id @default(uuid())
   title      String
@@ -263,4 +296,15 @@ enum SubscriptionPlan {
   MONTHLY
   YEARLY
   LIFETIME
+}
+
+enum LoanType {
+  GIVEN
+  TAKEN
+}
+
+enum LoanStatus {
+  ONGOING
+  PAID
+  OVERDUE
 }
