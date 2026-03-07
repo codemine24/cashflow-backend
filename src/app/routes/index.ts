@@ -9,6 +9,8 @@ import { UserRoutes } from "../modules/User/User.routes";
 import { SettingRoutes } from "../modules/Setting/Setting.routes";
 import { SubscriptionRoutes } from "../modules/Subscription/Subscription.routes";
 
+import { NotificationRoutes } from "../modules/Notification/Notification.routes";
+
 const router = Router();
 
 const routes = [
@@ -47,6 +49,10 @@ const routes = [
   {
     path: "/subscription",
     route: SubscriptionRoutes,
+  },
+  {
+    path: "/notification",
+    route: NotificationRoutes,
   },
 ];
 
