@@ -6,11 +6,23 @@ type TPaginationOptions = {
 };
 const paginationMaker = (paginationOptions: TPaginationOptions) => {
   const { page, limit, sort_by, sort_order } = paginationOptions;
+
+  const sortWith = sort_by || "created_at";
+  const sortSequence = sort_order || "desc";
+
+  if (!limit) {
+    return {
+      pageNumber: undefined,
+      limitNumber: undefined,
+      skip: undefined,
+      sortWith,
+      sortSequence,
+    };
+  }
+
   const pageNumber = Number(page) || 1;
   const limitNumber = Number(limit) || 10;
   const skip = (pageNumber - 1) * limitNumber;
-  const sortWith = sort_by || "created_at";
-  const sortSequence = sort_order || "desc";
 
   return {
     pageNumber,
