@@ -7,7 +7,9 @@ import {
 // -------------------------------------- CREATE SETTING -----------------------------------
 const createSetting = async (payload: CreateSettingPayload) => {
   const result = await prisma.settings.create({
-    data: payload,
+    data: {
+      ...payload,
+    },
   });
   return result;
 };

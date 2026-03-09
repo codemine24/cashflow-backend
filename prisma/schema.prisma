@@ -9,12 +9,15 @@ datasource db {
 
 model Settings {
   id                String   @id @default(uuid())
+  user_id           String   @unique
   theme             Theme    @default(LIGHT)
   language          String   @default("english")
   currency          String   @default("BDT")
   push_notification Boolean  @default(false)
   created_at        DateTime @default(now())
   updated_at        DateTime @updatedAt
+
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("settings")
 }
@@ -46,6 +49,7 @@ model User {
   subscriptions             Subscription[]
   notifications             Notification[]
   loans                     Loan[]
+  settings                  Settings?
 
   @@map("users")
 }

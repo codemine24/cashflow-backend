@@ -1,15 +1,10 @@
-import { Theme } from "../../../generated/prisma/enums";
+import z from "zod";
+import { SettingSchemas } from "./Setting.schemas";
 
-export type CreateSettingPayload = {
-  theme: Theme;
-  language?: string;
-  currency?: string;
-  push_notification?: boolean;
-};
+export type CreateSettingPayload = z.infer<
+  typeof SettingSchemas.createSetting
+>["body"];
 
-export type UpdateSettingPayload = {
-  theme?: Theme;
-  language?: string;
-  currency?: string;
-  push_notification?: boolean;
-};
+export type UpdateSettingPayload = z.infer<
+  typeof SettingSchemas.updateSetting
+>["body"];

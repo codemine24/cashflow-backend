@@ -26,6 +26,7 @@ export type AggregateSettings = {
 
 export type SettingsMinAggregateOutputType = {
   id: string | null
+  user_id: string | null
   theme: $Enums.Theme | null
   language: string | null
   currency: string | null
@@ -36,6 +37,7 @@ export type SettingsMinAggregateOutputType = {
 
 export type SettingsMaxAggregateOutputType = {
   id: string | null
+  user_id: string | null
   theme: $Enums.Theme | null
   language: string | null
   currency: string | null
@@ -46,6 +48,7 @@ export type SettingsMaxAggregateOutputType = {
 
 export type SettingsCountAggregateOutputType = {
   id: number
+  user_id: number
   theme: number
   language: number
   currency: number
@@ -58,6 +61,7 @@ export type SettingsCountAggregateOutputType = {
 
 export type SettingsMinAggregateInputType = {
   id?: true
+  user_id?: true
   theme?: true
   language?: true
   currency?: true
@@ -68,6 +72,7 @@ export type SettingsMinAggregateInputType = {
 
 export type SettingsMaxAggregateInputType = {
   id?: true
+  user_id?: true
   theme?: true
   language?: true
   currency?: true
@@ -78,6 +83,7 @@ export type SettingsMaxAggregateInputType = {
 
 export type SettingsCountAggregateInputType = {
   id?: true
+  user_id?: true
   theme?: true
   language?: true
   currency?: true
@@ -161,6 +167,7 @@ export type SettingsGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type SettingsGroupByOutputType = {
   id: string
+  user_id: string
   theme: $Enums.Theme
   language: string
   currency: string
@@ -192,26 +199,31 @@ export type SettingsWhereInput = {
   OR?: Prisma.SettingsWhereInput[]
   NOT?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
   id?: Prisma.StringFilter<"Settings"> | string
+  user_id?: Prisma.StringFilter<"Settings"> | string
   theme?: Prisma.EnumThemeFilter<"Settings"> | $Enums.Theme
   language?: Prisma.StringFilter<"Settings"> | string
   currency?: Prisma.StringFilter<"Settings"> | string
   push_notification?: Prisma.BoolFilter<"Settings"> | boolean
   created_at?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Settings"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type SettingsOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   theme?: Prisma.SortOrder
   language?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
 }
 
 export type SettingsWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  user_id?: string
   AND?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
   OR?: Prisma.SettingsWhereInput[]
   NOT?: Prisma.SettingsWhereInput | Prisma.SettingsWhereInput[]
@@ -221,10 +233,12 @@ export type SettingsWhereUniqueInput = Prisma.AtLeast<{
   push_notification?: Prisma.BoolFilter<"Settings"> | boolean
   created_at?: Prisma.DateTimeFilter<"Settings"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Settings"> | Date | string
-}, "id">
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id" | "user_id">
 
 export type SettingsOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   theme?: Prisma.SortOrder
   language?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -241,6 +255,7 @@ export type SettingsScalarWhereWithAggregatesInput = {
   OR?: Prisma.SettingsScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SettingsScalarWhereWithAggregatesInput | Prisma.SettingsScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Settings"> | string
+  user_id?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   theme?: Prisma.EnumThemeWithAggregatesFilter<"Settings"> | $Enums.Theme
   language?: Prisma.StringWithAggregatesFilter<"Settings"> | string
   currency?: Prisma.StringWithAggregatesFilter<"Settings"> | string
@@ -257,10 +272,12 @@ export type SettingsCreateInput = {
   push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutSettingsInput
 }
 
 export type SettingsUncheckedCreateInput = {
   id?: string
+  user_id: string
   theme?: $Enums.Theme
   language?: string
   currency?: string
@@ -277,10 +294,12 @@ export type SettingsUpdateInput = {
   push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutSettingsNestedInput
 }
 
 export type SettingsUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
   language?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -291,6 +310,7 @@ export type SettingsUncheckedUpdateInput = {
 
 export type SettingsCreateManyInput = {
   id?: string
+  user_id: string
   theme?: $Enums.Theme
   language?: string
   currency?: string
@@ -311,6 +331,7 @@ export type SettingsUpdateManyMutationInput = {
 
 export type SettingsUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  user_id?: Prisma.StringFieldUpdateOperationsInput | string
   theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
   language?: Prisma.StringFieldUpdateOperationsInput | string
   currency?: Prisma.StringFieldUpdateOperationsInput | string
@@ -321,6 +342,7 @@ export type SettingsUncheckedUpdateManyInput = {
 
 export type SettingsCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   theme?: Prisma.SortOrder
   language?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -331,6 +353,7 @@ export type SettingsCountOrderByAggregateInput = {
 
 export type SettingsMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   theme?: Prisma.SortOrder
   language?: Prisma.SortOrder
   currency?: Prisma.SortOrder
@@ -341,12 +364,18 @@ export type SettingsMaxOrderByAggregateInput = {
 
 export type SettingsMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  user_id?: Prisma.SortOrder
   theme?: Prisma.SortOrder
   language?: Prisma.SortOrder
   currency?: Prisma.SortOrder
   push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type SettingsNullableScalarRelationFilter = {
+  is?: Prisma.SettingsWhereInput | null
+  isNot?: Prisma.SettingsWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -365,40 +394,135 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type SettingsCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.SettingsCreateOrConnectWithoutUserInput
+  connect?: Prisma.SettingsWhereUniqueInput
+}
+
+export type SettingsUncheckedCreateNestedOneWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.SettingsCreateOrConnectWithoutUserInput
+  connect?: Prisma.SettingsWhereUniqueInput
+}
+
+export type SettingsUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.SettingsCreateOrConnectWithoutUserInput
+  upsert?: Prisma.SettingsUpsertWithoutUserInput
+  disconnect?: Prisma.SettingsWhereInput | boolean
+  delete?: Prisma.SettingsWhereInput | boolean
+  connect?: Prisma.SettingsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SettingsUpdateToOneWithWhereWithoutUserInput, Prisma.SettingsUpdateWithoutUserInput>, Prisma.SettingsUncheckedUpdateWithoutUserInput>
+}
+
+export type SettingsUncheckedUpdateOneWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+  connectOrCreate?: Prisma.SettingsCreateOrConnectWithoutUserInput
+  upsert?: Prisma.SettingsUpsertWithoutUserInput
+  disconnect?: Prisma.SettingsWhereInput | boolean
+  delete?: Prisma.SettingsWhereInput | boolean
+  connect?: Prisma.SettingsWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.SettingsUpdateToOneWithWhereWithoutUserInput, Prisma.SettingsUpdateWithoutUserInput>, Prisma.SettingsUncheckedUpdateWithoutUserInput>
+}
+
+export type SettingsCreateWithoutUserInput = {
+  id?: string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type SettingsUncheckedCreateWithoutUserInput = {
+  id?: string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
+  created_at?: Date | string
+  updated_at?: Date | string
+}
+
+export type SettingsCreateOrConnectWithoutUserInput = {
+  where: Prisma.SettingsWhereUniqueInput
+  create: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+}
+
+export type SettingsUpsertWithoutUserInput = {
+  update: Prisma.XOR<Prisma.SettingsUpdateWithoutUserInput, Prisma.SettingsUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.SettingsCreateWithoutUserInput, Prisma.SettingsUncheckedCreateWithoutUserInput>
+  where?: Prisma.SettingsWhereInput
+}
+
+export type SettingsUpdateToOneWithWhereWithoutUserInput = {
+  where?: Prisma.SettingsWhereInput
+  data: Prisma.XOR<Prisma.SettingsUpdateWithoutUserInput, Prisma.SettingsUncheckedUpdateWithoutUserInput>
+}
+
+export type SettingsUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type SettingsUncheckedUpdateWithoutUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 
 
 export type SettingsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  user_id?: boolean
   theme?: boolean
   language?: boolean
   currency?: boolean
   push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
 export type SettingsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  user_id?: boolean
   theme?: boolean
   language?: boolean
   currency?: boolean
   push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
 export type SettingsSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  user_id?: boolean
   theme?: boolean
   language?: boolean
   currency?: boolean
   push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["settings"]>
 
 export type SettingsSelectScalar = {
   id?: boolean
+  user_id?: boolean
   theme?: boolean
   language?: boolean
   currency?: boolean
@@ -407,13 +531,25 @@ export type SettingsSelectScalar = {
   updated_at?: boolean
 }
 
-export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "theme" | "language" | "currency" | "push_notification" | "created_at" | "updated_at", ExtArgs["result"]["settings"]>
+export type SettingsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "user_id" | "theme" | "language" | "currency" | "push_notification" | "created_at" | "updated_at", ExtArgs["result"]["settings"]>
+export type SettingsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type SettingsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type SettingsIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $SettingsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Settings"
-  objects: {}
+  objects: {
+    user: Prisma.$UserPayload<ExtArgs>
+  }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    user_id: string
     theme: $Enums.Theme
     language: string
     currency: string
@@ -814,6 +950,7 @@ readonly fields: SettingsFieldRefs;
  */
 export interface Prisma__SettingsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -844,6 +981,7 @@ export interface Prisma__SettingsClient<T, Null = never, ExtArgs extends runtime
  */
 export interface SettingsFieldRefs {
   readonly id: Prisma.FieldRef<"Settings", 'String'>
+  readonly user_id: Prisma.FieldRef<"Settings", 'String'>
   readonly theme: Prisma.FieldRef<"Settings", 'Theme'>
   readonly language: Prisma.FieldRef<"Settings", 'String'>
   readonly currency: Prisma.FieldRef<"Settings", 'String'>
@@ -867,6 +1005,10 @@ export type SettingsFindUniqueArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
+  /**
    * Filter, which Settings to fetch.
    */
   where: Prisma.SettingsWhereUniqueInput
@@ -885,6 +1027,10 @@ export type SettingsFindUniqueOrThrowArgs<ExtArgs extends runtime.Types.Extensio
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
+  /**
    * Filter, which Settings to fetch.
    */
   where: Prisma.SettingsWhereUniqueInput
@@ -902,6 +1048,10 @@ export type SettingsFindFirstArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * Omit specific fields from the Settings
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
   /**
    * Filter, which Settings to fetch.
    */
@@ -951,6 +1101,10 @@ export type SettingsFindFirstOrThrowArgs<ExtArgs extends runtime.Types.Extension
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
+  /**
    * Filter, which Settings to fetch.
    */
   where?: Prisma.SettingsWhereInput
@@ -999,6 +1153,10 @@ export type SettingsFindManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
+  /**
    * Filter, which Settings to fetch.
    */
   where?: Prisma.SettingsWhereInput
@@ -1042,6 +1200,10 @@ export type SettingsCreateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
   /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
+  /**
    * The data needed to create a Settings.
    */
   data: Prisma.XOR<Prisma.SettingsCreateInput, Prisma.SettingsUncheckedCreateInput>
@@ -1075,6 +1237,10 @@ export type SettingsCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    */
   data: Prisma.SettingsCreateManyInput | Prisma.SettingsCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1089,6 +1255,10 @@ export type SettingsUpdateArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Settings
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
   /**
    * The data needed to update a Settings.
    */
@@ -1141,6 +1311,10 @@ export type SettingsUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extens
    * Limit how many Settings to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1155,6 +1329,10 @@ export type SettingsUpsertArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Settings
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
   /**
    * The filter to search for the Settings to update in case it exists.
    */
@@ -1181,6 +1359,10 @@ export type SettingsDeleteArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Omit specific fields from the Settings
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
   /**
    * Filter which Settings to delete.
    */
@@ -1213,4 +1395,8 @@ export type SettingsDefaultArgs<ExtArgs extends runtime.Types.Extensions.Interna
    * Omit specific fields from the Settings
    */
   omit?: Prisma.SettingsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.SettingsInclude<ExtArgs> | null
 }
