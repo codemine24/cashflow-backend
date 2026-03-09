@@ -8,6 +8,7 @@ import { GoalRoutes } from "../modules/Goal/Goal.routes";
 import { UserRoutes } from "../modules/User/User.routes";
 import { SettingRoutes } from "../modules/Setting/Setting.routes";
 import { SubscriptionRoutes } from "../modules/Subscription/Subscription.routes";
+import { LoanRoutes } from "../modules/Loan/Loan.routes";
 
 import { NotificationRoutes } from "../modules/Notification/Notification.routes";
 
@@ -53,6 +54,10 @@ const routes = [
   {
     path: "/notification",
     route: NotificationRoutes,
+  },
+  {
+    path: "/loan",
+    route: LoanRoutes,
   },
 ];
 
