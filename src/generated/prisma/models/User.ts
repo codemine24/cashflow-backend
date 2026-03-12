@@ -34,6 +34,10 @@ export type UserMinAggregateOutputType = {
   role: $Enums.UserRole | null
   is_deleted: boolean | null
   password_changed_at: Date | null
+  theme: $Enums.Theme | null
+  language: string | null
+  currency: string | null
+  push_notification: boolean | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -48,6 +52,10 @@ export type UserMaxAggregateOutputType = {
   role: $Enums.UserRole | null
   is_deleted: boolean | null
   password_changed_at: Date | null
+  theme: $Enums.Theme | null
+  language: string | null
+  currency: string | null
+  push_notification: boolean | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -62,6 +70,10 @@ export type UserCountAggregateOutputType = {
   role: number
   is_deleted: number
   password_changed_at: number
+  theme: number
+  language: number
+  currency: number
+  push_notification: number
   created_at: number
   updated_at: number
   _all: number
@@ -78,6 +90,10 @@ export type UserMinAggregateInputType = {
   role?: true
   is_deleted?: true
   password_changed_at?: true
+  theme?: true
+  language?: true
+  currency?: true
+  push_notification?: true
   created_at?: true
   updated_at?: true
 }
@@ -92,6 +108,10 @@ export type UserMaxAggregateInputType = {
   role?: true
   is_deleted?: true
   password_changed_at?: true
+  theme?: true
+  language?: true
+  currency?: true
+  push_notification?: true
   created_at?: true
   updated_at?: true
 }
@@ -106,6 +126,10 @@ export type UserCountAggregateInputType = {
   role?: true
   is_deleted?: true
   password_changed_at?: true
+  theme?: true
+  language?: true
+  currency?: true
+  push_notification?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -193,6 +217,10 @@ export type UserGroupByOutputType = {
   role: $Enums.UserRole
   is_deleted: boolean
   password_changed_at: Date
+  theme: $Enums.Theme
+  language: string
+  currency: string
+  push_notification: boolean
   created_at: Date
   updated_at: Date
   _count: UserCountAggregateOutputType | null
@@ -228,6 +256,10 @@ export type UserWhereInput = {
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   is_deleted?: Prisma.BoolFilter<"User"> | boolean
   password_changed_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  theme?: Prisma.EnumThemeFilter<"User"> | $Enums.Theme
+  language?: Prisma.StringFilter<"User"> | string
+  currency?: Prisma.StringFilter<"User"> | string
+  push_notification?: Prisma.BoolFilter<"User"> | boolean
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   books?: Prisma.BookListRelationFilter
@@ -244,7 +276,6 @@ export type UserWhereInput = {
   subscriptions?: Prisma.SubscriptionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   loans?: Prisma.LoanListRelationFilter
-  settings?: Prisma.XOR<Prisma.SettingsNullableScalarRelationFilter, Prisma.SettingsWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -257,6 +288,10 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   password_changed_at?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   books?: Prisma.BookOrderByRelationAggregateInput
@@ -273,7 +308,6 @@ export type UserOrderByWithRelationInput = {
   subscriptions?: Prisma.SubscriptionOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   loans?: Prisma.LoanOrderByRelationAggregateInput
-  settings?: Prisma.SettingsOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -289,6 +323,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   is_deleted?: Prisma.BoolFilter<"User"> | boolean
   password_changed_at?: Prisma.DateTimeFilter<"User"> | Date | string
+  theme?: Prisma.EnumThemeFilter<"User"> | $Enums.Theme
+  language?: Prisma.StringFilter<"User"> | string
+  currency?: Prisma.StringFilter<"User"> | string
+  push_notification?: Prisma.BoolFilter<"User"> | boolean
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"User"> | Date | string
   books?: Prisma.BookListRelationFilter
@@ -305,7 +343,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   subscriptions?: Prisma.SubscriptionListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
   loans?: Prisma.LoanListRelationFilter
-  settings?: Prisma.XOR<Prisma.SettingsNullableScalarRelationFilter, Prisma.SettingsWhereInput> | null
 }, "id" | "email" | "contact_number">
 
 export type UserOrderByWithAggregationInput = {
@@ -318,6 +355,10 @@ export type UserOrderByWithAggregationInput = {
   role?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   password_changed_at?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
@@ -338,6 +379,10 @@ export type UserScalarWhereWithAggregatesInput = {
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   is_deleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   password_changed_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  theme?: Prisma.EnumThemeWithAggregatesFilter<"User"> | $Enums.Theme
+  language?: Prisma.StringWithAggregatesFilter<"User"> | string
+  currency?: Prisma.StringWithAggregatesFilter<"User"> | string
+  push_notification?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   created_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
@@ -352,6 +397,10 @@ export type UserCreateInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -368,7 +417,6 @@ export type UserCreateInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -381,6 +429,10 @@ export type UserUncheckedCreateInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -397,7 +449,6 @@ export type UserUncheckedCreateInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -410,6 +461,10 @@ export type UserUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -426,7 +481,6 @@ export type UserUpdateInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -439,6 +493,10 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -455,7 +513,6 @@ export type UserUncheckedUpdateInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -468,6 +525,10 @@ export type UserCreateManyInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -482,6 +543,10 @@ export type UserUpdateManyMutationInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -496,13 +561,12 @@ export type UserUncheckedUpdateManyInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type UserScalarRelationFilter = {
-  is?: Prisma.UserWhereInput
-  isNot?: Prisma.UserWhereInput
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -515,6 +579,10 @@ export type UserCountOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   password_changed_at?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -529,6 +597,10 @@ export type UserMaxOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   password_changed_at?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -543,27 +615,22 @@ export type UserMinOrderByAggregateInput = {
   role?: Prisma.SortOrder
   is_deleted?: Prisma.SortOrder
   password_changed_at?: Prisma.SortOrder
+  theme?: Prisma.SortOrder
+  language?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  push_notification?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
+}
+
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
 }
 
 export type UserNullableScalarRelationFilter = {
   is?: Prisma.UserWhereInput | null
   isNot?: Prisma.UserWhereInput | null
-}
-
-export type UserCreateNestedOneWithoutSettingsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutSettingsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSettingsInput
-  upsert?: Prisma.UserUpsertWithoutSettingsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSettingsInput, Prisma.UserUpdateWithoutSettingsInput>, Prisma.UserUncheckedUpdateWithoutSettingsInput>
 }
 
 export type NullableStringFieldUpdateOperationsInput = {
@@ -782,134 +849,6 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
-export type UserCreateWithoutSettingsInput = {
-  id?: string
-  name?: string | null
-  email: string
-  contact_number?: string | null
-  avatar?: string | null
-  status?: $Enums.UserStatus
-  role?: $Enums.UserRole
-  is_deleted?: boolean
-  password_changed_at?: Date | string
-  created_at?: Date | string
-  updated_at?: Date | string
-  books?: Prisma.BookCreateNestedManyWithoutUserInput
-  entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionCreateNestedManyWithoutUpdated_byInput
-  entered_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutEntry_byInput
-  updated_goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUpdated_byInput
-  goal_transactions?: Prisma.GoalTransactionCreateNestedManyWithoutUserInput
-  categories?: Prisma.CategoryCreateNestedManyWithoutUserInput
-  goals?: Prisma.GoalCreateNestedManyWithoutUserInput
-  books_member?: Prisma.BookMemberCreateNestedManyWithoutUserInput
-  goals_member?: Prisma.GoalMemberCreateNestedManyWithoutUserInput
-  files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
-  subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutSettingsInput = {
-  id?: string
-  name?: string | null
-  email: string
-  contact_number?: string | null
-  avatar?: string | null
-  status?: $Enums.UserStatus
-  role?: $Enums.UserRole
-  is_deleted?: boolean
-  password_changed_at?: Date | string
-  created_at?: Date | string
-  updated_at?: Date | string
-  books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
-  entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUpdated_byInput
-  entered_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutEntry_byInput
-  updated_goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUpdated_byInput
-  goal_transactions?: Prisma.GoalTransactionUncheckedCreateNestedManyWithoutUserInput
-  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutUserInput
-  goals?: Prisma.GoalUncheckedCreateNestedManyWithoutUserInput
-  books_member?: Prisma.BookMemberUncheckedCreateNestedManyWithoutUserInput
-  goals_member?: Prisma.GoalMemberUncheckedCreateNestedManyWithoutUserInput
-  files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
-  subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutSettingsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
-}
-
-export type UserUpsertWithoutSettingsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutSettingsInput, Prisma.UserUncheckedCreateWithoutSettingsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutSettingsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutSettingsInput, Prisma.UserUncheckedUpdateWithoutSettingsInput>
-}
-
-export type UserUpdateWithoutSettingsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  books?: Prisma.BookUpdateManyWithoutUserNestedInput
-  entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUpdateManyWithoutUpdated_byNestedInput
-  entered_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutEntry_byNestedInput
-  updated_goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUpdated_byNestedInput
-  goal_transactions?: Prisma.GoalTransactionUpdateManyWithoutUserNestedInput
-  categories?: Prisma.CategoryUpdateManyWithoutUserNestedInput
-  goals?: Prisma.GoalUpdateManyWithoutUserNestedInput
-  books_member?: Prisma.BookMemberUpdateManyWithoutUserNestedInput
-  goals_member?: Prisma.GoalMemberUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
-  subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutSettingsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  contact_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  avatar?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
-  entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
-  entered_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutEntry_byNestedInput
-  updated_goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUpdated_byNestedInput
-  goal_transactions?: Prisma.GoalTransactionUncheckedUpdateManyWithoutUserNestedInput
-  categories?: Prisma.CategoryUncheckedUpdateManyWithoutUserNestedInput
-  goals?: Prisma.GoalUncheckedUpdateManyWithoutUserNestedInput
-  books_member?: Prisma.BookMemberUncheckedUpdateManyWithoutUserNestedInput
-  goals_member?: Prisma.GoalMemberUncheckedUpdateManyWithoutUserNestedInput
-  files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
-  subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-}
-
 export type UserCreateWithoutSubscriptionsInput = {
   id?: string
   name?: string | null
@@ -920,6 +859,10 @@ export type UserCreateWithoutSubscriptionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -935,7 +878,6 @@ export type UserCreateWithoutSubscriptionsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSubscriptionsInput = {
@@ -948,6 +890,10 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -963,7 +909,6 @@ export type UserUncheckedCreateWithoutSubscriptionsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSubscriptionsInput = {
@@ -992,6 +937,10 @@ export type UserUpdateWithoutSubscriptionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1007,7 +956,6 @@ export type UserUpdateWithoutSubscriptionsInput = {
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSubscriptionsInput = {
@@ -1020,6 +968,10 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1035,7 +987,6 @@ export type UserUncheckedUpdateWithoutSubscriptionsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBooksInput = {
@@ -1048,6 +999,10 @@ export type UserCreateWithoutBooksInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   entered_transactions?: Prisma.TransactionCreateNestedManyWithoutEntry_byInput
@@ -1063,7 +1018,6 @@ export type UserCreateWithoutBooksInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBooksInput = {
@@ -1076,6 +1030,10 @@ export type UserUncheckedCreateWithoutBooksInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   entered_transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutEntry_byInput
@@ -1091,7 +1049,6 @@ export type UserUncheckedCreateWithoutBooksInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBooksInput = {
@@ -1120,6 +1077,10 @@ export type UserUpdateWithoutBooksInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entered_transactions?: Prisma.TransactionUpdateManyWithoutEntry_byNestedInput
@@ -1135,7 +1096,6 @@ export type UserUpdateWithoutBooksInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooksInput = {
@@ -1148,6 +1108,10 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   entered_transactions?: Prisma.TransactionUncheckedUpdateManyWithoutEntry_byNestedInput
@@ -1163,7 +1127,6 @@ export type UserUncheckedUpdateWithoutBooksInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutBooks_memberInput = {
@@ -1176,6 +1139,10 @@ export type UserCreateWithoutBooks_memberInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1191,7 +1158,6 @@ export type UserCreateWithoutBooks_memberInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutBooks_memberInput = {
@@ -1204,6 +1170,10 @@ export type UserUncheckedCreateWithoutBooks_memberInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1219,7 +1189,6 @@ export type UserUncheckedCreateWithoutBooks_memberInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutBooks_memberInput = {
@@ -1248,6 +1217,10 @@ export type UserUpdateWithoutBooks_memberInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1263,7 +1236,6 @@ export type UserUpdateWithoutBooks_memberInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutBooks_memberInput = {
@@ -1276,6 +1248,10 @@ export type UserUncheckedUpdateWithoutBooks_memberInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1291,7 +1267,6 @@ export type UserUncheckedUpdateWithoutBooks_memberInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEntered_transactionsInput = {
@@ -1304,6 +1279,10 @@ export type UserCreateWithoutEntered_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1319,7 +1298,6 @@ export type UserCreateWithoutEntered_transactionsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEntered_transactionsInput = {
@@ -1332,6 +1310,10 @@ export type UserUncheckedCreateWithoutEntered_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1347,7 +1329,6 @@ export type UserUncheckedCreateWithoutEntered_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEntered_transactionsInput = {
@@ -1365,6 +1346,10 @@ export type UserCreateWithoutUpdated_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1380,7 +1365,6 @@ export type UserCreateWithoutUpdated_transactionsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
@@ -1393,6 +1377,10 @@ export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1408,7 +1396,6 @@ export type UserUncheckedCreateWithoutUpdated_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_transactionsInput = {
@@ -1437,6 +1424,10 @@ export type UserUpdateWithoutEntered_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1452,7 +1443,6 @@ export type UserUpdateWithoutEntered_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
@@ -1465,6 +1455,10 @@ export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1480,7 +1474,6 @@ export type UserUncheckedUpdateWithoutEntered_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutUpdated_transactionsInput = {
@@ -1504,6 +1497,10 @@ export type UserUpdateWithoutUpdated_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1519,7 +1516,6 @@ export type UserUpdateWithoutUpdated_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
@@ -1532,6 +1528,10 @@ export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1547,7 +1547,6 @@ export type UserUncheckedUpdateWithoutUpdated_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoalsInput = {
@@ -1560,6 +1559,10 @@ export type UserCreateWithoutGoalsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1575,7 +1578,6 @@ export type UserCreateWithoutGoalsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoalsInput = {
@@ -1588,6 +1590,10 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1603,7 +1609,6 @@ export type UserUncheckedCreateWithoutGoalsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoalsInput = {
@@ -1632,6 +1637,10 @@ export type UserUpdateWithoutGoalsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1647,7 +1656,6 @@ export type UserUpdateWithoutGoalsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoalsInput = {
@@ -1660,6 +1668,10 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1675,7 +1687,6 @@ export type UserUncheckedUpdateWithoutGoalsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGoals_memberInput = {
@@ -1688,6 +1699,10 @@ export type UserCreateWithoutGoals_memberInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1703,7 +1718,6 @@ export type UserCreateWithoutGoals_memberInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoals_memberInput = {
@@ -1716,6 +1730,10 @@ export type UserUncheckedCreateWithoutGoals_memberInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1731,7 +1749,6 @@ export type UserUncheckedCreateWithoutGoals_memberInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoals_memberInput = {
@@ -1760,6 +1777,10 @@ export type UserUpdateWithoutGoals_memberInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -1775,7 +1796,6 @@ export type UserUpdateWithoutGoals_memberInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoals_memberInput = {
@@ -1788,6 +1808,10 @@ export type UserUncheckedUpdateWithoutGoals_memberInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -1803,7 +1827,6 @@ export type UserUncheckedUpdateWithoutGoals_memberInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutEntered_goal_transactionsInput = {
@@ -1816,6 +1839,10 @@ export type UserCreateWithoutEntered_goal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1831,7 +1858,6 @@ export type UserCreateWithoutEntered_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
@@ -1844,6 +1870,10 @@ export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1859,7 +1889,6 @@ export type UserUncheckedCreateWithoutEntered_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEntered_goal_transactionsInput = {
@@ -1877,6 +1906,10 @@ export type UserCreateWithoutUpdated_goal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1892,7 +1925,6 @@ export type UserCreateWithoutUpdated_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
@@ -1905,6 +1937,10 @@ export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1920,7 +1956,6 @@ export type UserUncheckedCreateWithoutUpdated_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutUpdated_goal_transactionsInput = {
@@ -1938,6 +1973,10 @@ export type UserCreateWithoutGoal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -1953,7 +1992,6 @@ export type UserCreateWithoutGoal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGoal_transactionsInput = {
@@ -1966,6 +2004,10 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -1981,7 +2023,6 @@ export type UserUncheckedCreateWithoutGoal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGoal_transactionsInput = {
@@ -2010,6 +2051,10 @@ export type UserUpdateWithoutEntered_goal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2025,7 +2070,6 @@ export type UserUpdateWithoutEntered_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
@@ -2038,6 +2082,10 @@ export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2053,7 +2101,6 @@ export type UserUncheckedUpdateWithoutEntered_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutUpdated_goal_transactionsInput = {
@@ -2077,6 +2124,10 @@ export type UserUpdateWithoutUpdated_goal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2092,7 +2143,6 @@ export type UserUpdateWithoutUpdated_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
@@ -2105,6 +2155,10 @@ export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2120,7 +2174,6 @@ export type UserUncheckedUpdateWithoutUpdated_goal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutGoal_transactionsInput = {
@@ -2144,6 +2197,10 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2159,7 +2216,6 @@ export type UserUpdateWithoutGoal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
@@ -2172,6 +2228,10 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2187,7 +2247,6 @@ export type UserUncheckedUpdateWithoutGoal_transactionsInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutLoansInput = {
@@ -2200,6 +2259,10 @@ export type UserCreateWithoutLoansInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -2215,7 +2278,6 @@ export type UserCreateWithoutLoansInput = {
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoansInput = {
@@ -2228,6 +2290,10 @@ export type UserUncheckedCreateWithoutLoansInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -2243,7 +2309,6 @@ export type UserUncheckedCreateWithoutLoansInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoansInput = {
@@ -2272,6 +2337,10 @@ export type UserUpdateWithoutLoansInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2287,7 +2356,6 @@ export type UserUpdateWithoutLoansInput = {
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoansInput = {
@@ -2300,6 +2368,10 @@ export type UserUncheckedUpdateWithoutLoansInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2315,7 +2387,6 @@ export type UserUncheckedUpdateWithoutLoansInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCategoriesInput = {
@@ -2328,6 +2399,10 @@ export type UserCreateWithoutCategoriesInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -2343,7 +2418,6 @@ export type UserCreateWithoutCategoriesInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCategoriesInput = {
@@ -2356,6 +2430,10 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -2371,7 +2449,6 @@ export type UserUncheckedCreateWithoutCategoriesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCategoriesInput = {
@@ -2400,6 +2477,10 @@ export type UserUpdateWithoutCategoriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2415,7 +2496,6 @@ export type UserUpdateWithoutCategoriesInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCategoriesInput = {
@@ -2428,6 +2508,10 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2443,7 +2527,6 @@ export type UserUncheckedUpdateWithoutCategoriesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutFilesInput = {
@@ -2456,6 +2539,10 @@ export type UserCreateWithoutFilesInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -2471,7 +2558,6 @@ export type UserCreateWithoutFilesInput = {
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFilesInput = {
@@ -2484,6 +2570,10 @@ export type UserUncheckedCreateWithoutFilesInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -2499,7 +2589,6 @@ export type UserUncheckedCreateWithoutFilesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFilesInput = {
@@ -2528,6 +2617,10 @@ export type UserUpdateWithoutFilesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2543,7 +2636,6 @@ export type UserUpdateWithoutFilesInput = {
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFilesInput = {
@@ -2556,6 +2648,10 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2571,7 +2667,6 @@ export type UserUncheckedUpdateWithoutFilesInput = {
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -2584,6 +2679,10 @@ export type UserCreateWithoutNotificationsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookCreateNestedManyWithoutUserInput
@@ -2599,7 +2698,6 @@ export type UserCreateWithoutNotificationsInput = {
   files?: Prisma.FileCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -2612,6 +2710,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   role?: $Enums.UserRole
   is_deleted?: boolean
   password_changed_at?: Date | string
+  theme?: $Enums.Theme
+  language?: string
+  currency?: string
+  push_notification?: boolean
   created_at?: Date | string
   updated_at?: Date | string
   books?: Prisma.BookUncheckedCreateNestedManyWithoutUserInput
@@ -2627,7 +2729,6 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   files?: Prisma.FileUncheckedCreateNestedManyWithoutUploaded_byInput
   subscriptions?: Prisma.SubscriptionUncheckedCreateNestedManyWithoutUserInput
   loans?: Prisma.LoanUncheckedCreateNestedManyWithoutUserInput
-  settings?: Prisma.SettingsUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -2656,6 +2757,10 @@ export type UserUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUpdateManyWithoutUserNestedInput
@@ -2671,7 +2776,6 @@ export type UserUpdateWithoutNotificationsInput = {
   files?: Prisma.FileUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2684,6 +2788,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   is_deleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   password_changed_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  theme?: Prisma.EnumThemeFieldUpdateOperationsInput | $Enums.Theme
+  language?: Prisma.StringFieldUpdateOperationsInput | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  push_notification?: Prisma.BoolFieldUpdateOperationsInput | boolean
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   books?: Prisma.BookUncheckedUpdateManyWithoutUserNestedInput
@@ -2699,7 +2807,6 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   files?: Prisma.FileUncheckedUpdateManyWithoutUploaded_byNestedInput
   subscriptions?: Prisma.SubscriptionUncheckedUpdateManyWithoutUserNestedInput
   loans?: Prisma.LoanUncheckedUpdateManyWithoutUserNestedInput
-  settings?: Prisma.SettingsUncheckedUpdateOneWithoutUserNestedInput
 }
 
 
@@ -2860,6 +2967,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   is_deleted?: boolean
   password_changed_at?: boolean
+  theme?: boolean
+  language?: boolean
+  currency?: boolean
+  push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
   books?: boolean | Prisma.User$booksArgs<ExtArgs>
@@ -2876,7 +2987,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   loans?: boolean | Prisma.User$loansArgs<ExtArgs>
-  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2890,6 +3000,10 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   is_deleted?: boolean
   password_changed_at?: boolean
+  theme?: boolean
+  language?: boolean
+  currency?: boolean
+  push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["user"]>
@@ -2904,6 +3018,10 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   role?: boolean
   is_deleted?: boolean
   password_changed_at?: boolean
+  theme?: boolean
+  language?: boolean
+  currency?: boolean
+  push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
 }, ExtArgs["result"]["user"]>
@@ -2918,11 +3036,15 @@ export type UserSelectScalar = {
   role?: boolean
   is_deleted?: boolean
   password_changed_at?: boolean
+  theme?: boolean
+  language?: boolean
+  currency?: boolean
+  push_notification?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "contact_number" | "avatar" | "status" | "role" | "is_deleted" | "password_changed_at" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "contact_number" | "avatar" | "status" | "role" | "is_deleted" | "password_changed_at" | "theme" | "language" | "currency" | "push_notification" | "created_at" | "updated_at", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   books?: boolean | Prisma.User$booksArgs<ExtArgs>
   entered_transactions?: boolean | Prisma.User$entered_transactionsArgs<ExtArgs>
@@ -2938,7 +3060,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   subscriptions?: boolean | Prisma.User$subscriptionsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   loans?: boolean | Prisma.User$loansArgs<ExtArgs>
-  settings?: boolean | Prisma.User$settingsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2961,7 +3082,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     subscriptions: Prisma.$SubscriptionPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     loans: Prisma.$LoanPayload<ExtArgs>[]
-    settings: Prisma.$SettingsPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2973,6 +3093,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     role: $Enums.UserRole
     is_deleted: boolean
     password_changed_at: Date
+    theme: $Enums.Theme
+    language: string
+    currency: string
+    push_notification: boolean
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["user"]>
@@ -3383,7 +3507,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   subscriptions<T extends Prisma.User$subscriptionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$subscriptionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SubscriptionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   loans<T extends Prisma.User$loansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$loansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoanPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  settings<T extends Prisma.User$settingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$settingsArgs<ExtArgs>>): Prisma.Prisma__SettingsClient<runtime.Types.Result.GetResult<Prisma.$SettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3422,6 +3545,10 @@ export interface UserFieldRefs {
   readonly role: Prisma.FieldRef<"User", 'UserRole'>
   readonly is_deleted: Prisma.FieldRef<"User", 'Boolean'>
   readonly password_changed_at: Prisma.FieldRef<"User", 'DateTime'>
+  readonly theme: Prisma.FieldRef<"User", 'Theme'>
+  readonly language: Prisma.FieldRef<"User", 'String'>
+  readonly currency: Prisma.FieldRef<"User", 'String'>
+  readonly push_notification: Prisma.FieldRef<"User", 'Boolean'>
   readonly created_at: Prisma.FieldRef<"User", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"User", 'DateTime'>
 }
@@ -4145,25 +4272,6 @@ export type User$loansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs
   take?: number
   skip?: number
   distinct?: Prisma.LoanScalarFieldEnum | Prisma.LoanScalarFieldEnum[]
-}
-
-/**
- * User.settings
- */
-export type User$settingsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Settings
-   */
-  select?: Prisma.SettingsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Settings
-   */
-  omit?: Prisma.SettingsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.SettingsInclude<ExtArgs> | null
-  where?: Prisma.SettingsWhereInput
 }
 
 /**
