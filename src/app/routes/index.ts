@@ -9,6 +9,7 @@ import { UserRoutes } from "../modules/User/User.routes";
 import { SettingRoutes } from "../modules/Setting/Setting.routes";
 import { SubscriptionRoutes } from "../modules/Subscription/Subscription.routes";
 import { LoanRoutes } from "../modules/Loan/Loan.routes";
+import { StatisticsRoutes } from "../modules/Statistics/Statistics.routes";
 
 import { NotificationRoutes } from "../modules/Notification/Notification.routes";
 
@@ -58,6 +59,10 @@ const routes = [
   {
     path: "/loan",
     route: LoanRoutes,
+  },
+  {
+    path: "/statistics",
+    route: StatisticsRoutes,
   },
 ];
 
