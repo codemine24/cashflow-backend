@@ -57,7 +57,7 @@ const resolveDateFilter = (
  * Filter by: period = day | week | month | year | all
  *        OR: from_date / to_date (ISO date strings, custom range)
  */
-const getOverview = async (user: TAuthUser, query: Record<string, any>) => {
+const getBookOverview = async (user: TAuthUser, query: Record<string, any>) => {
   const dateFilter = resolveDateFilter(query);
   const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
 
@@ -383,7 +383,7 @@ const getGoalSummary = async (user: TAuthUser) => {
 };
 
 export const StatisticsServices = {
-  getOverview,
+  getBookOverview,
   getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,

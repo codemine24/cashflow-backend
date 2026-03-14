@@ -5,9 +5,9 @@ import { StatisticsServices } from "./Statistics.services";
 import { TAuthUser } from "../../interfaces/common";
 
 // -------------------------------------- GET OVERVIEW -----------------------------------
-const getOverview = catchAsync(async (req, res) => {
+const getBookOverview = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
-  const result = await StatisticsServices.getOverview(user, req.query);
+  const result = await StatisticsServices.getBookOverview(user, req.query);
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -65,7 +65,7 @@ const getGoalSummary = catchAsync(async (req, res) => {
 });
 
 export const StatisticsControllers = {
-  getOverview,
+  getBookOverview,
   getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,

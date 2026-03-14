@@ -7,9 +7,9 @@ const router = Router();
 
 // GET /statistics/overview?period=week|month|year|all&book_id=<id>
 router.get(
-  "/overview",
+  "/book-overview",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  StatisticsControllers.getOverview,
+  StatisticsControllers.getBookOverview,
 );
 
 // GET /statistics/trend?period=week|month|year&book_id=<id>
