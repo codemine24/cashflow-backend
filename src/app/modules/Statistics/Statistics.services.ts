@@ -1,91 +1,139 @@
 import { prisma } from "../../shared/prisma";
 import { TAuthUser } from "../../interfaces/common";
-import { StatsPeriod } from "./Statistics.interfaces";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-const getDateRange = (period: StatsPeriod): Date | null => {
+/**
+ * Resolves a `created_at` Prisma filter from the query params.
+ * Supports period = day | week | month | year  AND  from_date / to_date (custom range).
+ */
+const resolveDateFilter = (
+  query: Record<string, any>,
+): { gte?: Date; lte?: Date } | undefined => {
+  const { period, from_date, to_date } = query;
+
+  // Custom date range takes priority
+  if (from_date || to_date) {
+    const filter: { gte?: Date; lte?: Date } = {};
+    if (from_date) filter.gte = new Date(from_date as string);
+    if (to_date) {
+      const end = new Date(to_date as string);
+      end.setHours(23, 59, 59, 999);
+      filter.lte = end;
+    }
+    return filter;
+  }
+
+  if (!period || period === "all") return undefined;
+
   const now = new Date();
-  if (period === "week") {
-    const d = new Date(now);
-    d.setDate(d.getDate() - 7);
-    return d;
+  const from = new Date(now);
+
+  if (period === "day") {
+    from.setHours(0, 0, 0, 0);
+  } else if (period === "week") {
+    from.setDate(from.getDate() - 7);
+  } else if (period === "month") {
+    from.setMonth(from.getMonth() - 1);
+  } else if (period === "year") {
+    from.setFullYear(from.getFullYear() - 1);
+  } else {
+    return undefined;
   }
-  if (period === "month") {
-    const d = new Date(now);
-    d.setMonth(d.getMonth() - 1);
-    return d;
-  }
-  if (period === "year") {
-    const d = new Date(now);
-    d.setFullYear(d.getFullYear() - 1);
-    return d;
-  }
-  return null; // "all"
+
+  return { gte: from };
 };
 
-const buildDateFilter = (from: Date | null) =>
-  from ? { gte: from } : undefined;
-
 // ─── GET OVERVIEW ─────────────────────────────────────────────────────────────
-// Returns total income, total expense, net balance and book count for the user
-const getOverview = async (
-  user: TAuthUser,
-  query: Record<string, any>,
-) => {
-  const period: StatsPeriod = (query.period as StatsPeriod) || "all";
-  const bookId: string | undefined = query.book_id;
+/**
+ * Returns 6 stats split between own books and shared books:
+ *  1. Total own books count
+ *  2. Total IN (income) in own books
+ *  3. Total OUT (expense) in own books
+ *  4. Total shared books count
+ *  5. Total IN (income) in shared books
+ *  6. Total OUT (expense) in shared books
+ *
+ * Filter by: period = day | week | month | year | all
+ *        OR: from_date / to_date (ISO date strings, custom range)
+ */
+const getOverview = async (user: TAuthUser, query: Record<string, any>) => {
+  const dateFilter = resolveDateFilter(query);
+  const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
 
-  const from = getDateRange(period);
-  const dateFilter = buildDateFilter(from);
+  // --- Own books ---
+  const ownedBooks = await prisma.book.findMany({
+    where: { user_id: user.id },
+    select: { id: true },
+  });
+  const ownedBookIds = ownedBooks.map((b) => b.id);
 
-  // Resolve which book IDs belong to the user (owned or member)
-  const ownedBookIds = (
-    await prisma.book.findMany({
-      where: { user_id: user.id },
-      select: { id: true },
-    })
-  ).map((b) => b.id);
+  // --- Shared books (member of but NOT owner) ---
+  const memberEntries = await prisma.bookMember.findMany({
+    where: {
+      user_id: user.id,
+      book_id: { notIn: ownedBookIds }, // exclude own books
+    },
+    select: { book_id: true },
+  });
+  const sharedBookIds = [...new Set(memberEntries.map((m) => m.book_id))];
 
-  const memberBookIds = (
-    await prisma.bookMember.findMany({
-      where: { user_id: user.id },
-      select: { book_id: true },
-    })
-  ).map((m) => m.book_id);
-
-  const accessibleBookIds = [...new Set([...ownedBookIds, ...memberBookIds])];
-
-  const bookFilter = bookId
-    ? [bookId]
-    : accessibleBookIds;
-
-  const [totalBookCount, transactions] = await Promise.all([
-    prisma.book.count({ where: { user_id: user.id } }),
-    prisma.transaction.findMany({
-      where: {
-        book_id: { in: bookFilter },
-        ...(dateFilter ? { created_at: dateFilter } : {}),
-      },
-      select: { type: true, amount: true },
-    }),
+  // Fetch transactions for own and shared books in one parallel call
+  const [ownTransactions, sharedTransactions] = await Promise.all([
+    ownedBookIds.length > 0
+      ? prisma.transaction.findMany({
+          where: {
+            book_id: { in: ownedBookIds },
+            ...createdAtFilter,
+          },
+          select: { type: true, amount: true },
+        })
+      : Promise.resolve([]),
+    sharedBookIds.length > 0
+      ? prisma.transaction.findMany({
+          where: {
+            book_id: { in: sharedBookIds },
+            ...createdAtFilter,
+          },
+          select: { type: true, amount: true },
+        })
+      : Promise.resolve([]),
   ]);
 
-  let totalIncome = 0;
-  let totalExpense = 0;
-
-  for (const tx of transactions) {
+  let ownIncome = 0;
+  let ownExpense = 0;
+  for (const tx of ownTransactions) {
     const amt = Number(tx.amount);
-    if (tx.type === "IN") totalIncome += amt;
-    else totalExpense += amt;
+    if (tx.type === "IN") ownIncome += amt;
+    else ownExpense += amt;
+  }
+
+  let sharedIncome = 0;
+  let sharedExpense = 0;
+  for (const tx of sharedTransactions) {
+    const amt = Number(tx.amount);
+    if (tx.type === "IN") sharedIncome += amt;
+    else sharedExpense += amt;
   }
 
   return {
-    total_books: totalBookCount,
-    total_income: totalIncome,
-    total_expense: totalExpense,
-    net_balance: totalIncome - totalExpense,
-    period,
+    own_books: {
+      total: ownedBookIds.length,
+      total_income: ownIncome,
+      total_expense: ownExpense,
+      net_balance: ownIncome - ownExpense,
+    },
+    shared_books: {
+      total: sharedBookIds.length,
+      total_income: sharedIncome,
+      total_expense: sharedExpense,
+      net_balance: sharedIncome - sharedExpense,
+    },
+    // filter: {
+    //   period: query.period ?? "all",
+    //   from_date: query.from_date ?? null,
+    //   to_date: query.to_date ?? null,
+    // },
   };
 };
 
@@ -95,10 +143,13 @@ const getTransactionTrend = async (
   user: TAuthUser,
   query: Record<string, any>,
 ) => {
-  const period: StatsPeriod = (query.period as StatsPeriod) || "month";
+  const period: string = (query.period as string) || "month";
   const bookId: string | undefined = query.book_id;
 
-  const from = getDateRange(period === "all" ? "year" : period);
+  // Use resolveDateFilter but fall back to last-year if period is "all"
+  const effectiveQuery =
+    period === "all" ? { ...query, period: "year" } : query;
+  const dateFilter = resolveDateFilter(effectiveQuery);
 
   const ownedBookIds = (
     await prisma.book.findMany({
@@ -120,7 +171,7 @@ const getTransactionTrend = async (
   const transactions = await prisma.transaction.findMany({
     where: {
       book_id: { in: bookFilter },
-      ...(from ? { created_at: { gte: from } } : {}),
+      ...(dateFilter ? { created_at: dateFilter } : {}),
     },
     select: { type: true, amount: true, created_at: true },
     orderBy: { created_at: "asc" },
@@ -131,7 +182,7 @@ const getTransactionTrend = async (
 
   for (const tx of transactions) {
     let label: string;
-    if (period === "week") {
+    if (period === "week" || period === "day") {
       label = tx.created_at.toISOString().slice(0, 10); // YYYY-MM-DD
     } else {
       label = tx.created_at.toISOString().slice(0, 7); // YYYY-MM
@@ -158,12 +209,11 @@ const getCategoryBreakdown = async (
   user: TAuthUser,
   query: Record<string, any>,
 ) => {
-  const period: StatsPeriod = (query.period as StatsPeriod) || "month";
+  const period: string = (query.period as string) || "month";
   const bookId: string | undefined = query.book_id;
   const type: "IN" | "OUT" = (query.type as "IN" | "OUT") || "OUT";
 
-  const from = getDateRange(period);
-  const dateFilter = buildDateFilter(from);
+  const dateFilter = resolveDateFilter(query);
 
   const ownedBookIds = (
     await prisma.book.findMany({
@@ -196,7 +246,13 @@ const getCategoryBreakdown = async (
 
   const categoryMap: Record<
     string,
-    { id: string; title: string; icon: string | null; color: string | null; total: number }
+    {
+      id: string;
+      title: string;
+      icon: string | null;
+      color: string | null;
+      total: number;
+    }
   > = {};
 
   let uncategorizedTotal = 0;
@@ -300,9 +356,10 @@ const getGoalSummary = async (user: TAuthUser) => {
       if (tx.type === "IN") saved += amt;
       else saved -= amt;
     }
-    const progress = Number(goal.target_amount) > 0
-      ? Math.min((saved / Number(goal.target_amount)) * 100, 100)
-      : 0;
+    const progress =
+      Number(goal.target_amount) > 0
+        ? Math.min((saved / Number(goal.target_amount)) * 100, 100)
+        : 0;
 
     return {
       id: goal.id,
