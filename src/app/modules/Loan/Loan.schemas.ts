@@ -46,8 +46,21 @@ const addPayment = z.object({
     .strict(),
 });
 
+const updatePayment = z.object({
+  body: z
+    .object({
+      payment_id: z.uuid({
+        message: "Payment ID is required",
+      }),
+      amount: z.number().optional(),
+      remark: z.string().optional(),
+    })
+    .strict(),
+});
+
 export const LoanSchemas = {
   createLoan,
   updateLoan,
   addPayment,
+  updatePayment,
 };
