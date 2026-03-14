@@ -182,6 +182,7 @@ const getAllBooks = async (user: TAuthUser, query: Record<string, any>) => {
       others_member: [{ ...book.user, role: "OWNER" }, ...members],
       created_at: book.created_at,
       updated_at: book.updated_at,
+      created_by: book.user_id,
     };
   });
 
@@ -276,6 +277,7 @@ const getBookById = async (user: TAuthUser, id: string) => {
     transactions: result.transactions,
     created_at: result.created_at,
     updated_at: result.updated_at,
+    created_by: result.user_id,
   };
 };
 
