@@ -77,6 +77,29 @@ const addPayment = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- UPDATE PAYMENT ------------------------------------
+const updatePayment = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await LoanServices.updatePayment(user, req.body);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Payment updated successfully",
+    data: result,
+  });
+});
+
+// -------------------------------------- DELETE PAYMENT ------------------------------------
+const deletePayment = catchAsync(async (req, res) => {
+  const result = await LoanServices.deletePayment(req.body.ids);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Payment deleted successfully",
+    data: result,
+  });
+});
+
 export const LoanControllers = {
   createLoan,
   getAllLoans,
@@ -84,4 +107,6 @@ export const LoanControllers = {
   updateLoan,
   deleteLoans,
   addPayment,
+  updatePayment,
+  deletePayment,
 };

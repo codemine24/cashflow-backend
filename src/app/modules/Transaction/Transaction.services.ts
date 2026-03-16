@@ -185,17 +185,32 @@ const getTransactionsByBook = async (
   if (category_id) andConditions.push({ category_id });
 
   if (search_term) {
-    andConditions.push({
-      OR: transactionSearchableFields.map((field) => {
-        return {
-          [field]: {
-            contains: search_term.trim(),
-            mode: "insensitive",
-          },
-        };
-      }),
-    });
+  const trimmed = search_term.trim();
+  const numValue = parseFloat(trimmed);
+  const isNumber = !isNaN(numValue);
+
+  const orConditions: Prisma.TransactionWhereInput[] = [];
+
+  // Numeric fields
+  if (isNumber) {
+    orConditions.push({ amount: numValue });
   }
+
+  // Text fields
+  const textFields = transactionSearchableFields.filter((f) => f !== "amount");
+  textFields.forEach((field) => {
+    orConditions.push({
+      [field]: {
+        contains: trimmed,
+        mode: "insensitive",
+      },
+    });
+  });
+
+  if (orConditions.length > 0) {
+    andConditions.push({ OR: orConditions });
+  }
+}
 
   const whereConditions = {
     AND: andConditions,
@@ -213,6 +228,8 @@ const getTransactionsByBook = async (
         book: {
           select: {
             name: true,
+            created_at: true,
+            updated_at: true,
           },
         },
         category: {
@@ -239,13 +256,36 @@ const getTransactionsByBook = async (
     prisma.transaction.count({ where: whereConditions }),
   ]);
 
+  const totalIn = result.reduce((acc, transaction) => {
+    if (transaction.type === "IN") {
+      return acc + Number(transaction.amount);
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const totalOut = result.reduce((acc, transaction) => {
+    if (transaction.type === "OUT") {
+      return acc + Number(transaction.amount);
+    } else {
+      return acc;
+    }
+  }, 0);
+
+  const balance = totalIn - totalOut;
+
   return {
     meta: {
       page: pageNumber,
       limit: limitNumber,
       total,
     },
-    data: result,
+    data: {
+      in: totalIn,
+      out: totalOut,
+      balance,
+      transactions: result,
+    },
   };
 };
 

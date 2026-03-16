@@ -17,6 +17,8 @@ const getOTP = async (payload: RegisterPayload) => {
     },
   });
 
+  console.log("user", user);
+
   if (!user) {
     user = await prisma.user.create({
       data: {
@@ -122,6 +124,10 @@ const validateOTP = async (credential: ValidateOTPPayload) => {
     role: user.role,
     avatar: user.avatar,
     status: user.status,
+    theme: user.theme,
+    language: user.language,
+    currency: user.currency,
+    push_notification: user.push_notification,
     created_at: user.created_at,
     updated_at: user.updated_at,
     access_token: accessToken,
