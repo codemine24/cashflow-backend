@@ -64,10 +64,26 @@ const getGoalOverview = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- GET DASHBOARD STATISTICS ----------------------
+const getDashboardStatistics = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await StatisticsServices.getDashboardStatistics(
+    user,
+    req.query,
+  );
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Dashboard statistics retrieved successfully",
+    data: result,
+  });
+});
+
 export const StatisticsControllers = {
   getBookOverview,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,
   getGoalOverview,
+  getDashboardStatistics,
 };

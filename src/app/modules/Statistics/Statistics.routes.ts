@@ -40,4 +40,11 @@ router.get(
   StatisticsControllers.getGoalOverview,
 );
 
+// GET /statistics/dashboard-stats?period=weekly|monthly|yearly|all&book_id=<id>
+router.get(
+  "/dashboard-stats",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  StatisticsControllers.getDashboardStatistics,
+);
+
 export const StatisticsRoutes = router;

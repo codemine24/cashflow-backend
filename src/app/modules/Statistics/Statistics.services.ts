@@ -364,10 +364,127 @@ const getGoalOverview = async (user: TAuthUser, query: Record<string, any>) => {
   };
 };
 
+// ─── GET DASHBOARD STATISTICS ────────────────────────────────────────────────
+const getDashboardStatistics = async (
+  user: TAuthUser,
+  query: Record<string, any>,
+) => {
+  const bookId: string | undefined = query.book_id;
+  const dateFilter = dateFilterResolver(query);
+
+  // Determine accessible books
+  const ownedBooks = (
+    await prisma.book.findMany({
+      where: { user_id: user.id },
+      select: { id: true },
+    })
+  ).map((b) => b.id);
+
+  const memberBooks = (
+    await prisma.bookMember.findMany({
+      where: { user_id: user.id },
+      select: { book_id: true },
+    })
+  ).map((m) => m.book_id);
+
+  const accessibleBookIds = [...new Set([...ownedBooks, ...memberBooks])];
+  const bookFilter = bookId ? [bookId] : accessibleBookIds;
+
+  // Fetch transactions
+  const transactions = await prisma.transaction.findMany({
+    where: {
+      book_id: { in: bookFilter },
+      ...(dateFilter ? { created_at: dateFilter } : {}),
+    },
+    select: {
+      amount: true,
+      type: true,
+      created_at: true,
+      category: { select: { title: true, color: true } },
+      remark: true,
+    },
+    orderBy: { created_at: "asc" },
+  });
+
+  // Calculate Income vs Expense
+  let totalIncome = 0;
+  let totalExpense = 0;
+  for (const tx of transactions) {
+    const amt = Number(tx.amount);
+    if (tx.type === "IN") totalIncome += amt;
+    else totalExpense += amt;
+  }
+
+  // Category Spending (OUT)
+  const categoryMap: Record<string, { total: number; color: string | null }> =
+    {};
+  for (const tx of transactions) {
+    if (tx.type === "OUT") {
+      const catName = tx.category?.title || "Uncategorized";
+      if (!categoryMap[catName]) {
+        categoryMap[catName] = { total: 0, color: tx.category?.color || null };
+      }
+      categoryMap[catName].total += Number(tx.amount);
+    }
+  }
+
+  const categorySpending = Object.entries(categoryMap)
+    .map(([category, data]) => ({
+      category,
+      amount: data.total,
+      percentage: totalExpense > 0 ? (data.total / totalExpense) * 100 : 0,
+      color: data.color,
+    }))
+    .sort((a, b) => b.amount - a.amount);
+
+  // Top Sources (IN)
+  const sourceMap: Record<string, number> = {};
+  for (const tx of transactions) {
+    if (tx.type === "IN") {
+      const source = tx.remark || tx.category?.title || "Other";
+      sourceMap[source] = (sourceMap[source] || 0) + Number(tx.amount);
+    }
+  }
+
+  const topSources = Object.entries(sourceMap)
+    .map(([source, amount]) => ({ source, amount }))
+    .sort((a, b) => b.amount - a.amount)
+    .slice(0, 3);
+
+  // Net Balance Trend
+  const trendMap: Record<string, number> = {};
+  let runningBalance = 0;
+
+  for (const tx of transactions) {
+    const amt = Number(tx.amount);
+    if (tx.type === "IN") runningBalance += amt;
+    else runningBalance -= amt;
+
+    const dateKey = tx.created_at.toISOString().split("T")[0];
+    trendMap[dateKey] = runningBalance;
+  }
+
+  const balanceTrend = Object.entries(trendMap).map(([date, balance]) => ({
+    date,
+    balance,
+  }));
+
+  return {
+    balance_trend: balanceTrend,
+    income_vs_expense: {
+      income: totalIncome,
+      expense: totalExpense,
+    },
+    category_spending: categorySpending,
+    top_sources: topSources,
+  };
+};
+
 export const StatisticsServices = {
   getBookOverview,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,
   getGoalOverview,
+  getDashboardStatistics,
 };
