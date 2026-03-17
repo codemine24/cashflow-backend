@@ -153,7 +153,7 @@ const deleteLoans = async (user: TAuthUser, ids: string[]) => {
 
 // -------------------------------------- ADD PAYMENT ------------------------------------
 const addPayment = async (user: TAuthUser, payload: AddPaymentPayload) => {
-  const { loan_id, amount, remark } = payload;
+  const { loan_id, amount, remark, date, time } = payload;
 
   const loan = await prisma.loan.findFirst({
     where: {
@@ -166,12 +166,20 @@ const addPayment = async (user: TAuthUser, payload: AddPaymentPayload) => {
     throw new CustomizedError(httpStatus.NOT_FOUND, "Loan not found");
   }
 
+  let created_at: Date | undefined;
+  if (date || time) {
+    const datePart = date ?? new Date().toISOString().slice(0, 10);
+    const timePart = time ?? "00:00:00";
+    created_at = new Date(`${datePart}T${timePart}`);
+  }
+
   const result = await prisma.$transaction(async (tx) => {
     const payment = await tx.loanPayment.create({
       data: {
         loan_id,
         amount,
         remark,
+        ...(created_at ? { created_at } : {}),
       },
     });
 

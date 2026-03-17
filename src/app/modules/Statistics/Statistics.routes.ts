@@ -40,4 +40,11 @@ router.get(
   StatisticsControllers.getGoalSummary,
 );
 
+// GET /statistics/goal-overview?period=week|month|year|all
+router.get(
+  "/goal-overview",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  StatisticsControllers.getGoalOverview,
+);
+
 export const StatisticsRoutes = router;

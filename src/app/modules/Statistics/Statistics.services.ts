@@ -382,10 +382,101 @@ const getGoalSummary = async (user: TAuthUser) => {
   };
 };
 
+// ─── GET GOAL OVERVIEW ────────────────────────────────────────────────────────
+const getGoalOverview = async (user: TAuthUser, query: Record<string, any>) => {
+  const dateFilter = resolveDateFilter(query);
+  const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
+
+  // --- Own goals ---
+  const ownedGoals = await prisma.goal.findMany({
+    where: { user_id: user.id },
+    select: { id: true, target_amount: true },
+  });
+  const ownedGoalIds = ownedGoals.map((g) => g.id);
+  const ownedGoalsTargetAmount = ownedGoals.reduce(
+    (acc, g) => acc + Number(g.target_amount),
+    0,
+  );
+
+  // --- Shared goals (member of but NOT owner) ---
+  const memberEntries = await prisma.goalMember.findMany({
+    where: {
+      user_id: user.id,
+      goal_id: { notIn: ownedGoalIds },
+    },
+    select: { goal_id: true },
+  });
+  const sharedGoalIds = [...new Set(memberEntries.map((m) => m.goal_id))];
+
+  const sharedGoals =
+    sharedGoalIds.length > 0
+      ? await prisma.goal.findMany({
+          where: { id: { in: sharedGoalIds } },
+          select: { target_amount: true },
+        })
+      : [];
+  const sharedGoalsTargetAmount = sharedGoals.reduce(
+    (acc, g) => acc + Number(g.target_amount),
+    0,
+  );
+
+  // Fetch transactions for own and shared goals in one parallel call
+  const [ownTransactions, sharedTransactions] = await Promise.all([
+    ownedGoalIds.length > 0
+      ? prisma.goalTransaction.findMany({
+          where: {
+            goal_id: { in: ownedGoalIds },
+            ...createdAtFilter,
+          },
+          select: { type: true, amount: true },
+        })
+      : Promise.resolve([]),
+    sharedGoalIds.length > 0
+      ? prisma.goalTransaction.findMany({
+          where: {
+            goal_id: { in: sharedGoalIds },
+            ...createdAtFilter,
+          },
+          select: { type: true, amount: true },
+        })
+      : Promise.resolve([]),
+  ]);
+
+  let ownSaved = 0;
+  for (const tx of ownTransactions) {
+    const amt = Number(tx.amount);
+    if (tx.type === "IN") ownSaved += amt;
+    else ownSaved -= amt;
+  }
+
+  let sharedSaved = 0;
+  for (const tx of sharedTransactions) {
+    const amt = Number(tx.amount);
+    if (tx.type === "IN") sharedSaved += amt;
+    else sharedSaved -= amt;
+  }
+
+  return {
+    own_goals: {
+      total: ownedGoalIds.length,
+      total_target: ownedGoalsTargetAmount,
+      total_saved: ownSaved,
+      remaining: Math.max(ownedGoalsTargetAmount - ownSaved, 0),
+    },
+    shared_goals: {
+      total: sharedGoalIds.length,
+      total_target: sharedGoalsTargetAmount,
+      total_saved: sharedSaved,
+      remaining: Math.max(sharedGoalsTargetAmount - sharedSaved, 0),
+    },
+  };
+};
+
 export const StatisticsServices = {
   getBookOverview,
   getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,
+  getGoalOverview,
 };

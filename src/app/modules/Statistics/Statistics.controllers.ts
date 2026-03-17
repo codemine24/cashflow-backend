@@ -64,10 +64,23 @@ const getGoalSummary = catchAsync(async (req, res) => {
   });
 });
 
+// -------------------------------------- GET GOAL OVERVIEW ------------------------------
+const getGoalOverview = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const result = await StatisticsServices.getGoalOverview(user, req.query);
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Goal overview statistics retrieved successfully",
+    data: result,
+  });
+});
+
 export const StatisticsControllers = {
   getBookOverview,
   getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,
+  getGoalOverview,
 };
