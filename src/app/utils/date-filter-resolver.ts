@@ -20,13 +20,13 @@ export const dateFilterResolver = (
   const now = new Date();
   const from = new Date(now);
 
-  if (period === "day") {
+  if (period === "last_day") {
     from.setHours(0, 0, 0, 0);
-  } else if (period === "week") {
+  } else if (period === "last_week") {
     from.setDate(from.getDate() - 7);
-  } else if (period === "month") {
+  } else if (period === "last_month") {
     from.setMonth(from.getMonth() - 1);
-  } else if (period === "year") {
+  } else if (period === "last_year") {
     from.setFullYear(from.getFullYear() - 1);
   } else {
     return undefined;

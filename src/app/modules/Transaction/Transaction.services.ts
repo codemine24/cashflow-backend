@@ -17,6 +17,7 @@ import supabase from "../../shared/supabase";
 import config from "../../../config";
 import CustomizedError from "../../error/customized-error";
 import httpStatus from "http-status";
+import { dateFilterResolver } from "../../utils/date-filter-resolver";
 
 // -------------------------------------- CREATE TRANSACTION --------------------------------
 const createTransaction = async (
@@ -209,6 +210,13 @@ const getTransactionsByBook = async (
     if (orConditions.length > 0) {
       andConditions.push({ OR: orConditions });
     }
+  }
+
+  const dateFilter = dateFilterResolver(query);
+  const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
+
+  if (createdAtFilter.created_at) {
+    andConditions.push(createdAtFilter);
   }
 
   const whereConditions = {
