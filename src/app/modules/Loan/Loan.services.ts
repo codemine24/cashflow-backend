@@ -3,6 +3,7 @@ import {
   CreateLoanPayload,
   UpdateLoanPayload,
   AddPaymentPayload,
+  UpdatePaymentPayload,
 } from "./Loan.interfaces";
 import { TAuthUser } from "../../interfaces/common";
 import queryValidator from "../../utils/query-validator";
@@ -208,6 +209,118 @@ const addPayment = async (user: TAuthUser, payload: AddPaymentPayload) => {
   return result;
 };
 
+// -------------------------------------- UPDATE LOAN PAYMENT ---------------------------------
+const updatePayment = async (user: TAuthUser, payload: UpdatePaymentPayload) => {
+  const { payment_id, amount, remark } = payload;
+
+  const existingPayment = await prisma.loanPayment.findFirst({
+    where: { id: payment_id },
+  });
+
+  if (!existingPayment) {
+    throw new CustomizedError(httpStatus.NOT_FOUND, "Payment not found");
+  }
+
+  const loan = await prisma.loan.findFirst({
+    where: {
+      id: existingPayment.loan_id,
+      user_id: user.id,
+    },
+  });
+
+  if (!loan) {
+    throw new CustomizedError(httpStatus.NOT_FOUND, "Loan not found");
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    // update payment
+    const payment = await tx.loanPayment.update({
+      where: { id: payment_id },
+      data: { amount, remark },
+    });
+
+    // calculate difference
+    const diff = Number(amount) - Number(existingPayment.amount);
+
+    const updatedLoan = await tx.loan.update({
+      where: { id: existingPayment.loan_id },
+      data: {
+        paid_amount: {
+          increment: diff,
+        },
+      },
+    });
+
+    // update status
+    if (Number(updatedLoan.paid_amount) >= Number(updatedLoan.amount)) {
+      await tx.loan.update({
+        where: { id: existingPayment.loan_id },
+        data: { status: "PAID" },
+      });
+    }else {
+      await tx.loan.update({
+        where: { id: existingPayment.loan_id },
+        data: { status: "ONGOING" },
+      });
+    }
+
+    return payment;
+  });
+
+  return result;
+};
+
+export const deletePayment = async (ids: string[]) => {
+  const payments = await prisma.loanPayment.findMany({
+    where: { id: { in: ids } },
+  });
+
+  if (!payments.length) {
+    throw new CustomizedError(
+      httpStatus.NOT_FOUND,
+      "Payment not found or already deleted"
+    );
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    await tx.loanPayment.deleteMany({
+      where: { id: { in: ids } },
+    });
+
+    // decrement paid amount
+    for (const payment of payments) {
+      const loan = await tx.loan.update({
+        where: { id: payment.loan_id },
+        data: {
+          paid_amount: {
+            decrement: payment.amount,
+          },
+        },
+      });
+
+      // recalculate status
+      let status: "PAID" | "ONGOING" | "OVERDUE" = "ONGOING";
+
+      const today = new Date();
+
+      if (Number(loan.paid_amount) >= Number(loan.amount)) {
+        status = "PAID";
+      } else if (loan.due_date && loan.due_date < today) {
+        status = "OVERDUE";
+      }
+
+      await tx.loan.update({
+        where: { id: payment.loan_id },
+        data: { status },
+      });
+    }
+
+    return { success: true };
+  });
+
+  return result;
+};
+
 export const LoanServices = {
   createLoan,
   getAllLoans,
@@ -215,4 +328,6 @@ export const LoanServices = {
   updateLoan,
   deleteLoans,
   addPayment,
+  updatePayment,
+  deletePayment,
 };

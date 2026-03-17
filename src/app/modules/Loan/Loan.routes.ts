@@ -9,6 +9,27 @@ import { deleteRecordsValidationSchema } from "../../shared/schema";
 const router = Router();
 
 router.post(
+  "/payment",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(LoanSchemas.addPayment),
+  LoanControllers.addPayment,
+);
+
+router.patch(
+  "/payment",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(LoanSchemas.updatePayment),
+  LoanControllers.updatePayment,
+);
+
+router.delete(
+  "/payment",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  payloadValidator(deleteRecordsValidationSchema),
+  LoanControllers.deletePayment,
+);
+
+router.post(
   "/",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   payloadValidator(LoanSchemas.createLoan),
@@ -39,13 +60,6 @@ router.delete(
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   payloadValidator(deleteRecordsValidationSchema),
   LoanControllers.deleteLoans,
-);
-
-router.post(
-  "/payment",
-  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  payloadValidator(LoanSchemas.addPayment),
-  LoanControllers.addPayment,
 );
 
 export const LoanRoutes = router;
