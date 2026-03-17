@@ -185,32 +185,31 @@ const getTransactionsByBook = async (
   if (category_id) andConditions.push({ category_id });
 
   if (search_term) {
-  const trimmed = search_term.trim();
-  const numValue = parseFloat(trimmed);
-  const isNumber = !isNaN(numValue);
+    const trimmed = search_term.trim();
+    const numValue = parseFloat(trimmed);
+    const isNumber = !isNaN(numValue);
 
-  const orConditions: Prisma.TransactionWhereInput[] = [];
+    const orConditions: Prisma.TransactionWhereInput[] = [];
 
-  // Numeric fields
-  if (isNumber) {
-    orConditions.push({ amount: numValue });
-  }
+    // Numeric fields
+    if (isNumber) {
+      orConditions.push({ amount: numValue });
+    }
 
-  // Text fields
-  const textFields = transactionSearchableFields.filter((f) => f !== "amount");
-  textFields.forEach((field) => {
-    orConditions.push({
-      [field]: {
-        contains: trimmed,
-        mode: "insensitive",
-      },
+    // Text fields
+    transactionSearchableFields.forEach((field) => {
+      orConditions.push({
+        [field]: {
+          contains: trimmed,
+          mode: "insensitive",
+        },
+      });
     });
-  });
 
-  if (orConditions.length > 0) {
-    andConditions.push({ OR: orConditions });
+    if (orConditions.length > 0) {
+      andConditions.push({ OR: orConditions });
+    }
   }
-}
 
   const whereConditions = {
     AND: andConditions,
