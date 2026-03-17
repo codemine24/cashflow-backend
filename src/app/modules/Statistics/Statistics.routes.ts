@@ -42,7 +42,7 @@ router.get(
 
 // GET /statistics/dashboard-stats?period=weekly|monthly|yearly|all&book_id=<id>
 router.get(
-  "/dashboard-stats",
+  "/wallet-stats",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   StatisticsControllers.getDashboardStatistics,
 );
