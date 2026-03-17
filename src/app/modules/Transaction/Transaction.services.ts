@@ -164,8 +164,16 @@ const getTransactionsByBook = async (
     );
   }
 
-  const { search_term, page, limit, sort_by, sort_order, type, category_id } =
-    query;
+  const {
+    search_term,
+    page,
+    limit,
+    sort_by,
+    sort_order,
+    type,
+    category_id,
+    date,
+  } = query;
 
   if (sort_by)
     queryValidator(transactionQueryValidationConfig, "sort_by", sort_by);
