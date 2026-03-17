@@ -12,13 +12,6 @@ router.get(
   StatisticsControllers.getBookOverview,
 );
 
-// GET /statistics/trend?period=week|month|year&book_id=<id>
-router.get(
-  "/trend",
-  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
-  StatisticsControllers.getTransactionTrend,
-);
-
 // GET /statistics/category-breakdown?period=week|month|year|all&type=IN|OUT&book_id=<id>
 router.get(
   "/category-breakdown",

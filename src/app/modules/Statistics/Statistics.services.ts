@@ -1,48 +1,6 @@
 import { prisma } from "../../shared/prisma";
 import { TAuthUser } from "../../interfaces/common";
-
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-
-/**
- * Resolves a `created_at` Prisma filter from the query params.
- * Supports period = day | week | month | year  AND  from_date / to_date (custom range).
- */
-const resolveDateFilter = (
-  query: Record<string, any>,
-): { gte?: Date; lte?: Date } | undefined => {
-  const { period, from_date, to_date } = query;
-
-  // Custom date range takes priority
-  if (from_date || to_date) {
-    const filter: { gte?: Date; lte?: Date } = {};
-    if (from_date) filter.gte = new Date(from_date as string);
-    if (to_date) {
-      const end = new Date(to_date as string);
-      end.setHours(23, 59, 59, 999);
-      filter.lte = end;
-    }
-    return filter;
-  }
-
-  if (!period || period === "all") return undefined;
-
-  const now = new Date();
-  const from = new Date(now);
-
-  if (period === "day") {
-    from.setHours(0, 0, 0, 0);
-  } else if (period === "week") {
-    from.setDate(from.getDate() - 7);
-  } else if (period === "month") {
-    from.setMonth(from.getMonth() - 1);
-  } else if (period === "year") {
-    from.setFullYear(from.getFullYear() - 1);
-  } else {
-    return undefined;
-  }
-
-  return { gte: from };
-};
+import { dateFilterResolver } from "../../utils/date-filter-resolver";
 
 // ─── GET OVERVIEW ─────────────────────────────────────────────────────────────
 /**
@@ -58,7 +16,7 @@ const resolveDateFilter = (
  *        OR: from_date / to_date (ISO date strings, custom range)
  */
 const getBookOverview = async (user: TAuthUser, query: Record<string, any>) => {
-  const dateFilter = resolveDateFilter(query);
+  const dateFilter = dateFilterResolver(query);
   const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
 
   // --- Own books ---
@@ -137,72 +95,6 @@ const getBookOverview = async (user: TAuthUser, query: Record<string, any>) => {
   };
 };
 
-// ─── GET TRANSACTION TREND ────────────────────────────────────────────────────
-// Returns grouped income/expense by day (week), month (year), or month (month)
-const getTransactionTrend = async (
-  user: TAuthUser,
-  query: Record<string, any>,
-) => {
-  const period: string = (query.period as string) || "month";
-  const bookId: string | undefined = query.book_id;
-
-  // Use resolveDateFilter but fall back to last-year if period is "all"
-  const effectiveQuery =
-    period === "all" ? { ...query, period: "year" } : query;
-  const dateFilter = resolveDateFilter(effectiveQuery);
-
-  const ownedBookIds = (
-    await prisma.book.findMany({
-      where: { user_id: user.id },
-      select: { id: true },
-    })
-  ).map((b) => b.id);
-
-  const memberBookIds = (
-    await prisma.bookMember.findMany({
-      where: { user_id: user.id },
-      select: { book_id: true },
-    })
-  ).map((m) => m.book_id);
-
-  const accessibleBookIds = [...new Set([...ownedBookIds, ...memberBookIds])];
-  const bookFilter = bookId ? [bookId] : accessibleBookIds;
-
-  const transactions = await prisma.transaction.findMany({
-    where: {
-      book_id: { in: bookFilter },
-      ...(dateFilter ? { created_at: dateFilter } : {}),
-    },
-    select: { type: true, amount: true, created_at: true },
-    orderBy: { created_at: "asc" },
-  });
-
-  // Group by date label
-  const grouped: Record<string, { income: number; expense: number }> = {};
-
-  for (const tx of transactions) {
-    let label: string;
-    if (period === "week" || period === "day") {
-      label = tx.created_at.toISOString().slice(0, 10); // YYYY-MM-DD
-    } else {
-      label = tx.created_at.toISOString().slice(0, 7); // YYYY-MM
-    }
-
-    if (!grouped[label]) grouped[label] = { income: 0, expense: 0 };
-
-    const amt = Number(tx.amount);
-    if (tx.type === "IN") grouped[label].income += amt;
-    else grouped[label].expense += amt;
-  }
-
-  const trend = Object.entries(grouped).map(([date, values]) => ({
-    date,
-    ...values,
-  }));
-
-  return { period, trend };
-};
-
 // ─── GET CATEGORY BREAKDOWN ───────────────────────────────────────────────────
 // Returns top categories by spending for the user
 const getCategoryBreakdown = async (
@@ -213,7 +105,7 @@ const getCategoryBreakdown = async (
   const bookId: string | undefined = query.book_id;
   const type: "IN" | "OUT" = (query.type as "IN" | "OUT") || "OUT";
 
-  const dateFilter = resolveDateFilter(query);
+  const dateFilter = dateFilterResolver(query);
 
   const ownedBookIds = (
     await prisma.book.findMany({
@@ -384,7 +276,7 @@ const getGoalSummary = async (user: TAuthUser) => {
 
 // ─── GET GOAL OVERVIEW ────────────────────────────────────────────────────────
 const getGoalOverview = async (user: TAuthUser, query: Record<string, any>) => {
-  const dateFilter = resolveDateFilter(query);
+  const dateFilter = dateFilterResolver(query);
   const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
 
   // --- Own goals ---
@@ -474,7 +366,6 @@ const getGoalOverview = async (user: TAuthUser, query: Record<string, any>) => {
 
 export const StatisticsServices = {
   getBookOverview,
-  getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,

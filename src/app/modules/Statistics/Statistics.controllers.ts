@@ -16,18 +16,6 @@ const getBookOverview = catchAsync(async (req, res) => {
   });
 });
 
-// -------------------------------------- GET TRANSACTION TREND --------------------------
-const getTransactionTrend = catchAsync(async (req, res) => {
-  const user = req.user as TAuthUser;
-  const result = await StatisticsServices.getTransactionTrend(user, req.query);
-  sendResponse(res, {
-    statusCode: httpStatus.OK,
-    success: true,
-    message: "Transaction trend retrieved successfully",
-    data: result,
-  });
-});
-
 // -------------------------------------- GET CATEGORY BREAKDOWN -------------------------
 const getCategoryBreakdown = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
@@ -78,7 +66,6 @@ const getGoalOverview = catchAsync(async (req, res) => {
 
 export const StatisticsControllers = {
   getBookOverview,
-  getTransactionTrend,
   getCategoryBreakdown,
   getLoanSummary,
   getGoalSummary,
