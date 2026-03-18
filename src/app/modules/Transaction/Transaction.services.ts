@@ -164,8 +164,16 @@ const getTransactionsByBook = async (
     );
   }
 
-  const { search_term, page, limit, sort_by, sort_order, type, category_id } =
-    query;
+  const {
+    search_term,
+    page,
+    limit,
+    sort_by,
+    sort_order,
+    type,
+    category_id,
+    member_id,
+  } = query;
 
   if (sort_by)
     queryValidator(transactionQueryValidationConfig, "sort_by", sort_by);
@@ -210,6 +218,10 @@ const getTransactionsByBook = async (
     if (orConditions.length > 0) {
       andConditions.push({ OR: orConditions });
     }
+  }
+
+  if (member_id) {
+    andConditions.push({ entry_by_id: member_id });
   }
 
   const dateFilter = dateFilterResolver(query);
