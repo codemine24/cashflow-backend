@@ -11,6 +11,7 @@ import {
 } from "./Goal-transaction.utils";
 import paginationMaker from "../../utils/pagination-maker";
 import { Prisma } from "../../../generated/prisma/client";
+import { dateFilterResolver } from "../../utils/date-filter-resolver";
 
 // -------------------------------------- CREATE GOAL TRANSACTION --------------------------------
 const createGoalTransaction = async (
@@ -129,6 +130,13 @@ const getGoalTransactionsByGoal = async (
         };
       }),
     });
+  }
+
+  const dateFilter = dateFilterResolver(query);
+  const createdAtFilter = dateFilter ? { created_at: dateFilter } : {};
+
+  if (createdAtFilter.created_at) {
+    andConditions.push(createdAtFilter);
   }
 
   const whereConditions = {
