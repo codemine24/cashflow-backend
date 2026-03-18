@@ -70,7 +70,7 @@ const getAllLoans = async (user: TAuthUser, query: Record<string, any>) => {
     AND: andConditions,
   };
 
-  const [result, total] = await Promise.all([
+  const [result, total, aggregation, fulfilledCount] = await Promise.all([
     prisma.loan.findMany({
       where: whereConditions,
       skip: skip,
@@ -83,13 +83,37 @@ const getAllLoans = async (user: TAuthUser, query: Record<string, any>) => {
       },
     }),
     prisma.loan.count({ where: whereConditions }),
+    prisma.loan.aggregate({
+      where: whereConditions,
+      _sum: {
+        amount: true,
+        paid_amount: true,
+      },
+    }),
+    prisma.loan.count({
+      where: {
+        ...whereConditions,
+        status: "PAID",
+      },
+    }),
   ]);
+
+  const totalLoanAmount = Number(aggregation._sum.amount ?? 0);
+  const totalPaid = Number(aggregation._sum.paid_amount ?? 0);
+  const totalRemaining = totalLoanAmount - totalPaid;
 
   return {
     meta: {
       page: pageNumber,
       limit: limitNumber,
       total,
+    },
+    summary: {
+      total_loan_amount: totalLoanAmount,
+      total_paid: totalPaid,
+      total_remaining: totalRemaining > 0 ? totalRemaining : 0,
+      total_fulfilled: fulfilledCount,
+      total_unfulfilled: total - fulfilledCount,
     },
     data: result,
   };

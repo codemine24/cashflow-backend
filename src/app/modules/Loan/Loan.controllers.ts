@@ -20,11 +20,15 @@ const createLoan = catchAsync(async (req, res) => {
 const getAllLoans = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await LoanServices.getAllLoans(user, req.query);
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Loans retrieved successfully",
-    meta: result.meta,
+    meta: {
+      ...result.meta,
+      summary: result.summary,
+    },
     data: result.data,
   });
 });
