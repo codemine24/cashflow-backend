@@ -20,11 +20,15 @@ const createGoal = catchAsync(async (req, res) => {
 const getAllGoals = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
   const result = await GoalServices.getAllGoals(user, req.query);
+  
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
     message: "Goals retrieved successfully",
-    meta: result.meta,
+    meta: {
+      ...result.meta,
+      summary: result.summary,
+    },
     data: result.data,
   });
 });
