@@ -171,7 +171,7 @@ const getTransactionsByBook = async (
     sort_by,
     sort_order,
     type,
-    category_id,
+    category_ids,
     member_id,
   } = query;
 
@@ -191,7 +191,9 @@ const getTransactionsByBook = async (
   const andConditions: Prisma.TransactionWhereInput[] = [{ book_id: bookId }];
 
   if (type) andConditions.push({ type });
-  if (category_id) andConditions.push({ category_id });
+  if (category_ids)
+    andConditions.push({ category_id: { in: category_ids.split(",") } });
+  if (member_id) andConditions.push({ entry_by_id: member_id });
 
   if (search_term) {
     const trimmed = search_term.trim();

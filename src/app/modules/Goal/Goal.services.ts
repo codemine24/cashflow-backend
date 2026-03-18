@@ -109,7 +109,8 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
     AND: andConditions,
   };
 
-  const [result, total] = await Promise.all([
+  // Fetch paginated goals, count, and ALL goals (for summary) in parallel
+  const [result, total, allGoals] = await Promise.all([
     prisma.goal.findMany({
       where: whereConditions,
       skip: skip,
@@ -143,7 +144,44 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       },
     }),
     prisma.goal.count({ where: whereConditions }),
+    prisma.goal.findMany({
+      where: whereConditions,
+      select: {
+        target_amount: true,
+        transactions: {
+          select: {
+            amount: true,
+            type: true,
+          },
+        },
+      },
+    }),
   ]);
+
+  // Compute summary from all goals
+  let totalGoalAmount = 0;
+  let totalSaved = 0;
+  let totalFulfilled = 0;
+
+  allGoals.forEach((goal) => {
+    const targetAmount = Number(goal.target_amount);
+    totalGoalAmount += targetAmount;
+
+    const goalIn = goal.transactions.reduce((acc, t) => {
+      return t.type === "IN" ? acc + Number(t.amount) : acc;
+    }, 0);
+    const goalOut = goal.transactions.reduce((acc, t) => {
+      return t.type === "OUT" ? acc + Number(t.amount) : acc;
+    }, 0);
+    const balance = goalIn - goalOut;
+    totalSaved += balance;
+
+    if (balance >= targetAmount) {
+      totalFulfilled += 1;
+    }
+  });
+
+  const totalRemaining = totalGoalAmount - totalSaved;
 
   const formattedResult = result.map((goal) => {
     const totalIn = goal.transactions.reduce((acc, transaction) => {
@@ -196,6 +234,13 @@ const getAllGoals = async (user: TAuthUser, query: Record<string, any>) => {
       page: pageNumber,
       limit: limitNumber,
       total,
+    },
+    summary: {
+      total_goal_amount: totalGoalAmount,
+      total_saved: totalSaved,
+      total_remaining: totalRemaining > 0 ? totalRemaining : 0,
+      total_fulfilled: totalFulfilled,
+      total_unfulfilled: total - totalFulfilled,
     },
     data: formattedResult,
   };
@@ -270,6 +315,7 @@ const getGoalById = async (user: TAuthUser, id: string) => {
     in: totalIn,
     out: totalOut,
     balance,
+    created_by: result.user_id,
     others_member: [...members, { ...result.user, role: "OWNER" }].filter(
       (member) => member.id !== user.id,
     ),
