@@ -516,10 +516,77 @@ const deleteTransaction = async (user: TAuthUser, id: string) => {
   return result;
 };
 
+// -------------------------------------- EXPORT TRANSACTION REPORT AS PDF ----------------
+const exportTransactionReport = async (
+  user: TAuthUser,
+  bookId: string,
+  query: Record<string, any>,
+) => {
+  const book = await prisma.book.findFirst({
+    where: {
+      id: bookId,
+      OR: [
+        { user_id: user.id },
+        {
+          book_members: {
+            some: { user_id: user.id },
+          },
+        },
+      ],
+    },
+  });
+
+  if (!book) {
+    throw new CustomizedError(
+      httpStatus.FORBIDDEN,
+      "Book not found or you are not authorized to export transactions",
+    );
+  }
+
+  // report_type controls PDF layout: member-wise | date-wise | category-wise | all (default)
+  const reportType: "date-wise" | "member-wise" | "category-wise" | "all" =
+    (["date-wise", "member-wise", "category-wise", "all"].includes(
+      query.report_type,
+    )
+      ? query.report_type
+      : "all") as "date-wise" | "member-wise" | "category-wise" | "all";
+
+  // Fetch ALL transactions — no filtering
+  const transactions = await prisma.transaction.findMany({
+    where: { book_id: bookId },
+    orderBy: { created_at: "asc" },
+    include: {
+      category: { select: { title: true } },
+      entry_by: { select: { name: true, email: true } },
+    },
+  });
+
+  const totalIn = transactions.reduce(
+    (acc, tx) => (tx.type === "IN" ? acc + Number(tx.amount) : acc),
+    0,
+  );
+  const totalOut = transactions.reduce(
+    (acc, tx) => (tx.type === "OUT" ? acc + Number(tx.amount) : acc),
+    0,
+  );
+
+  return {
+    transactions,
+    meta: {
+      bookName: book.name,
+      reportType,
+      totalIn,
+      totalOut,
+      balance: totalIn - totalOut,
+    },
+  };
+};
+
 export const TransactionServices = {
   createTransaction,
   getTransactionsByBook,
   getTransactionById,
   updateTransaction,
   deleteTransaction,
+  exportTransactionReport,
 };

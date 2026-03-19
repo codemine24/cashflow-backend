@@ -3,6 +3,7 @@ import sendResponse from "../../shared/send-response";
 import httpStatus from "http-status";
 import { TransactionServices } from "./Transaction.services";
 import { TAuthUser } from "../../interfaces/common";
+import { buildTransactionPDF } from "./Transaction.pdf";
 
 const createTransaction = catchAsync(async (req, res) => {
   const user = req.user as TAuthUser;
@@ -79,10 +80,28 @@ const deleteTransaction = catchAsync(async (req, res) => {
   });
 });
 
+const exportTransactionReport = catchAsync(async (req, res) => {
+  const user = req.user as TAuthUser;
+  const { transactions, meta } = await TransactionServices.exportTransactionReport(
+    user,
+    req.params.bookId,
+    req.query as Record<string, any>,
+  );
+
+  const pdf = buildTransactionPDF(transactions as any, meta);
+
+  const fileName = `transactions_${meta.reportType}_${Date.now()}.pdf`;
+  res.setHeader("Content-Type", "application/pdf");
+  res.setHeader("Content-Disposition", `attachment; filename="${fileName}"`);
+
+  pdf.pipe(res);
+});
+
 export const TransactionControllers = {
   createTransaction,
   getTransactionsByBook,
   getTransactionById,
   updateTransaction,
   deleteTransaction,
+  exportTransactionReport,
 };

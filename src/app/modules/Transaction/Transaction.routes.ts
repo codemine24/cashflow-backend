@@ -25,6 +25,12 @@ router.get(
 );
 
 router.get(
+  "/book/:bookId/export-pdf",
+  auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
+  TransactionControllers.exportTransactionReport,
+);
+
+router.get(
   "/:id",
   auth(UserRole.USER, UserRole.ADMIN, UserRole.SUPER_ADMIN),
   TransactionControllers.getTransactionById,
